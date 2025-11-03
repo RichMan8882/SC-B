@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="65px" height="65px" viewBox="0 0 65 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-企业管理</title>
+    <g id="0331新/中文&amp;英文" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页-en" transform="translate(-190, -2677)">
+            <g id="Our-Services" transform="translate(160, 2462)">
+                <g id="我们的服务" transform="translate(0, 187)">
+                    <g id="icon-企业管理" transform="translate(30, 28)">
+                        <circle id="Oval" fill="#FFFFFF" cx="32.5" cy="32.5" r="32.5"></circle>
+                        <polygon id="矩形" stroke="#D62436" stroke-linejoin="round" points="19 21.1495458 35 13 35 45 19 45"></polygon>
+                        <line x1="14.7396454" y1="45.0203051" x2="55.8840391" y2="45.0203051" id="路径-3" stroke="#D62A3A"></line>
+                        <path d="M52,45 L36,45 L36,28.1495458 L52,20" id="路径" stroke="#D62A3A" stroke-linejoin="round" stroke-dasharray="2" transform="translate(44, 32.5) scale(-1, 1) translate(-44, -32.5)"></path>
+                        <line x1="22.5" y1="28.5" x2="31.5" y2="28.5" id="Path-11-Copy-4" stroke="#D62A3A"></line>
+                        <line x1="22.1666667" y1="35.5" x2="31.1666667" y2="35.5" id="Path-11-Copy-4" stroke="#D62A3A"></line>
+                        <line x1="38.1666667" y1="35.5" x2="48.1666667" y2="35.5" id="Path-11-Copy-4" stroke="#D62A3A" stroke-dasharray="2"></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
