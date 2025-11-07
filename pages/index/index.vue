@@ -72,21 +72,22 @@ const bannerIndex = ref(0)
         <div :class="bannerIndex == 0 ? 'banneractive' : ''" class="item bgimg1">
           <h2>独具一格</h2>
           <p>
-            作为率先在中国开展风险投资业务的投资机构，IDG
-            资本已发展成为一家扎根中国市场、具备全球化视野的私募股权投资机构。
+            作为率先在中国开展风险投资业务的投资机构，博裕
+            投資
+            已发展成为一家扎根中国市场、具备全球化视野的私募股权投资机构。
           </p>
         </div>
         <div :class="bannerIndex == 1 ? 'banneractive' : ''" class="item bgimg2">
           <h2>深度互信</h2>
           <p>
-            IDG
-            资本与包括主权基金/国家级出资平台、养老基金、专业金融机构、产业资本以及家族办公室等合作伙伴保持长期稳定的合作关系。
+            博裕
+            投資与包括主权基金/国家级出资平台、养老基金、专业金融机构、产业资本以及家族办公室等合作伙伴保持长期稳定的合作关系。
           </p>
         </div>
         <div :class="bannerIndex == 2 ? 'banneractive' : ''" class="item bgimg3">
           <h2>卓越业绩</h2>
           <p>
-            IDG 资本已扶植逾 600
+            博裕 投資已扶植逾 600
             家企业通过在中国大陆、中国香港、美国、欧洲资本市场 IPO 或 M&A
             形式成功实现退出，支持了中国近一半的独角兽企业。
           </p>
@@ -670,6 +671,9 @@ const bannerIndex = ref(0)
           margin: 0 0 10px
           color: #d92d3d
           font-size: 22px
+        @media (max-width: 768px)
+          img
+            height: 60px
     p
       margin-bottom: 15px
   .section3

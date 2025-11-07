@@ -51,7 +51,7 @@ const tomenu = (item, index) => {
         </div>
         <div class="links">
           <dl>
-            <dt>IDG 资本</dt>
+            <dt>博裕 投資</dt>
             <dd v-for="(item, index) in menulist" :class="routeName == item.link ? 'active' : ''">
               <a href="javascript:void(0)" @click="tomenu(item.link, index)">{{ item.title }}</a>
             </dd>

@@ -57,7 +57,7 @@ onUnmounted(() => {
       <div class="index-bg-content">
         <div class="content">
           <h3>
-            紅杉資本是專注於投資科技、醫療健康、消費三大領域的私募股權投資機構。
+            博裕投資是專注於投資科技、醫療健康、消費三大領域的私募股權投資機構。
           </h3>
         </div>
       </div>
@@ -78,13 +78,13 @@ onUnmounted(() => {
       <div class="section1-content">
         <div class="section1-content-items">
           <div class="item">
-            迄今為止，紅杉資本有超過160家成員企業成功上市，超過140家非上市公司已發展成為獨角獸。
+            迄今為止，博裕投資有超過160家成員企業成功上市，超過140家非上市公司已發展成為獨角獸。
           </div>
           <div class="item-img">
             <img src="@/assets/images/about-2.jpg" alt="" />
           </div>
           <div class="item item2">
-            迄今為止，紅杉資本有超過160家成員企業成功上市，超過140家非上市公司已發展成為獨角獸。
+            迄今為止，博裕投資有超過160家成員企業成功上市，超過140家非上市公司已發展成為獨角獸。
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@ onUnmounted(() => {
             <img src="@/assets/images/about2-2.jpg" alt="" />
           </div>
           <div class="item">
-            20年來，紅杉資本由早期的創投擴展到種子期投資、成長期投資、併購投資、新基建投資、公開市場投資等領域，成為具有全鏈條、全階段及全週期投資能力的投資機構。
+            20年來，博裕投資由早期的創投擴展到種子期投資、成長期投資、併購投資、新基建投資、公開市場投資等領域，成為具有全鏈條、全階段及全週期投資能力的投資機構。
           </div>
         </div>
       </div>
