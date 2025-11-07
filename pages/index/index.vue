@@ -591,9 +591,9 @@ const bannerIndex = ref(0)
           </div>
         </div>
       </section>
-      <div class="statement">
+      <!-- <div class="statement">
         <img src="@/assets/images/indexb/image.png" alt="" />
-      </div>
+      </div> -->
     </div>
     <FooterBottom></FooterBottom>
   </div>
