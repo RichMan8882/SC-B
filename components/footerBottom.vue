@@ -22,17 +22,17 @@ const menulist = ref([
   }
 ])
 const footeraddresslist = ref([
-'香港',
-'北京',
-'上海',
-'广州',
-'深圳',
-'纽约',
-'波士顿',
-'新加坡市',
-'首尔',
-'河内',
-'胡志明市'
+  '香港',
+  '北京',
+  '上海',
+  '广州',
+  '深圳',
+  '纽约',
+  '波士顿',
+  '新加坡市',
+  '首尔',
+  '河内',
+  '胡志明市'
 ])
 const activeindex = ref(0)
 const tomenu = (item, index) => {
@@ -52,19 +52,19 @@ const tomenu = (item, index) => {
         <div class="links">
           <dl>
             <dt>IDG 资本</dt>
-            <dd v-for="(item,index) in menulist" :class="routeName == item.link ? 'active' : ''">
+            <dd v-for="(item, index) in menulist" :class="routeName == item.link ? 'active' : ''">
               <a href="javascript:void(0)" @click="tomenu(item.link, index)">{{ item.title }}</a>
             </dd>
           </dl>
           <dl>
             <dt>办公室</dt>
             <dd v-for="item in footeraddresslist">
-              <a href="javascript:void(0)" @click="navigateTo('/')">{{item}}</a>
+              <a href="javascript:void(0)" @click="navigateTo('/')">{{ item }}</a>
             </dd>
           </dl>
         </div>
       </div>
-      <div style="font-size: 14px;">
+      <div style="font-size: 14px;text-align: center;">
         {{ siteStore.siteData?.copyRight }}
       </div>
     </div>
@@ -96,6 +96,7 @@ footer
       margin-bottom: 20px
       @media (max-width: 768px)
         max-width: 100%
+        width: 100%
       .footer-logo
         height: 55px
         margin-bottom: 30px
@@ -106,7 +107,10 @@ footer
     .links,.connect
       display: flex
       @media (max-width: 768px)
-        max-width: 50% !important
+        width: 100%
+        justify-content: space-around
+        dl
+          margin-left: 0 !important
       dl
         margin-left: 70px
         dt

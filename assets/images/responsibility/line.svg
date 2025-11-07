@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="203px" height="201px" viewBox="0 0 203 201" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 24备份</title>
+    <g id="中文" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ESG" transform="translate(-256.000000, -1577.000000)">
+            <g id="编组-29" transform="translate(162.000000, 987.000000)">
+                <g id="编组-2" transform="translate(0.000000, 90.000000)">
+                    <g id="编组-23" transform="translate(0.000000, 341.000000)">
+                        <g id="编组-25" transform="translate(94.000000, 145.000000)">
+                            <g id="编组-24备份" transform="translate(0.000000, 14.000000)">
+                                <path d="M6,197 C112.590957,197 199,110.590957 199,4" id="路径" stroke="#E1E1E3"></path>
+                                <circle id="椭圆形" fill="#E1E1E3" cx="199" cy="4" r="4"></circle>
+                                <circle id="椭圆形备份-5" fill="#E1E1E3" cx="4" cy="197" r="4"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

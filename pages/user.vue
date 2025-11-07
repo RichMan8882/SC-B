@@ -135,7 +135,7 @@ onUnmounted(() => {
 <template>
   <div class="page-cont">
     <client-only>
-      <headerTop :opaque="scrollTop > 0"></headerTop>
+      <headerTop :opaque="true"></headerTop>
       <div class="userpage">
         <div class="form-block">
           <div class="gw template">
@@ -162,17 +162,11 @@ onUnmounted(() => {
                   <i class="fas fa-coins"></i>
                   {{ $lang('質押') }}
                 </a> -->
-                  <a
-                    :class="checkPath('info')"
-                    @click="navigateTo(`/user/info`)"
-                  >
+                  <a :class="checkPath('info')" @click="navigateTo(`/user/info`)">
                     <i class="fas fa-user-circle"></i>
                     {{ $lang('成員資料') }}
                   </a>
-                  <a
-                    :class="checkPath('activity')"
-                    @click="navigateTo(`/user/activity`)"
-                  >
+                  <a :class="checkPath('activity')" @click="navigateTo(`/user/activity`)">
                     <i class="fas fa-gift"></i>
                     {{ $lang('優惠活動') }}
                   </a>
@@ -190,10 +184,7 @@ onUnmounted(() => {
                     <i class="fas fa-wallet"></i>
                     {{ $lang('置入資產') }}
                   </a> -->
-                  <a
-                    :class="checkPath('withdraw') || checkPath('bank')"
-                    @click="navigateTo(`/user/withdraw`)"
-                  >
+                  <a :class="checkPath('withdraw') || checkPath('bank')" @click="navigateTo(`/user/withdraw`)">
                     <i class="fas fa-wallet"></i>
                     {{ $lang('資產提款') }}
                   </a>
@@ -208,18 +199,11 @@ onUnmounted(() => {
                   <i class="far fa-comment-alt"></i>
                   {{ $lang('網站公告') }}
                 </a> -->
-                  <a
-                    :class="checkPath('record')"
-                    @click="navigateTo(`/user/record`)"
-                  >
+                  <a :class="checkPath('record')" @click="navigateTo(`/user/record`)">
                     <i class="fas fa-history"></i>
                     {{ $lang('交易紀錄') }}
                   </a>
-                  <a
-                    :class="checkPath('message')"
-                    class="message"
-                    @click="navigateTo(`/user/message`)"
-                  >
+                  <a :class="checkPath('message')" class="message" @click="navigateTo(`/user/message`)">
                     <i class="far fa-comments"></i>
                     {{ $lang('站內訊息') }}
                     <span v-if="unreadMessage() > 0" class="badgeOpint"> </span>
@@ -249,8 +233,9 @@ onUnmounted(() => {
   width: 100%
   min-height: 100dvh
   // overflow-y: auto
-  background: url('@/assets/images/about-hbg.jpg') no-repeat center center / cover
-  padding-top: 76px
+  // background: url('@/assets/images/about-hbg.jpg') no-repeat center center / cover
+  background: #f4f5f6
+  padding-top: 85px
 .form-block
   overflow-y: auto
   @media screen and (max-width: 768px)
@@ -270,9 +255,11 @@ input[type='checkbox']
 .form-row {
   cursor: pointer;
 }
+
 .message {
   position: relative;
 }
+
 .badgeOpint {
   background-color: #ff0000;
   color: #fff;

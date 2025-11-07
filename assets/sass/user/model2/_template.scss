@@ -37,6 +37,7 @@ sans-serif,
         background-color: #f8f8f8;
         border-radius: 4px;
         min-height: 60vh;
+        border: 1px solid rgba(0, 0, 0, 0.1);
         &.small{
             max-width: 665px;
         }
@@ -172,7 +173,7 @@ sans-serif,
                 top: 0;
                 height: 100%;
                 background-color: #f8f8f8;
-                padding: 10px;
+                // padding: 10px;
                 z-index: 1;
                 width: 270px;
                 overflow-y: auto;

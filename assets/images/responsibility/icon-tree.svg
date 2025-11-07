@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="78px" height="77px" viewBox="0 0 78 77" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 4备份</title>
+    <g id="中文" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ESG" transform="translate(-393.000000, -1613.000000)">
+            <g id="编组-29" transform="translate(162.000000, 987.000000)">
+                <g id="编组-2" transform="translate(0.000000, 90.000000)">
+                    <g id="编组-23" transform="translate(0.000000, 341.000000)">
+                        <g id="编组-25" transform="translate(94.000000, 145.000000)">
+                            <g id="编组-34" transform="translate(0.000000, 14.000000)">
+                                <g id="编组-24备份-4" transform="translate(149.666667, 44.000000)">
+                                    <g id="编组-22" transform="translate(0.000000, 4.000000)">
+                                        <circle id="Oval-Copy-5" stroke="#F5F6F8" stroke-width="12" fill="#D62434" cx="26.5" cy="26.5" r="32.5"></circle>
+                                        <g id="编组-21" transform="translate(13.500000, 10.000000)" stroke="#FFFFFF" stroke-width="2">
+                                            <path d="M13,0 C16.8659932,0 20,3.13400675 20,7 C20,7.79396211 19.8678165,8.5570511 19.6242557,9.26846078 C23.2904002,10.2105089 26,13.538824 26,17.5 C26,22.1944204 22.1944204,26 17.5,26 L8.5,26 C3.80557963,26 5.74900688e-16,22.1944204 0,17.5 C-4.85104156e-16,13.538824 2.70959977,10.2105089 6.3764364,9.26741759 C6.13218352,8.5570511 6,7.79396211 6,7 C6,3.13400675 9.13400675,0 13,0 Z" id="形状结合"></path>
+                                            <line x1="13" y1="9" x2="13" y2="33" id="路径-17"></line>
+                                            <line x1="13" y1="22.5861191" x2="17.5744285" y2="18.861485" id="路径-18"></line>
+                                            <line x1="6.5" y1="18.4885946" x2="13" y2="13.5" id="路径-18备份" transform="translate(9.750000, 15.994297) scale(-1, 1) translate(-9.750000, -15.994297) "></line>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
