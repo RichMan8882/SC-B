@@ -119,7 +119,7 @@ export default defineNuxtConfig({
       // APIBASE: `https://dev.comethike.com`,
       // APIBASE: `https://localhost.demoto.me`,
       // siteId: '657fef28c02bc92e35075322'
-      siteId: '690ca391bb729a519ab5c661'
+      siteId: '690cb89f7f37292ffacd1a73'
       // APIBASE: 'https://localhost.demoto.me/api',
     }
   },
