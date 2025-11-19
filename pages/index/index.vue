@@ -70,26 +70,26 @@ const bannerIndex = ref(0)
     <div class="bodybox">
       <section class="banner">
         <div :class="bannerIndex == 0 ? 'banneractive' : ''" class="item bgimg1">
-          <h2>独具一格</h2>
+          <h2>獨具一格</h2>
           <p>
-            作为率先在中国开展风险投资业务的投资机构，博裕
+            作為率先在中國開展風險投資業務的投資機構，博裕
             投資
-            已发展成为一家扎根中国市场、具备全球化视野的私募股权投资机构。
+            已發展成為一家紮根中國市場、具備全球化視野的私募股權投資機構。
           </p>
         </div>
         <div :class="bannerIndex == 1 ? 'banneractive' : ''" class="item bgimg2">
           <h2>深度互信</h2>
           <p>
             博裕
-            投資与包括主权基金/国家级出资平台、养老基金、专业金融机构、产业资本以及家族办公室等合作伙伴保持长期稳定的合作关系。
+            投資與包括主權基金/國家級出資平臺、養老基金、專業金融機構、產業資本以及家族辦公室等合作夥伴保持長期穩定的合作關係。
           </p>
         </div>
         <div :class="bannerIndex == 2 ? 'banneractive' : ''" class="item bgimg3">
-          <h2>卓越业绩</h2>
+          <h2>卓越業績</h2>
           <p>
-            博裕 投資已扶植逾 600
-            家企业通过在中国大陆、中国香港、美国、欧洲资本市场 IPO 或 M&A
-            形式成功实现退出，支持了中国近一半的独角兽企业。
+            博裕投資已扶植逾600
+            家企業透過在中國大陸、中國香港、美國、歐洲資本市場IPO或併購
+            成功形式實現退出，支持了中國近一半的獨角獸企業。
           </p>
         </div>
         <div class="drop">
@@ -99,41 +99,41 @@ const bannerIndex = ref(0)
         </div>
       </section>
       <section class="section2">
-        <h2>我们的使命</h2>
+        <h2>我們的使命</h2>
         <div class="content">
           <div class="smitem">
             <img src="@/assets/images/indexb/icon-yj.svg" alt="" />
             <div>
-              <h3>预见</h3>
-              <p>正在发生的巨大变化</p>
+              <h3>預見</h3>
+              <p>正在發生的巨大變化</p>
             </div>
           </div>
           <div class="smitem">
             <img src="@/assets/images/indexb/icon-pb.svg" alt="" />
             <div>
               <h3>陪伴</h3>
-              <p>有梦想有格局的未来开拓者</p>
+              <p>有夢想有格局的未來開拓者</p>
             </div>
           </div>
           <div class="smitem">
             <img src="@/assets/images/indexb/icon-td.svg" alt="" />
             <div>
-              <h3>推动</h3>
-              <p>创造社会价值</p>
+              <h3>推動</h3>
+              <p>創造社會價值</p>
             </div>
           </div>
         </div>
       </section>
       <section class="section2">
-        <h2>机构简介</h2>
+        <h2>機構簡介</h2>
         <p style="color: #666; line-height: 180%">
-          博裕投资创立于2011年，是一家深耕中国市场、布局全球的另类资产管理公司。公司构建了涵盖私募股权投资、上市公司战略配置、物流仓储与数据中心投资、创业投资、新能源产业平台的多元化投资矩阵。博裕深度聚焦科技创新、消费零售以及医疗健康三大重点领域。依托一体化、协同联动的投资管理平台，致力于长期为投资者创造卓越的价值和回报。
+          博裕投資創立於2011年，是一家深耕中國市場以及佈局全球的另一類資產管理公司。本公司建構了涵蓋私募股權投資、上市公司策略配置、物流樞紐與資料中心投資、創業投資、新能源產業平台的信心投資矩陣。博裕深度聚焦科技創新、消費零售醫療健康三大重點領域。依託一體化、和諧連結的投資管理平台，長期致力於為投資人創造卓越的價值與回報。
         </p>
       </section>
       <section class="section2">
         <h2>發展歷程</h2>
         <p style="color: #666; line-height: 180%">
-          成立于2011年，始于私募股权投资，随后于2016年拓展业务至二级市场投资领域，并在2020年启动不动产与新基建投资及风险投资。如今，博裕已发展成为一个综合协同的投资平台。
+          成立於2011年，始於私募股權投資，並於2016年拓展業務至二級市場投資領域，並於2020年啟動不動產與新基建投資及創投。如今，博裕已發展成為一個全面且良好的投資平台。
         </p>
         <div class="list1 list2">
           <div class="li-ite1">
@@ -171,7 +171,7 @@ const bannerIndex = ref(0)
           </div>
           <div class="li-ite1">
             <div class="v-head">
-              <h3>成立二级市場投資</h3>
+              <h3>成立二級市場投資</h3>
             </div>
             <div class="v-body">
               <ul>
@@ -238,13 +238,13 @@ const bannerIndex = ref(0)
         </div>
       </section>
       <section class="section3">
-        <h2>业务范围</h2>
+        <h2>業務範圍</h2>
         <div class="content">
           <div class="left">
             <img src="@/assets/images/indexb/business.jpg" alt="" />
             <div class="list">
               <div>
-                植根中国、放眼全球的另类资产管理公司
+                根入台灣市場、放眼全球的其他類資產管理公司
               </div>
               <!-- <div class="item3 itembg1"><span>种子期</span></div>
               <div class="item3 itembg2"><span>早期</span></div>
@@ -272,13 +272,13 @@ const bannerIndex = ref(0)
       <section class="section4">
         <h2> 投資者關係</h2>
         <p>
-          博裕拥有稳定的、多元化的、声誉卓著的投资者，涵盖全球顶级的国家主权基金、养老基金、捐赠基金、金融机构、家族基金、母基金等。有关基金募集与投资者相关服务，由投资者关系团队负责协调和推动。如需垂询投资者关系事宜，请联系我们。
+          博裕擁有穩定的、感恩的、募集卓著的投資者，涵蓋全球頂尖的國家主權基金、退休基金、捐贈基金、金融機構、家族基金、母基金等。有關基金募集集與投資人關係相關服務，由投資人關係團隊負責協調與推動。如需詢問投資者關係，請聯絡我們。
         </p>
       </section>
       <section class="section4">
-        <h2> 环境、社会和管治</h2>
+        <h2> 環境、社會與管理</h2>
         <p>
-          博裕深刻认识到环境、社会和管治（ESG）因素举足轻重，并相信将 ESG 因素纳入投资和风险管理流程是实现长期价值增长的关键。
+          博裕深刻體認到環境、社會和管治（ESG）因素舉足輕重，並相信將ESG因素納入投資和風險管理流程是實現長期價值成長的關鍵。
         </p>
         <div class="list1">
           <div class="li-ite1">
@@ -286,7 +286,7 @@ const bannerIndex = ref(0)
               <h3>ESG歷程</h3>
             </div>
             <div class="v-body">
-              <p>我们将环境、社会和管治（ESG）要素纳入公司的管理框架。博裕采取渐进式的 ESG 风险管理方法，以关注气候相关风险管理为起点，同时持续关注行业中应对其他 ESG 风险的新兴方法和实践。</p>
+              <p>我們將環境、社會和管治（ESG）要素納入公司的管理架構。博裕採取漸進式的ESG風險管理方法，以關注氣候相關風險管理為起點，同時持續關注產業中應對其他ESG風險的新興方法和實踐。</p>
             </div>
           </div>
           <div class="li-ite1">
@@ -294,9 +294,9 @@ const bannerIndex = ref(0)
               <h3>風險治理框架</h3>
             </div>
             <div class="v-body">
-              <p>• 由博裕的运营委员会行使最终监督权</p>
-              <p>• 由 ESG 委员会制定政策和流程细则</p>
-              <p>• 由 ESG 工作组监测投资组合企业的 ESG 风险</p>
+              <p>• 由博裕的營運委員會明確監督權</p>
+              <p>• 由 ESG 委員會制定政策和流程細則</p>
+              <p>• 由 ESG 工作小組監控投資組合企業的 ESG 風險</p>
             </div>
           </div>
           <div class="li-ite1">
@@ -304,8 +304,8 @@ const bannerIndex = ref(0)
               <h3>投資管理</h3>
             </div>
             <div class="v-body">
-              <p>• 博裕多措并举，综合运用多种途径监控其投资组合中的气候相关风险权</p>
-              <p>• 博裕在投后管理过程中进行定性和定量分析，以评估气候相关风险的相关性与重要性</p>
+              <p>• 博裕多措並舉，綜合運用多種途徑監控其投資組合中的氣候相關風險權</p>
+              <p>• 博裕在投後管理過程中進行定性和定量分析，以評估氣候相關風險的相關性與重要性</p>
             </div>
           </div>
           <div class="li-ite1">
@@ -313,47 +313,47 @@ const bannerIndex = ref(0)
               <h3>管理與參與</h3>
             </div>
             <div class="v-body">
-              <p>• 博裕谋求与投资者和同行业伙伴们携手合作，在负责任投资的领域上共同促进行业实践的发展</p>
-              <p>• 博裕将持续与投资组合企业就 ESG 事项积极进行沟通</p>
+              <p>• 博裕謀求與投資者和同產業夥伴們參與合作，在決策投資的領域上共同促進產業實踐的發展</p>
+              <p>• 博裕將持續與投資組合企業就 ESG 事項積極進行溝通</p>
             </div>
           </div>
         </div>
       </section>
       <section class="section4">
-        <h2>公益事业</h2>
+        <h2>公益事業</h2>
         <p>
-          携手哈佛大学阿诺德植物园，倡导植物保护
+          哥倫比亞阿諾德植物園，各方植物保護
         </p>
         <div class="list1 list3">
           <div class="li-ite1">
             <div class="v-head">
-              <h3>携手哈佛大学阿诺德植物园，
-                倡导植物保护
+              <h3>哥倫比亞阿諾德植物園，
+                植物保護
               </h3>
             </div>
             <div class="v-body">
-              <p>博裕在哈佛大学阿诺德植物园设立“中国植物保护专项基金”和“濒危植物保护研究基金”，旨在支持全球，特别是中国本土的植物多样性研究，以及濒危植物种子的悉心收集与守护工作。 </P>
+              <p>博裕在哈佛大學阿諾德植物園設立了“中國植物保護專項基金”和“瀕危植物保護研究基金”，旨在支持全球，特別是中國本土的植物多樣性研究，以及瀕危植物種子的悉心收集與保護工作。 </P>
               <P>
-                在该项目的支持下，哈佛植物园携手北京植物园、中科院昆明植物研究所以及浙江大学等国内学术翘楚，共同致力于植物材料的迁地保护与原地收集活动，加强中美研究机构间的植物保护知识交流和合作伙伴关系。
+                在本計畫的支持下，哈佛植物園參與北京植物園、中科院昆明植物研究所以及浙江大學等國內學術前沿，共同致力於植物材料的遷地保護與原地收集活動，加強中美研究機構間的植物保護知識交流和合作夥伴。
               </p>
             </div>
           </div>
           <div class="li-ite1">
             <div class="v-head">
-              <h3>设立北京大学博物学者培养基金，助力培养青年文化使者
+              <h3>設立北大博物學者培養基金，扶持青年文化使者
               </h3>
             </div>
             <div class="v-body">
-              <p>博裕向北京大学捐资设立“北京大学博物学者培养基金”，促成北大中文系与英文系强强联手合作设立本科双学位项目。</P>
+              <p>博裕向北京大學捐資設立“北京大學博物學者培養基金”，最初北大中文系與英文系強強聯手合作設立本科雙學位專案。</P>
               <P>
-                我们希望借此项目助力北京大学创新本科阶段的跨学科人才培养模式，培育兼具中国心和国际视野，又富有中华文化积淀和世界文明洞察的青年文化使者，使他们成为连接中西文化、讲好中国故事的文化使者，推动中国文化走向世界。
+                我們希望推動計畫引領北京大學創新本科階段的跨學科人才培育模式，培養兼具中國心和國際視野，同時豐富中華文化積累和世界文明洞察的青年文化使者，使他們成為連結中西文化、講好中國故事的文化使者，推動中國文化走向世界。
               </p>
             </div>
           </div>
 
         </div>
       </section>
-      <section class="section5">
+      <!-- <section class="section5">
         <h1>我們的業務</h1>
         <section class="section4">
           <h2>私募股权</h2>
@@ -423,9 +423,9 @@ const bannerIndex = ref(0)
           </div>
         </section>
         <section class="section2">
-          <h2>二级市场</h2>
+          <h2>二級市场</h2>
           <p style="color: #666; line-height: 180%">
-            秉承博裕的核心优势以我们擅长的一二级联动策略，精准捕捉新兴行业的发展趋势与重要拐点，进而为投资者带来卓越且持续的收益表现。
+            秉承博裕的核心优势以我们擅长的一二級联动策略，精准捕捉新兴行业的发展趋势与重要拐点，进而为投资者带来卓越且持续的收益表现。
           </p>
           <div class="list1 list4">
             <div class="li-ite1">
@@ -434,7 +434,7 @@ const bannerIndex = ref(0)
               </div>
               <div class="v-body">
                 <p>• 遵循长期价值投资理念，寻找行业内的优质核心资产</p>
-                <p>• 结合一二级观点及国内外视野，重点发掘二级市场上具成长性的企业</p>
+                <p>• 结合一二級观点及国内外视野，重点发掘二級市场上具成长性的企业</p>
                 <p>• 在市场错配时寻求逆向投资机会</p>
                 <p>• 风格严谨，注重安全边际和内在价值 </p>
               </div>
@@ -444,9 +444,9 @@ const bannerIndex = ref(0)
                 <h3>投研优势</h3>
               </div>
               <div class="v-body">
-                <p>• 运用博裕在多个资产类别的经验与视角，搭建完整独特的二级市场投研体系</p>
+                <p>• 运用博裕在多个资产类别的经验与视角，搭建完整独特的二級市场投研体系</p>
 
-                <p>• 一二级市场全面覆盖，充分把握行业趋势中的关键业务动态及变化</p>
+                <p>• 一二級市场全面覆盖，充分把握行业趋势中的关键业务动态及变化</p>
 
                 <p>• 对重点行业领域进行深入研究，建立广泛的人脉网络和拓展资源</p>
 
@@ -538,38 +538,38 @@ const bannerIndex = ref(0)
             </div>
           </div>
         </section>
-      </section>
+      </section> -->
       <section class="section4">
-        <h2>投资领域</h2>
-        <p>我们的投资主要集中在以下最具活力与成长性的行业：</p>
+        <h2>投資領域</h2>
+        <p>我們的投資主要集中在以下最具活力與成長性的產業：</p>
         <div class="content">
           <div class="item4">
             <img src="@/assets/images/indexb/tmt.svg" alt="" />
-            消费科技
+            虛擬科技 AI系統
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/healthcare.svg" alt="" />
-            大健康
+            半導體晶片
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/consumer.svg" alt="" />
-            消费
+            醫療設備
           </div>
         </div>
       </section>
       <section class="section4">
-        <h2>我们的服务</h2>
+        <h2>我們的合作夥伴</h2>
         <p>
-          除为企业发展提供资金以外，我们还在企业管理、全球化布局、退出策略、人力资源、法律与财务、品牌与市场等多方面为企业提供专业支持、经验和资源，帮助被投企业实现长足发展。
+          除了為企業發展提供資金之外，我們還在企業管理、全球化佈局、退出策略、人力資源、法律與財務、品牌與市場等多方面為企業提供專業支援、經驗和資源，幫助被投資企業實現長足發展。
         </p>
         <div class="content">
           <div class="item4">
             <img src="@/assets/images/indexb/icon-qygl.svg" alt="" />
-            企业管理
+            企業管理
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/oversea.svg" alt="" />
-            全球化布局
+            全球化佈局
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/marketing.svg" alt="" />
@@ -579,15 +579,15 @@ const bannerIndex = ref(0)
         <div class="content">
           <div class="item4">
             <img src="@/assets/images/indexb/human.svg" alt="" />
-            人力资源
+            人力資源
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/icon-flcw.svg" alt="" />
-            法律与财务
+            法律與財務
           </div>
           <div class="item4">
             <img src="@/assets/images/indexb/branding.svg" alt="" />
-            品牌与市场
+            品牌與市場
           </div>
         </div>
       </section>

@@ -10,6 +10,7 @@
   position: relative
   width: 100dvw
   // height: 100dvh
+  background-color: #af959eaa
   overflow-y: auto
 </style>
 <style scoped lang="sass">

@@ -128,23 +128,20 @@ const sendPasswordChange = async (type: number) => {
         <span>{{ playerStore.playerInfo.account }}</span>
       </div>
       <div class="user-title">
+        <span>{{ $lang('信用評分') }}</span>
+        <span>{{ playerStore.playerInfo.additionalInfo['信用評分'] || 80 }}</span>
+      </div>
+      <div class="user-title">
         <span>{{ $lang('手機') }}</span>
-        <span
-          >{{ playerStore.playerInfo.countryCode }}
-          {{ playerStore.playerInfo.mobile | maskMobile }}</span
-        >
+        <span>{{ playerStore.playerInfo.countryCode }}
+          {{ playerStore.playerInfo.mobile | maskMobile }}</span>
       </div>
       <div class="user-title">
         <span>{{ $lang('聯絡方式') }}</span>
-        <span
-          >《{{ playerStore.playerInfo.social.platform }}》
-          {{ playerStore.playerInfo.social.id }}</span
-        >
+        <span>《{{ playerStore.playerInfo.social.platform }}》
+          {{ playerStore.playerInfo.social.id }}</span>
       </div>
-      <div
-        v-for="(item, index) in playerStore.playerInfo?.wallet"
-        class="user-title"
-      >
+      <div v-for="(item, index) in playerStore.playerInfo?.wallet" class="user-title">
         <span class="b-$lang">
           <b class="zh_TW">{{ walletName(item.type) }}</b>
         </span>
@@ -166,98 +163,47 @@ const sendPasswordChange = async (type: number) => {
       </div> -->
       <div class="flex align-center justify-between mt-5 flex-wrap">
         <div class="w-full">
-          <label style="font-size: 17px; color: #000; font-weight: bold"
-            >更換密碼 ▼</label
-          >
+          <label style="font-size: 17px; color: #000; font-weight: bold">更換密碼 ▼</label>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="pwd.oPwd"
-                v-trim-input
-                class="box"
-                placeholder="舊密碼"
-                :type="pwd.showoPwd ? 'text' : 'password'"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="pwd.oPwd" v-trim-input class="box" placeholder="舊密碼"
+                :type="pwd.showoPwd ? 'text' : 'password'" @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="pwd.nPwd"
-                v-trim-input
-                class="box"
-                placeholder="新密碼"
-                :type="pwd.shownPwd ? 'text' : 'password'"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="pwd.nPwd" v-trim-input class="box" placeholder="新密碼"
+                :type="pwd.shownPwd ? 'text' : 'password'" @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="pwd.nPwdConfirm"
-                v-trim-input
-                class="box"
-                placeholder="確認新密碼"
-                :type="pwd.shownPwdConfirm ? 'text' : 'password'"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="pwd.nPwdConfirm" v-trim-input class="box" placeholder="確認新密碼"
+                :type="pwd.shownPwdConfirm ? 'text' : 'password'" @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <br />
           <div class="btn" @click="sendPasswordChange(1)">確認修改</div>
         </div>
         <div class="w-full mt-5">
-          <label style="font-size: 17px; color: #000; font-weight: bold"
-            >更換提款密碼 ▼</label
-          >
+          <label style="font-size: 17px; color: #000; font-weight: bold">更換提款密碼 ▼</label>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="transactionPwd.oPwd"
-                v-trim-input
-                :type="transactionPwd.showoPwd ? 'text' : 'password'"
-                class="box"
-                placeholder="舊交易密碼"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="transactionPwd.oPwd" v-trim-input :type="transactionPwd.showoPwd ? 'text' : 'password'"
+                class="box" placeholder="舊交易密碼" @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="transactionPwd.nPwd"
-                v-trim-input
-                :type="transactionPwd.shownPwd ? 'text' : 'password'"
-                class="box"
-                placeholder="新交易密碼"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="transactionPwd.nPwd" v-trim-input :type="transactionPwd.shownPwd ? 'text' : 'password'"
+                class="box" placeholder="新交易密碼" @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <div class="input-box" style="padding-top: 10px">
             <div class="input-field">
-              <input
-                v-model="transactionPwd.nPwdConfirm"
-                v-trim-input
-                :type="transactionPwd.shownPwdConfirm ? 'text' : 'password'"
-                class="box"
-                placeholder="確認交易密碼"
-                @copy.prevent
-                @paste.prevent
-                @contextmenu.prevent
-              />
+              <input v-model="transactionPwd.nPwdConfirm" v-trim-input
+                :type="transactionPwd.shownPwdConfirm ? 'text' : 'password'" class="box" placeholder="確認交易密碼"
+                @copy.prevent @paste.prevent @contextmenu.prevent />
             </div>
           </div>
           <br />

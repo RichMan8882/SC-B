@@ -17,135 +17,146 @@ const modules = [Scrollbar, Autoplay]
 </script>
 
 <template>
-  <div class="cont">
-    <headerTop></headerTop>
-    <div class="portfolio">
-      <div class="right">
-        <div class="portfolio-banner">
-          <h2 class="title">企业责任</h2>
-        </div>
-        <div class="portfolio-content">
-          <div class="front-block">
-            <h2>愿景</h2>
-
-            <div class="sectors">
-              <h4>通过投资环境、社会及治理，提升人们的生活质量。</h4>
-              <p>自 1993 年扎根中国以来，我们一直坚信社会责任投资是确保 博裕 资本可以实现长期价值创造的前提。</p>
-            </div>
-            <br>
-            <br>
-            <h2>新能源投资的社会贡献</h2>
-            <div class="portfolio-list">
-              <div class="esg-gx-top">
-                <div class="esg-gx-top-left"><img alt="" src="@/assets/images/responsibility/esg-img1.jpg"></div>
-                <div class="esg-gx-top-right">
-                  <ul>
-                    <li>
-                      <h4><span>20</span> 年</h4>
-                      <p>深耕新能源领域</p>
-                    </li>
-                    <li>
-                      <h4><span>180</span> 亿</h4>
-                      <p>在新能源领域已投资约 180 亿人民币<br>
-                        （截止至 2024 年 12 月）</p>
-                    </li>
-                  </ul>
+    <div class="cont">
+        <headerTop></headerTop>
+        <div class="portfolio">
+            <div class="right">
+                <div class="portfolio-banner">
+                    <h2 class="title">企業責任</h2>
                 </div>
-              </div>
-              <div class="esg-gx-bottom">
-                <swiper :modules="modules" class="mySwiper" :autoplay="{
-                  delay: 3000,
-                  disableOnInteraction: false
-                }" :slides-per-view="2">
-                  <swiper-slide>
-                    <div class="esg-list">
-                      <div class="year current">2024 <span><img alt=""
-                            src="@/assets/images/responsibility/icon-up.svg"></span></div>
-                      <h4><span>2147</span> 万吨</h4>
-                      <div class="info">二氧化碳减排</div>
-                    </div>
-                    <div class="esg-section">
-                      <h3>这些碳排放相当于：</h3>
-                      <div class="esg-section-list">
-                        <ul>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-tree.svg"><span>39
-                              亿株樟子松每年所减少的碳排放量</span></li>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-dian.svg"><span>3749
-                              万人年生活用电量的碳排放量</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </swiper-slide>
-                  <swiper-slide>
-                    <div class="esg-list">
-                      <div class="year">2023</div>
-                      <h4><span>1509</span> 万吨</h4>
-                      <div class="info">二氧化碳减排</div>
-                    </div>
-                    <div class="esg-section">
-                      <h3>这些碳排放相当于：</h3>
-                      <div class="esg-section-list">
-                        <ul>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-tree.svg"><span>27
-                              亿株樟子松每年所减少的碳排放量</span></li>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-dian.svg"><span>2738
-                              万人年生活用电量的碳排放量</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </swiper-slide>
-                  <swiper-slide>
-                    <div class="esg-list">
-                      <div class="year">2022</div>
-                      <h4><span>1153</span> 万吨</h4>
-                      <div class="info">二氧化碳减排</div>
-                    </div>
-                    <div class="esg-section">
-                      <h3>这些碳排放相当于：</h3>
-                      <div class="esg-section-list">
-                        <ul>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-tree.svg"><span>2117
-                              万人年生活用电量的碳排放量</span></li>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-dian.svg"><span>437
-                              万辆乘用车一年的碳排放量</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </swiper-slide>
-                  <swiper-slide>
-                    <div class="esg-list">
-                      <div class="year">2021</div>
-                      <h4><span>647</span> 万吨</h4>
-                      <div class="info">二氧化碳减排</div>
-                    </div>
-                    <div class="esg-section">
-                      <h3>这些碳排放相当于：</h3>
-                      <div class="esg-section-list">
-                        <ul>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-tree.svg"><span>21
-                              亿株樟子松每年减少的碳排放量</span></li>
-                          <li><img alt="" src="@/assets/images/responsibility/icon-dian.svg"><span>北京每年近 16.4%
-                              用电的碳排放量</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </swiper-slide>
-                </swiper>
+                <div class="portfolio-content">
+                    <div class="front-block">
+                        <h2>願景</h2>
 
-                <div class="esg-section gray-box">
-                  <h3>计算方法：</h3>
-                  <p>我们选取新能源领域，包括太阳能发电、新能源车、燃料电池、储能等行业的公司，深入分析其参与贡献的避免碳排放量。调查显示，新能源领域的投资组合公司以及其整个价值链的避免碳排放量从 2021年的
-                    647
-                    万吨 CO2e 增加至 2024年的2147万吨 CO2e，期间CAGR达到近 50%。上述显著增长主要归因于投资组合企业业绩表现的提升及经营规模的扩大。</p>
+                        <div class="sectors">
+                            <h4>透過投資環境、社會及治理，提升人民生活品質。</h4>
+                            <p>自 1993 年紮根中國以來，我們一直堅信社會責任投資是確保博裕資本能實現長期價值創造的前提。</p>
+                        </div>
+                        <br>
+                        <br>
+                        <h2>新能源投資的社會貢獻</h2>
+                        <div class="portfolio-list">
+                            <div class="esg-gx-top">
+                                <div class="esg-gx-top-left"><img alt=""
+                                        src="@/assets/images/responsibility/esg-img1.jpg"></div>
+                                <div class="esg-gx-top-right">
+                                    <ul>
+                                        <li>
+                                            <h4><span>20</span> 年</h4>
+                                            <p>深耕新能源領域</p>
+                                        </li>
+                                        <li>
+                                            <h4><span>180</span> 亿</h4>
+                                            <p>在新能源領域已投資約 180 億人民幣<br>
+                                                （截止至 2024 年 12 月）</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="esg-gx-bottom">
+                                <swiper :modules="modules" class="mySwiper" :autoplay="{
+                                    delay: 3000,
+                                    disableOnInteraction: false
+                                }" :slides-per-view="2">
+                                    <swiper-slide>
+                                        <div class="esg-list">
+                                            <div class="year current">2024 <span><img alt=""
+                                                        src="@/assets/images/responsibility/icon-up.svg"></span></div>
+                                            <h4><span>2147</span> 萬噸</h4>
+                                            <div class="info">二氧化碳减排</div>
+                                        </div>
+                                        <div class="esg-section">
+                                            <h3>這些碳排放相當於：</h3>
+                                            <div class="esg-section-list">
+                                                <ul>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-tree.svg"><span>39
+                                                            億株樟子鬆每年所減少的碳排放量</span></li>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-dian.svg"><span>3749
+                                                            萬人年生活用電量的碳排放量</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </swiper-slide>
+                                    <swiper-slide>
+                                        <div class="esg-list">
+                                            <div class="year">2023</div>
+                                            <h4><span>1509</span> 萬噸</h4>
+                                            <div class="info">二氧化碳减排</div>
+                                        </div>
+                                        <div class="esg-section">
+                                            <h3>這些碳排放相當於：</h3>
+                                            <div class="esg-section-list">
+                                                <ul>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-tree.svg"><span>27
+                                                            億株樟子鬆每年所減少的碳排放量</span></li>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-dian.svg"><span>2738
+                                                            萬人年生活用電量的碳排放量</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </swiper-slide>
+                                    <swiper-slide>
+                                        <div class="esg-list">
+                                            <div class="year">2022</div>
+                                            <h4><span>1153</span> 萬噸</h4>
+                                            <div class="info">二氧化碳减排</div>
+                                        </div>
+                                        <div class="esg-section">
+                                            <h3>這些碳排放相當於：</h3>
+                                            <div class="esg-section-list">
+                                                <ul>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-tree.svg"><span>2117
+                                                            萬人年生活用電量的碳排放量</span></li>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-dian.svg"><span>437
+                                                            億株樟子鬆每年所減少的碳排放量</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </swiper-slide>
+                                    <swiper-slide>
+                                        <div class="esg-list">
+                                            <div class="year">2021</div>
+                                            <h4><span>647</span> 萬噸</h4>
+                                            <div class="info">二氧化碳减排</div>
+                                        </div>
+                                        <div class="esg-section">
+                                            <h3>這些碳排放相當於：</h3>
+                                            <div class="esg-section-list">
+                                                <ul>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-tree.svg"><span>21
+                                                            億株樟子鬆每年所減少的碳排放量</span></li>
+                                                    <li><img alt=""
+                                                            src="@/assets/images/responsibility/icon-dian.svg"><span>北京每年近
+                                                            16.4%
+                                                            使用電力的碳排放量</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </swiper-slide>
+                                </swiper>
+
+                                <div class="esg-section gray-box">
+                                    <h3>計算方法：</h3>
+                                    <p>我們選取新能源領域，包括太陽能發電、新能源車、燃料電池、儲能等行業的公司，深入分析其參與貢獻的避免碳排放量。
+                                        調查顯示，新能源領域的投資組合公司以及其整個價值鏈的避免碳排放量從 2021年的
+                                        647
+                                        萬噸 CO2e 新增至2024年的2147萬噸 CO2e，期間CAGR達到近50%。 上述顯著增長主要歸因於投資組合企業業績表現的提升及經營規模的擴大。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+        <FooterBottom></FooterBottom>
     </div>
-    <FooterBottom></FooterBottom>
-  </div>
 </template>
 
 <style scoped lang="sass">

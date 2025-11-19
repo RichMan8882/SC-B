@@ -56,12 +56,12 @@ const tomenu = (item, index) => {
               <a href="javascript:void(0)" @click="tomenu(item.link, index)">{{ item.title }}</a>
             </dd>
           </dl>
-          <dl>
+          <!-- <dl>
             <dt>办公室</dt>
             <dd v-for="item in footeraddresslist">
               <a href="javascript:void(0)" @click="navigateTo('/')">{{ item }}</a>
             </dd>
-          </dl>
+          </dl> -->
         </div>
       </div>
       <div style="font-size: 14px;text-align: center;">
