@@ -8,10 +8,10 @@ const menulist = ref([
     title: '首頁',
     link: '/'
   },
-  {
-    title: '被投企業',
-    link: '/portfolio'
-  },
+  // {
+  //   title: '被投企業',
+  //   link: '/portfolio'
+  // },
   {
     title: '企業責任',
     link: '/responsibility'

@@ -88,9 +88,9 @@ const navs = ref(
           <li class="has-dropdown menu-thumb" :class="routeName == '/' ? 'active' : ''">
             <a @click="navigateTo('/')">首頁</a>
           </li>
-          <li class="has-dropdown menu-thumb" :class="routeName == '/portfolio' ? 'active' : ''">
+          <!-- <li class="has-dropdown menu-thumb" :class="routeName == '/portfolio' ? 'active' : ''">
             <a @click="navigateTo('/portfolio')"> 被投企業 </a>
-          </li>
+          </li> -->
           <li :class="routeName == '/responsibility' ? 'active' : ''">
             <a @click="navigateTo('/responsibility')">企業責任</a>
           </li>
@@ -182,9 +182,9 @@ const navs = ref(
                 <span>首頁</span>
               </a>
             </li>
-            <li :class="routeName == '/portfolio' ? 'active' : ''">
+            <!-- <li :class="routeName == '/portfolio' ? 'active' : ''">
               <a @click="navigateTo('/portfolio')"> 被投企業 </a>
-            </li>
+            </li> -->
             <li :class="routeName == '/responsibility' ? 'active' : ''">
               <a @click="navigateTo('/responsibility')">企業責任</a>
             </li>

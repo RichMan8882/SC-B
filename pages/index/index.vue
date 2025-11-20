@@ -62,42 +62,46 @@ onUnmounted(() => {
   }
 })
 const bannerIndex = ref(0)
+const toUrl = (url) => {
+  window.open(url)
+}
 </script>
 
 <template>
   <div class="cont">
     <headerTop></headerTop>
+    <section class="banner">
+      <div :class="bannerIndex == 0 ? 'banneractive' : ''" class="item bgimg1">
+        <h2>獨具一格</h2>
+        <p>
+          作為率先在中國開展風險投資業務的投資機構，博裕
+          投資
+          已發展成為一家紮根中國市場、具備全球化視野的私募股權投資機構。
+        </p>
+      </div>
+      <div :class="bannerIndex == 1 ? 'banneractive' : ''" class="item bgimg2">
+        <h2>深度互信</h2>
+        <p>
+          博裕
+          投資與包括主權基金/國家級出資平臺、養老基金、專業金融機構、產業資本以及家族辦公室等合作夥伴保持長期穩定的合作關係。
+        </p>
+      </div>
+      <div :class="bannerIndex == 2 ? 'banneractive' : ''" class="item bgimg3">
+        <h2>卓越業績</h2>
+        <p>
+          博裕投資已扶植逾600
+          家企業透過在中國大陸、中國香港、美國、歐洲資本市場IPO或併購
+          成功形式實現退出，支持了中國近一半的獨角獸企業。
+        </p>
+      </div>
+      <div class="drop">
+        <div :class="bannerIndex == 0 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 0"></div>
+        <div :class="bannerIndex == 1 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 1"></div>
+        <div :class="bannerIndex == 2 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 2"></div>
+      </div>
+    </section>
     <div class="bodybox">
-      <section class="banner">
-        <div :class="bannerIndex == 0 ? 'banneractive' : ''" class="item bgimg1">
-          <h2>獨具一格</h2>
-          <p>
-            作為率先在中國開展風險投資業務的投資機構，博裕
-            投資
-            已發展成為一家紮根中國市場、具備全球化視野的私募股權投資機構。
-          </p>
-        </div>
-        <div :class="bannerIndex == 1 ? 'banneractive' : ''" class="item bgimg2">
-          <h2>深度互信</h2>
-          <p>
-            博裕
-            投資與包括主權基金/國家級出資平臺、養老基金、專業金融機構、產業資本以及家族辦公室等合作夥伴保持長期穩定的合作關係。
-          </p>
-        </div>
-        <div :class="bannerIndex == 2 ? 'banneractive' : ''" class="item bgimg3">
-          <h2>卓越業績</h2>
-          <p>
-            博裕投資已扶植逾600
-            家企業透過在中國大陸、中國香港、美國、歐洲資本市場IPO或併購
-            成功形式實現退出，支持了中國近一半的獨角獸企業。
-          </p>
-        </div>
-        <div class="drop">
-          <div :class="bannerIndex == 0 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 0"></div>
-          <div :class="bannerIndex == 1 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 1"></div>
-          <div :class="bannerIndex == 2 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 2"></div>
-        </div>
-      </section>
+
       <section class="section2">
         <h2>我們的使命</h2>
         <div class="content">
@@ -258,10 +262,10 @@ const bannerIndex = ref(0)
               <p>投資歷程</p>
               <h4><span>14+</span>年</h4>
             </div>
-            <div class="ribox">
+            <!-- <div class="ribox">
               <p>被投企業</p>
               <h4><span>200+</span></h4>
-            </div>
+            </div> -->
             <div class="ribox">
               <p>團隊規模</p>
               <h4><span>170+</span></h4>
@@ -562,7 +566,7 @@ const bannerIndex = ref(0)
         <p>
           除了為企業發展提供資金之外，我們還在企業管理、全球化佈局、退出策略、人力資源、法律與財務、品牌與市場等多方面為企業提供專業支援、經驗和資源，幫助被投資企業實現長足發展。
         </p>
-        <div class="content">
+        <!-- <div class="content">
           <div class="item4">
             <img src="@/assets/images/indexb/icon-qygl.svg" alt="" />
             企業管理
@@ -589,6 +593,88 @@ const bannerIndex = ref(0)
             <img src="@/assets/images/indexb/branding.svg" alt="" />
             品牌與市場
           </div>
+        </div> -->
+        <div class="portfolio-list">
+          <div class="section4-content">
+
+            <div class="section4-content-items">
+              <div class="item" @click="toUrl('https://www.okx.com/')">
+                <img src="@/assets/images/1.png" alt="" />
+                <p>
+                  在追求全體同事物質和精神幸福的同時，推動區塊鏈和數位資產走進全球億萬用戶的生活
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.bitoex.com/')">
+                <img src="@/assets/images/2.png" alt="" />
+                <p>
+                  致力於推廣台灣數位貨幣而產生，為提供顧客全方位的優質服務與品牌承諾而努力
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.maicoin.com/')">
+                <img src="@/assets/images/3.png" alt="" />
+                <p>
+                  MaiCoin 集團成立於 2013
+                  年，旨在讓數位資產成為主流，並為交易者提供安全多樣的選擇
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.maicoin.com/')">
+                <img src="@/assets/images/4.png" alt="" />
+                <p>
+                  MaiCoin集團為台灣交易量最大，且唯一具備區塊鏈技術公司之數位資產領導品牌，是台灣虛擬通貨產業之先鋒
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://accounts.binance.com/')">
+                <img src="@/assets/images/5.png" alt="" />
+                <p>
+                  時至今日，幣安已是世界頂尖的區塊鏈生態系，並擁有最大的數位資產交易所。我們的任務是在未來世界中成為加密貨幣的基礎架構供應商
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.htx.com/')">
+                <img src="@/assets/images/6.png" alt="" />
+                <p>
+                  HTX 成立於 2013 年，經過 11
+                  年的快速發展，已從一家加密貨幣交易所成長為一個全面的區塊鏈業務生態系統
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.kucoin.com/')">
+                <img src="@/assets/images/7.png" alt="" />
+                <p>
+                  KuCoin於2017年在中國成立，但由於中國政府對加密貨幣公司實施限制，其業務隨後遷至新加坡，隨後又遷至塞席爾
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.coinbase.com/')">
+                <img src="@/assets/images/8.png" alt="" />
+                <p>
+                  Coinbase 是全球流動性更強、監管更嚴格的加密貨幣現貨交易所之一，讓您可利用動態有效的費用結構進行大規模交易，降低營運成本
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.bybit.com/')">
+                <img src="@/assets/images/9.png" alt="" />
+                <p>
+                  Bybit Fintech Limited（簡稱 Bybit）是一家位於杜拜的加密貨幣交易所。 Bybit 由 Ben Zhou 於 2018 年創立，是全球最大的加密貨幣交易所之一
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.upbit.com/')">
+                <img src="@/assets/images/10.png" alt="" />
+                <p>
+                  Upbit是一家成立於2017年的韓國加密貨幣交易所。它由南韓價值最高的初創企業之一的Dunamu經營
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.bitget.com/')">
+                <img src="@/assets/images/11.png" alt="" />
+                <p>
+                  Bitget 交易所成立於2018 年，總部設立在新加坡。
+                  主打合約交易與跟單交易功能，且根據CoinMarketCap顯示Bitget交易所在現貨交易排名第12名
+                </p>
+              </div>
+              <div class="item" @click="toUrl('https://www.gate.com/')">
+                <img src="@/assets/images/12.png" alt="" />
+                <p>
+                  Gate 成立於 2013 年，是全球領先的加密貨幣交易平台，綜合實力位居全球 Top3
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <!-- <div class="statement">
@@ -600,22 +686,14 @@ const bannerIndex = ref(0)
 </template>
 
 <style scoped lang="sass">
-
-.bodybox
-  max-width: 1120px
-  padding: 74px 0
-  margin: 0 auto
-  position: relative
-  .statement
-    position: fixed
-    top: 74px
-    left: 50%
-    width: 66px
-    img
-      margin-left: 580px
-  .banner
-    height: 395px
+.cont
+  padding-top: 74px
+.banner
+    width: 100%
+    padding-top: 40%
     position: relative
+    max-height: 80dvh
+    min-height: 40dvh
     .item
       position: absolute
       top: 0
@@ -625,7 +703,7 @@ const bannerIndex = ref(0)
       background-size: cover
       background-position: center
       padding: 0 80px
-      padding-top: 100px
+      padding-top: 150px
       color: #fff
       transition: opacity 1.2s
       background-repeat: no-repeat
@@ -634,8 +712,12 @@ const bannerIndex = ref(0)
         font-size: 60px
         text-shadow: 0 3px 2px rgba(0,0,0,0.25)
         margin-bottom: 20px
+        @media (max-width: 768px)
+          font-size: 40px
       p
         width: 460px
+        @media (max-width: 768px)
+          font-size: 14px
     .banneractive
       opacity: 1 !important
     .drop
@@ -657,6 +739,19 @@ const bannerIndex = ref(0)
       background-image: url('@/assets/images/indexb/homepage2-1600.jpg')
     .bgimg3
       background-image: url('@/assets/images/indexb/homepage4-1600.jpg')
+.bodybox
+  max-width: 1120px
+  padding-bottom: 74px
+  margin: 0 auto
+  position: relative
+  .statement
+    position: fixed
+    top: 74px
+    left: 50%
+    width: 66px
+    img
+      margin-left: 580px
+  
   .section2
     margin-top: 100px
     .content
@@ -914,4 +1009,76 @@ const bannerIndex = ref(0)
           border: none
     .list3
       grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important  
+.section4-content
+  margin: 0 auto 100px
+  @media (max-width: 1200px)
+    width: 100%
+    padding: 0 20px
+  .section4-content-title
+    margin-bottom: 40px
+    text-align: center
+    opacity: 0
+    transform: scale(.5)
+    transition: all .6s ease-in-out
+    h2
+      font-size: 38px
+      font-weight: 600
+      line-height: 40px
+      margin-bottom: 20px
+    p
+      font-size: 14px
+      line-height: 1.5
+  .section4-content-items
+    margin-top: 45px
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    background-color: #eaebed
+    gap: 1px
+    justify-content: space-between
+    @media (max-width: 1200px)
+      grid-template-columns: repeat(3, 1fr)
+    @media (max-width: 768px)
+      grid-template-columns: repeat(1, 1fr)
+    .item
+      position: relative
+      overflow: hidden
+      padding: 1rem 1rem
+      transition: all .3s ease-in-out
+      background-color: #f5f6f8
+      &:hover
+        // background: #7354ff
+        background-color: #edeef0
+        .icon
+          fill: #fff
+      .icon
+        margin: 0 auto
+        width: 3.75rem
+        height: 3.75rem
+        // fill: #7354ff
+      img
+        width: 66px
+        height: 66px
+        object-fit: cover
+        margin-bottom: 10px
+        border-radius: 5px
+
+      h3
+        font-size: 18px
+        font-weight: 600
+        margin-block: 10px
+@media (max-width: 768px)
+  .left
+    display: none
+  .right
+    padding-inline-start: 0 !important
+    .portfolio-content
+      padding: 40px 20px !important
+      .section4-content
+        margin-bottom: 0
+        padding: 0
+  .sectors
+    flex-direction: column
+    .healthcare
+      border-inline: none !important
+      border-block: 1px solid rgba(0, 0, 0, 0.1) !important
 </style>
