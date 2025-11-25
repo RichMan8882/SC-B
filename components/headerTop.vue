@@ -106,6 +106,9 @@ const navs = ref(
           <li v-if="!isLogin()">
             <a class="logout" @click="navigateTo('/login')">Login</a>
           </li>
+          <li v-else>
+            <a class="logout" @click="signout">登出</a>
+          </li>
         </ul>
         <ul class="menu" v-if="!menu">
           <li class="has-dropdown active menu-thumb">

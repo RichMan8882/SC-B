@@ -58,8 +58,12 @@ await useAsyncData(async () => {
     }
   }
 })
-
+const timer = ref()
 onMounted(async () => {
+  timer.value = setInterval(() => {
+    bannerIndex.value++
+    if (bannerIndex.value > 9) bannerIndex.value = 0
+  }, 3000)
   const queryChatboxPromise = queryChatbox()
   queryChatboxPromise
     .then((queryChatboxRes) => {
@@ -77,12 +81,23 @@ definePageMeta({
 const openChatBox = () => {
   window.open(siteStore.chatbox, '_blank')
 }
+const bannerIndex = ref(0)
 </script>
 
 <template>
   <div class="layouts-auth">
     <div class="layouts-auth__video">
-      <div class="up">
+      <img src="@/assets/images/loginbg/image1.jpg" :class="bannerIndex == 0 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image2.jpg" :class="bannerIndex == 1 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image3.jpg" :class="bannerIndex == 2 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image4.jpg" :class="bannerIndex == 3 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image5.jpg" :class="bannerIndex == 4 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image6.jpg" :class="bannerIndex == 5 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image7.jpg" :class="bannerIndex == 6 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image8.jpg" :class="bannerIndex == 7 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image9.jpg" :class="bannerIndex == 8 ? 'banneractive' : ''" class="swimg" />
+      <img src="@/assets/images/loginbg/image10.jpg" :class="bannerIndex == 9 ? 'banneractive' : ''" class="swimg" />
+      <!-- <div class="up">
         <div class="bgimg">
           <img src="@/assets/images/loginbg/image4.jpg" alt="" />
           <img src="@/assets/images/loginbg/image5.jpg" alt="" />
@@ -117,14 +132,7 @@ const openChatBox = () => {
           <img src="@/assets/images/loginbg/image5.jpg" alt="" />
           <img src="@/assets/images/loginbg/image4.jpg" alt="" />
         </div>
-      </div>
-      <!--<video
-        src="https://telegra.ph/file/80491037e0d106437b6d6.mp4"
-        autoplay
-        muted
-        playsinline
-        loop
-      />-->
+      </div> -->
     </div>
     <div class="layouts-auth__view">
       <div class="bg-layer">
@@ -136,25 +144,13 @@ const openChatBox = () => {
           <div class="header-left-bottom">
             <div class="icon1">
               <span style="font-weight: bold">{{ $lang('金流帳號') }}</span>
-              <input
-                v-model="fetchSigninApi.account"
-                v-trim-input
-                type="text"
-                name="acc"
-                :placeholder="t('請輸入金流帳號')"
-                class="inputStyle"
-              />
+              <input v-model="fetchSigninApi.account" v-trim-input type="text" name="acc" :placeholder="t('請輸入金流帳號')"
+                class="inputStyle" />
             </div>
             <div class="icon1">
               <span style="font-weight: bold">{{ $lang('輸入密碼') }}</span>
-              <input
-                v-model="fetchSigninApi.password"
-                v-trim-input
-                type="password"
-                name="pass"
-                :placeholder="t('請輸入金流密碼')"
-                class="inputStyle"
-              />
+              <input v-model="fetchSigninApi.password" v-trim-input type="password" name="pass"
+                :placeholder="t('請輸入金流密碼')" class="inputStyle" />
             </div>
 
             <div class="icon1">
@@ -162,30 +158,15 @@ const openChatBox = () => {
             </div>
             <div class="icon1">
               <span style="font-weight: bold">{{ $lang('驗證碼') }}</span>
-              <input
-                v-model="recaptchaCode"
-                v-trim-input
-                type="text"
-                :placeholder="t('請輸入驗證碼')"
-                class="inputStyle"
-                @keyup.enter="setLogin"
-              />
+              <input v-model="recaptchaCode" v-trim-input type="text" :placeholder="t('請輸入驗證碼')" class="inputStyle"
+                @keyup.enter="setLogin" />
             </div>
 
-            <input
-              id="captcha_result"
-              type="hidden"
-              name="captcha_result"
-              value="12"
-            />
+            <input id="captcha_result" type="hidden" name="captcha_result" value="12" />
 
             <div>
               <div class="btn" @click="setLogin">{{ $lang('登入') }}</div>
-              <div
-                class="btn"
-                style="background-color: rgb(233, 126, 54)"
-                @click="navigateTo('/register')"
-              >
+              <div class="btn" style="background-color: rgb(233, 126, 54)" @click="navigateTo('/register')">
                 {{ $lang('註冊') }}
               </div>
             </div>
@@ -223,9 +204,9 @@ const openChatBox = () => {
     // bottom: 0
     // left: 0
 
-    width: auto
+    // width: auto
 
-    overflow: hidden
+    // overflow: hidden
     // display: flex
     //background-position: center
     //background-size: cover
@@ -414,4 +395,15 @@ a
   margin-left: 10px
   border: 1px solid black
   opacity: 0.4
+.banneractive
+  opacity: 1 !important
+.swimg
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  width: 100dvw
+  opacity: 0
+  transition: opacity 1.2s
+  object-fit: cover
 </style>
