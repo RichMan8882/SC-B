@@ -330,7 +330,7 @@ h1
   margin: 0 auto 20px
 
   img
-    width: 80px
+    width: 100%
 img
   max-width: 100%
 

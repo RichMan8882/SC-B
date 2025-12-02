@@ -64,8 +64,14 @@ const tomenu = (item, index) => {
           </dl> -->
         </div>
       </div>
-      <div style="font-size: 14px;text-align: center;">
+      <div style="font-size: 14px;">
         {{ siteStore.siteData?.copyRight }}
+      </div>
+      <div class="line"></div>
+      <div class="text">
+        <span>透明與披露</span> |
+        <span>法律責任</span> |
+        <span>隱私説明</span>
       </div>
     </div>
   </footer>
@@ -139,4 +145,13 @@ footer
             transition: color .3s ease
             &:hover
               color: #fff
+    .line
+      border-top: 1px solid #fff
+      margin: 20px 0
+    .text
+      font-size: 14px
+      color: #999
+      span
+        &:hover
+          color: #fff
 </style>
