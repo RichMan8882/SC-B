@@ -166,10 +166,10 @@ onUnmounted(() => {
                     <i class="fas fa-user-circle"></i>
                     {{ $lang('成員資料') }}
                   </a>
-                  <a :class="checkPath('activity')" @click="navigateTo(`/user/activity`)">
+                  <!-- <a :class="checkPath('activity')" @click="navigateTo(`/user/activity`)">
                     <i class="fas fa-gift"></i>
                     {{ $lang('優惠活動') }}
-                  </a>
+                  </a> -->
                   <!-- <a
                   :class="checkPath('setting')"
                   @click="navigateTo(`/user/setting`)"
@@ -229,6 +229,8 @@ onUnmounted(() => {
 </template>
 <style scoped lang="sass">
 @import '@/assets/sass/user/model2/coin2.scss'
+.fa-comments
+  width: 24px
 .page-cont
   width: 100%
   min-height: 100dvh

@@ -98,7 +98,7 @@ const navs = ref(
             <a :href="siteStore.chatbox" target="_blank"> 聯絡我們 </a>
           </li>
           <li :class="routeName == '/user/info' ? 'active' : ''">
-            <a @click="navigateTo('/user/info')"> 會員中心 </a>
+            <a @click="navigateTo('/user/info')"> 成員中心 </a>
           </li>
           <li v-if="isLogin()">
             <a @click="navigateTo('/game')">互動平臺</a>
@@ -196,7 +196,7 @@ const navs = ref(
             </li>
 
             <li :class="routeName == '/user/info' ? 'active' : ''">
-              <a @click="navigateTo('/user/info')"> 會員中心 </a>
+              <a @click="navigateTo('/user/info')"> 成員中心 </a>
             </li>
             <li v-if="isLogin()" class="menu-thumb">
               <a @click="navigateTo('/game')">
