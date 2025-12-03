@@ -65,7 +65,7 @@ const tomenu = (item, index) => {
         </div>
       </div>
       <div style="font-size: 14px;">
-        {{ siteStore.siteData?.copyRight }}
+        @ 博裕投資。保留所有權利。
       </div>
       <div class="line"></div>
       <div class="text">
