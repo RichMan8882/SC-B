@@ -324,9 +324,9 @@ const twoend = () => {
 
 @media (max-width: 768px) {
     .tanagram-wrapper {
-        width: 100%;
+        width: calc(100% - 10px);
         top: 160px;
-        right: -10px;
+        right: -5px;
         height: 100vh;
     }
 }

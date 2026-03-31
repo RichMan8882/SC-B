@@ -950,11 +950,13 @@ const botAcitve = ref(1)
   min-height: 5000px
   background-color: #fefcf6
   transition: background .3s
+  overflow: hidden
   // background: url(@/assets/images/homebg.webp) !important
   .container
     width: 90%
     margin: 0 auto
     margin-top: 750px
+    overflow: hidden
     // @media (max-width: 768px)
     //   width: 100%
     //   padding: 0 25px
