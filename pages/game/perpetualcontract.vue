@@ -258,16 +258,15 @@ const checkBetData = () => {
             ElMessageBox.alert(
               `
                <p style="margin:0 0 8px 0"> ${t('投注期別')}: ${response.data.roundNo} </p>
-               <p style="margin:0 0 8px 0"> ${t('投注匯率')}: ${
-                 response.data.openPrice
-               } </p>
+               <p style="margin:0 0 8px 0"> ${t('投注匯率')}: ${response.data.openPrice
+              } </p>
                <p style="margin:0 0 8px 0"> ${t('下注金額')}: ${response.data.amount} </p>
                <p style="margin:0 0 8px 0"> ${t('下注類別')}: ${gameOptionNameList(
-                 response.data.option
-               )} </p>
+                response.data.option
+              )} </p>
                <p style="margin:0 0 8px 0"> ${t('時間')}: ${formatDate(
-                 response.data.openAt
-               )} </p>
+                response.data.openAt
+              )} </p>
              `,
               `${t('下單成功')}`,
               {
@@ -1040,11 +1039,11 @@ const numberBlur = () => {
     orderData.value.qty =
       orderData.value.qty > 0
         ? (
-            Number(orderData.value.price) /
-            availableCurrency.value
-              .find((n) => n.symbol == 'BTCUSDT')
-              .price.slice(-1)[0].close
-          ).toFixed(6)
+          Number(orderData.value.price) /
+          availableCurrency.value
+            .find((n) => n.symbol == 'BTCUSDT')
+            .price.slice(-1)[0].close
+        ).toFixed(6)
         : orderData.value.qty
     return
   }
@@ -1075,11 +1074,8 @@ watch(
 
 <template>
   <div class="cont" id="Base_Member">
-    <headerTop
-      :menu="false"
-      routerCrt="/game/perpetualcontract"
-      headerW100="width:100%;padding-inline:20px;height:56px;background:#14171a"
-    />
+    <headerTop :opacity="false" :menu="false" :white="true" routerCrt="/game/perpetualcontract"
+      headerW100="width:100%;padding-inline:20px;height:56px;background:#14171a" />
     <main>
       <div class="currency">
         <div class="current-currency">
@@ -1090,45 +1086,25 @@ watch(
                 : ''
             }}
           </div>
-          <svg
-            t="1746602661204"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="2608"
-            width="32"
-            height="32"
-          >
+          <svg t="1746602661204" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="2608" width="32" height="32">
             <path
               d="M824.32 328.96c-12.8-12.8-33.28-12.8-45.44 0L481.92 624 183.68 328.96c-12.8-12.8-33.28-12.8-45.44 0-12.8 12.16-12.8 32.64 0 45.44l317.44 314.24c1.28 1.28 1.28 3.2 2.56 4.48 12.8 12.8 33.28 12.8 45.44 0l320-318.08C837.12 362.24 837.12 341.76 824.32 328.96z"
-              p-id="2609"
-            ></path>
+              p-id="2609"></path>
           </svg>
-          <span
-            v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price"
-            >{{
-              // Math.trunc(
-              //   availableCurrency
-              //     .find((n) => n.symbol == 'BTCUSDT')
-              //     .price.slice(-1)[0].close
-              // )
-              availableCurrency
-                .find((n) => n.symbol == 'BTCUSDT')
-                .price.slice(-1)[0]
-                .close.toFixed(2)
-            }}</span
-          >
-          <div
-            class="current-currency-popup"
-            :class="{ 'current-currency-popup-aitive': SelecPopup }"
-            @click="onSelecb()"
-          >
+          <span v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price">{{
+            availableCurrency
+              .find((n) => n.symbol == 'BTCUSDT')
+              .price.slice(-1)[0]
+              .close.toFixed(2)
+          }}</span>
+          <div class="current-currency-popup" :class="{ 'current-currency-popup-aitive': SelecPopup }"
+            @click="onSelecb()">
             <div class="popup-box" @click.stop="">
               <div class="popup-item popup-item2">
-                <h5>市場</h5>
-                <h5 class="item-right mx-2">價格</h5>
-                <h5 class="item-right">即時</h5>
+                <h5>{{ $lang('市場') }}</h5>
+                <h5 class="item-right mx-2">{{ $lang('價格') }}</h5>
+                <h5 class="item-right">{{ $lang('即時') }}</h5>
               </div>
               <div class="popup-item" v-for="item in availableCurrency">
                 <div class="item">
@@ -1142,18 +1118,14 @@ watch(
                 <div class="mx-2 item item-right">
                   {{ item.price[item.price.length - 1].close }}
                 </div>
-                <div
-                  class="item item-right"
-                  :class="
-                    item.price[item.price.length - 1].close >
-                    item.price[item.price.length - 1].open
-                      ? 'up'
-                      : 'down'
-                  "
-                >
+                <div class="item item-right" :class="item.price[item.price.length - 1].close >
+                  item.price[item.price.length - 1].open
+                  ? 'up'
+                  : 'down'
+                  ">
                   {{
                     item.price[item.price.length - 1].close >
-                    item.price[item.price.length - 1].open
+                      item.price[item.price.length - 1].open
                       ? '+'
                       : ''
                   }}{{
@@ -1169,25 +1141,20 @@ watch(
         </div>
         <div class="current-currency-renew">
           <div class="renew-item">
-            <div class="changeTit">及時</div>
-            <div
-              class="changeNum"
-              v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price"
-              :class="
-                Number(
-                  percentCount(
-                    availableCurrency
-                      .find((n) => n.symbol == 'BTCUSDT')
-                      ?.price.slice(-1)[0].close,
-                    availableCurrency
-                      .find((n) => n.symbol == 'BTCUSDT')
-                      ?.price.slice(-1)[0].open
-                  )
-                ) > 0
-                  ? 'up'
-                  : 'down'
-              "
-            >
+            <div class="changeTit">{{ $lang('即時') }}</div>
+            <div class="changeNum" v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price" :class="Number(
+              percentCount(
+                availableCurrency
+                  .find((n) => n.symbol == 'BTCUSDT')
+                  ?.price.slice(-1)[0].close,
+                availableCurrency
+                  .find((n) => n.symbol == 'BTCUSDT')
+                  ?.price.slice(-1)[0].open
+              )
+            ) > 0
+              ? 'up'
+              : 'down'
+              ">
               {{
                 Number(
                   percentCount(
@@ -1222,20 +1189,14 @@ watch(
         </div>
         <div class="currency-data">
           <div class="currency-data-box">
-            <div
-              class="entrust-area"
-              v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price"
-            >
-              <h4>訂單表</h4>
+            <div class="entrust-area" v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price">
+              <h4>{{ $lang('訂單表') }}</h4>
               <ul class="buy-sell">
-                <li class="text">價格</li>
-                <li class="text">數量</li>
+                <li class="text">{{ $lang('價格') }}</li>
+                <li class="text">{{ $lang('數量') }}</li>
               </ul>
               <div class="entrust-sell">
-                <div
-                  v-for="item in volumeNumberUp.sort((a, b) => b - a)"
-                  class="sell-item"
-                >
+                <div v-for="item in volumeNumberUp.sort((a, b) => b - a)" class="sell-item">
                   <div class="quantity-price">
                     <span class="price">{{
                       (
@@ -1250,43 +1211,27 @@ watch(
                   <div class="proportion" :style="`width:${item * 100}%`"></div>
                 </div>
               </div>
-              <div
-                class="current-price"
-                :class="
-                  availableCurrency.find((n) => n.symbol == 'BTCUSDT').price[
-                    availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
-                      .length - 1
-                  ].close >
-                  availableCurrency.find((n) => n.symbol == 'BTCUSDT').price[
-                    availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
-                      .length - 1
-                  ].open
-                    ? 'down'
-                    : 'up'
-                "
-                v-if="
+              <div class="current-price" :class="availableCurrency.find((n) => n.symbol == 'BTCUSDT').price[
+                availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
+                  .length - 1
+              ].close >
+                availableCurrency.find((n) => n.symbol == 'BTCUSDT').price[
                   availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
-                "
-              >
+                    .length - 1
+                ].open
+                ? 'down'
+                : 'up'
+                " v-if="
+                  availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
+                ">
                 {{
-                  // Math.trunc(
-                  //   availableCurrency
-                  //     .find((n) => n.symbol == 'BTCUSDT')
-                  //     .price.slice(-1)[0].close
-                  // )
                   availableCurrency
                     .find((n) => n.symbol == 'BTCUSDT')
                     .price.slice(-1)[0]
                     .close.toFixed(2)
                 }}
-                <svg
-                  t="1746450332425"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="6071"
-                  v-if="
+                <svg t="1746450332425" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="6071" v-if="
                     availableCurrency.find((n) => n.symbol == 'BTCUSDT').price[
                       availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
                         .length - 1
@@ -1295,60 +1240,34 @@ watch(
                       availableCurrency.find((n) => n.symbol == 'BTCUSDT').price
                         .length - 1
                     ].open
-                  "
-                >
+                  ">
                   <path
                     d="M500.8726958 48.36230734c4.89601391-4.89601391 11.42403228-7.56656721 18.24877928-7.56656721 14.24295016 0 25.81534703 11.57239687 25.81534648 25.81534649L544.9368221 971.48349896c0 6.97311104-2.67055329 13.35276536-7.56656775 18.24877982-4.89601391 4.89601391-11.42403228 7.56656721-18.24877928 7.5665672-6.824747 0-13.35276536-2.67055329-18.24877981-7.56656774-4.89601391-4.89601391-7.56656721-11.42403228-7.56656721-18.24877928L493.23194604 66.68526917c0-6.97311104 2.74473531-13.42694738 7.64074977-18.32296183z"
-                    p-id="6072"
-                    fill="#df4249"
-                  ></path>
+                    p-id="6072" fill="#df4249"></path>
                   <path
                     d="M753.31414607 614.29702073c8.9760256-8.9760256 23.51570384-10.01457388 33.67864231-2.3738252 5.5636521 4.08001169 9.12438964 10.16293792 10.16293792 16.98768491 1.0385483 6.824747-0.7418202 13.64949399-4.82183188 19.21314609l-252.51563284 338.86351694c-0.7418202 1.0385483-1.55782243 2.00291455-2.44800723 2.89309935-8.9760256 8.9760256-23.51570384 10.01457388-33.67864177 2.37382466-5.48947008-4.1541937-9.12438964-10.16293792-10.16293792-16.98768492-1.0385483-6.824747 0.7418202-13.64949399 4.8218319-19.21314608l252.51563283-338.86351694c0.7418202-1.0385483 1.63200446-2.07709658 2.44800668-2.89309881z"
-                    p-id="6073"
-                    fill="#df4249"
-                  ></path>
+                    p-id="6073" fill="#df4249"></path>
                   <path
                     d="M248.20869838 614.37120276c0.89018425-0.89018425 1.85455052-1.70618647 2.89309935-2.44800723 5.5636521-4.08001169 12.31421708-5.78619816 19.21314609-4.82183191 6.824747 1.0385483 12.90767323 4.59928582 16.98768492 10.16293794L539.74407957 956.05363647c7.56656721 10.23711995 6.60220094 24.70261617-2.37382522 33.6786423-0.89018425 0.89018425-1.85455052 1.70618647-2.89309881 2.44800669-5.48947008 4.1541937-12.31421708 5.78619816-19.21314608 4.82183189-6.824747-1.0385483-12.90767323-4.59928582-16.98768492-10.16293792l-252.51563284-338.86351694c-7.49238518-10.16293792-6.52801891-24.62843414 2.44800668-33.60445974z"
-                    p-id="6074"
-                    fill="#df4249"
-                  ></path>
+                    p-id="6074" fill="#df4249"></path>
                 </svg>
-                <svg
-                  t="1746450562371"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="6224"
-                  v-else
-                >
+                <svg t="1746450562371" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="6224" v-else>
                   <path
                     d="M523.1273042 975.63769266c-4.89601391 4.89601391-11.42403228 7.56656721-18.24877928 7.56656721-14.24295016 0-25.81534703-11.57239687-25.81534648-25.81534649L479.0631779 52.51650104c0-6.97311104 2.67055329-13.35276536 7.56656775-18.24877982 4.89601391-4.89601391 11.42403228-7.56656721 18.24877928-7.5665672 6.824747 0 13.35276536 2.67055329 18.24877981 7.56656774 4.89601391 4.89601391 7.56656721 11.42403228 7.56656721 18.24877928L530.76805396 957.31473083c0 6.97311104-2.74473531 13.42694738-7.64074977 18.32296183z"
-                    p-id="6225"
-                    fill="#276d45"
-                  ></path>
+                    p-id="6225" fill="#276d45"></path>
                   <path
-                    d="M270.68585393 409.70297927c-8.9760256 8.9760256-23.51570384 10.01457388-33.67864231 2.3738252-5.5636521-4.08001169-9.12438964-10.16293792-10.16293792-16.98768491-1.0385483-6.824747 0.7418202-13.64949399 4.82183188-19.21314609l252.51563284-338.86351694c0.7418202-1.0385483 1.55782243-2.00291455 2.44800723-2.89309935 8.9760256-8.9760256 23.51570384-10.01457388 33.67864177-2.37382466 5.48947008 4.1541937 9.12438964 10.16293792 10.16293792 16.98768492 1.0385483 6.824747-0.7418202 13.64949399-4.8218319 19.21314608l-252.51563283 338.86351694c-0.7418202 1.0385483-1.63200446 2.07709658-2.44800668 2.89309881z"
-                    p-id="6226"
-                    fill="#276d45"
-                  ></path>
+                    d="M270.68585393 409.70297927c-8.9760256 8.9760256-23.51570384 10.01457388-33.67864231 2.3738252-5.5636521-4.08001169-9.12438964-10.16293792-10.16293792-16.98768491-1.0385483-6.824747 0.7418202-13.64949399 4.82183188-19.21314609l252.51563284-338.86351694c0.7418202-1.0385483 1.55782243-2.00291455-2.44800723 2.89309935-8.9760256 8.9760256-23.51570384 10.01457388-33.67864177 2.37382466-5.48947008-4.1541937-9.12438964-10.16293792-10.16293792-16.98768492-1.0385483-6.824747 0.7418202-13.64949399-4.8218319 19.21314608l-252.51563283 338.86351694c-0.7418202 1.0385483-1.63200446-2.07709658-2.44800668 2.89309881z"
+                    p-id="6226" fill="#276d45"></path>
                   <path
                     d="M775.79130162 409.62879724c-0.89018425 0.89018425-1.85455052 1.70618647-2.89309935 2.44800723-5.5636521 4.08001169-12.31421708 5.78619816-19.21314609 4.82183191-6.824747-1.0385483-12.90767323-4.59928582-16.98768492-10.16293794L484.25592043 67.94636353c-7.56656721-10.23711995-6.60220094-24.70261617 2.37382522-33.6786423 0.89018425-0.89018425 1.85455052-1.70618647 2.89309881-2.44800669 5.48947008-4.1541937 12.31421708-5.78619816 19.21314608-4.82183189 6.824747 1.0385483 12.90767323 4.59928582 16.98768492 10.16293792l252.51563284 338.86351694c7.49238518 10.16293792 6.52801891 24.62843414-2.44800668 33.60445974z"
-                    p-id="6227"
-                    fill="#276d45"
-                  ></path>
+                    p-id="6227" fill="#276d45"></path>
                 </svg>
               </div>
-              <div
-                class="entrust-buy"
-                v-if="
-                  availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price
-                "
-              >
-                <div
-                  v-for="item in volumeNumberNp.sort((a, b) => a - b)"
-                  class="buy-item"
-                >
+              <div class="entrust-buy" v-if="
+                availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price
+              ">
+                <div v-for="item in volumeNumberNp.sort((a, b) => a - b)" class="buy-item">
                   <div class="quantity-price">
                     <span class="price">{{
                       (
@@ -1367,69 +1286,49 @@ watch(
           </div>
         </div>
         <div class="entrust-area-trade">
-          <div class="trade-tit">交易</div>
+          <div class="trade-tit">{{ $lang('交易') }}</div>
           <ul class="buy-sell">
-            <li class="text">價格</li>
-            <li class="text">數量</li>
+            <li class="text">{{ $lang('價格') }}</li>
+            <li class="text">{{ $lang('數量') }}</li>
           </ul>
-          <div
-            class="entrust-buy"
-            v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price"
-          >
+          <div class="entrust-buy" v-if="availableCurrency.find((n) => n.symbol == 'BTCUSDT')?.price">
             <div v-for="(item, index) in volumeNumberComn" class="buy-item">
-              <div
-                class="quantity-price"
-                :class="
-                  index == 2 ||
-                  index == 6 ||
-                  index == 7 ||
-                  index == 11 ||
-                  index == 18 ||
-                  index == 19
-                    ? 'up'
-                    : 'down'
-                "
-              >
+              <div class="quantity-price" :class="index == 2 ||
+                index == 6 ||
+                index == 7 ||
+                index == 11 ||
+                index == 18 ||
+                index == 19
+                ? 'up'
+                : 'down'
+                ">
                 <span class="price">{{ onZeroNum(item.price, 2) }}</span>
                 <span class="quantity">{{ onZeroNum(item.floot, 6) }}</span>
               </div>
-              <div
-                class="proportion"
-                :class="
-                  index == 2 ||
-                  index == 6 ||
-                  index == 7 ||
-                  index == 11 ||
-                  index == 18 ||
-                  index == 19
-                    ? 'up up-bg'
-                    : 'down down-bg'
-                "
-                :style="`width:4px`"
-              ></div>
+              <div class="proportion" :class="index == 2 ||
+                index == 6 ||
+                index == 7 ||
+                index == 11 ||
+                index == 18 ||
+                index == 19
+                ? 'up up-bg'
+                : 'down down-bg'
+                " :style="`width:4px`"></div>
             </div>
           </div>
         </div>
         <div class="place-an-order">
           <div class="control-box">
             <div class="ckboxs">
-              <div
-                class="ckbox"
-                :class="{ ckbox1: orderData.action == 'buy' }"
-                @click="orderData.action = 'buy'"
-              >
-                開倉
+              <div class="ckbox" :class="{ ckbox1: orderData.action == 'buy' }" @click="orderData.action = 'buy'">
+                {{ $lang('開倉') }}
               </div>
-              <div
-                class="ckbox"
-                :class="{ ckbox2: orderData.action == 'sell' }"
-                @click="orderData.action = 'sell'"
-              >
-                平倉
+              <div class="ckbox" :class="{ ckbox2: orderData.action == 'sell' }" @click="orderData.action = 'sell'">
+                {{ $lang('平倉') }}
               </div>
             </div>
             <div class="available">
-              <div class="available-left">可用</div>
+              <div class="available-left">{{ $lang('可用') }}</div>
               <div class="available-right">
                 <div class="available-price">
                   ${{
@@ -1442,87 +1341,37 @@ watch(
               </div>
             </div>
             <div class="available">
-              <div class="available-left">杠桿</div>
+              <div class="available-left">{{ $lang('杠桿') }}</div>
               <div class="available-right">
                 <div class="right-leverage">
                   <span>x</span>
                   <div class="leverage">
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 1
-                        }
-                      "
-                      :class="{ 'leverage-ative': leverage == 1 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 1 }"
+                      :class="{ 'leverage-ative': leverage == 1 }">
                       1
                     </div>
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 3
-                        }
-                      "
-                      :class="{ 'leverage-ative': leverage == 3 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 3 }"
+                      :class="{ 'leverage-ative': leverage == 3 }">
                       3
                     </div>
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 5
-                        }
-                      "
-                      :class="{ 'leverage-ative2': leverage == 5 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 5 }"
+                      :class="{ 'leverage-ative2': leverage == 5 }">
                       5
                     </div>
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 10
-                        }
-                      "
-                      :class="{ 'leverage-ative2': leverage == 10 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 10 }"
+                      :class="{ 'leverage-ative2': leverage == 10 }">
                       10
                     </div>
-
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 30
-                        }
-                      "
-                      :class="{ 'leverage-ative3': leverage == 30 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 30 }"
+                      :class="{ 'leverage-ative3': leverage == 30 }">
                       30
                     </div>
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 50
-                        }
-                      "
-                      :class="{ 'leverage-ative3': leverage == 50 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 50 }"
+                      :class="{ 'leverage-ative3': leverage == 50 }">
                       50
                     </div>
-                    <div
-                      class="leverage-item"
-                      @click="
-                        () => {
-                          leverage = 100
-                        }
-                      "
-                      :class="{ 'leverage-ative3': leverage == 100 }"
-                    >
+                    <div class="leverage-item" @click="() => { leverage = 100 }"
+                      :class="{ 'leverage-ative3': leverage == 100 }">
                       100
                     </div>
                   </div>
@@ -1530,34 +1379,18 @@ watch(
               </div>
             </div>
             <div class="number-input">
-              <input
-                ref="number"
-                placeholder="數量"
-                v-model="orderData.qty"
-                @input="validateInput"
-                @blur="numberBlur()"
-              />
+              <input ref="number" :placeholder="$lang('數量')" v-model="orderData.qty" @input="validateInput"
+                @blur="numberBlur()" />
               <div class="btn-group">
                 {{ 'BTC' }}
               </div>
             </div>
             <div class="slider">
-              <RangeSlider
-                v-if="ff"
-                v-model="orderData.price"
-                :min="0"
-                :max="orderData.action == 'buy' ? playerWalletBalance : 0"
-                :step="1"
-                @onSyncQty="onSyncQty"
-              />
+              <RangeSlider v-if="ff" v-model="orderData.price" :min="0"
+                :max="orderData.action == 'buy' ? playerWalletBalance : 0" :step="1" @onSyncQty="onSyncQty" />
             </div>
             <div class="number-input">
-              <input
-                ref="number"
-                placeholder="市價"
-                @input="validateInput2"
-                v-model="orderData.price"
-              />
+              <input ref="number" :placeholder="$lang('市價')" @input="validateInput2" v-model="orderData.price" />
               <div class="btn-group">
                 {{ '' }}
               </div>
@@ -1566,14 +1399,11 @@ watch(
             <div class="submit-box">
               <div class="available">
                 <div class="available-left">
-                  {{ orderData.action == 'buy' ? '可開多' : '多倉持倉' }}
+                  {{ orderData.action == 'buy' ? $lang('可開多') : $lang('多倉持倉') }}
                 </div>
                 <div class="available-right">
                   <div class="available-price">
                     {{
-                      // new Intl.NumberFormat('zh-TW').format(
-                      //   Number(playerWalletBalance)
-                      // )
                       orderData.action == 'buy' ? orderData.qty : 0
                     }}
                     {{ 'BTC' }}
@@ -1581,18 +1411,15 @@ watch(
                 </div>
               </div>
               <div class="submit ckbox1">
-                {{ orderData.action == 'buy' ? '開多' : '平空' }}
+                {{ orderData.action == 'buy' ? $lang('開多') : $lang('平空') }}
               </div>
               <div class="available">
                 <div class="available-left">
-                  {{ orderData.action == 'buy' ? '可開空' : '空倉持倉' }}
+                  {{ orderData.action == 'buy' ? $lang('可開空') : $lang('空倉持倉') }}
                 </div>
                 <div class="available-right">
                   <div class="available-price">
                     {{
-                      // new Intl.NumberFormat('zh-TW').format(
-                      //   Number(playerWalletBalance)
-                      // )
                       0
                     }}
                     {{ 'BTC' }}
@@ -1600,65 +1427,40 @@ watch(
                 </div>
               </div>
               <div class="submit ckbox2">
-                {{ orderData.action == 'buy' ? '開空' : '平多' }}
+                {{ orderData.action == 'buy' ? $lang('開空') : $lang('平多') }}
               </div>
             </div>
           </div>
         </div>
         <div class="currency-tabs">
           <div class="link-block">
-            <div
-              class="strip"
-              :style="{
-                transform:
-                  selectName == '未結訂單'
-                    ? 'translateX(0)'
-                    : selectName == '交易歷史'
-                      ? 'translateX(80px)'
-                      : selectName == '餘額'
-                        ? 'translateX(160px)'
-                        : ''
-              }"
-            ></div>
-            <div
-              class="info-item"
-              :class="{ active: selectName == '未結訂單' }"
-              data-toggle="modal"
-              data-target=".formModal"
-              data-type="0"
-              @click="goSelect('未結訂單')"
-            >
+            <div class="strip" :style="{
+              transform:
+                selectName == '未結訂單'
+                  ? 'translateX(0)'
+                  : selectName == '交易歷史'
+                    ? 'translateX(80px)'
+                    : selectName == '餘額'
+                      ? 'translateX(160px)'
+                      : ''
+            }"></div>
+            <div class="info-item" :class="{ active: selectName == '未結訂單' }" data-toggle="modal"
+              data-target=".formModal" data-type="0" @click="goSelect('未結訂單')">
               {{ $lang('未結訂單') }}
             </div>
-            <div
-              class="info-item"
-              :class="{ active: selectName == '交易歷史' }"
-              data-toggle="modal"
-              data-target=".formModal"
-              data-type="1"
-              @click="goSelect('交易歷史')"
-            >
+            <div class="info-item" :class="{ active: selectName == '交易歷史' }" data-toggle="modal"
+              data-target=".formModal" data-type="1" @click="goSelect('交易歷史')">
               {{ $lang('交易歷史') }}
             </div>
-            <div
-              class="info-item"
-              :class="{ active: selectName == '餘額' }"
-              data-toggle="modal"
-              data-target=".formModal"
-              data-type="2"
-              @click="goSelect('餘額')"
-            >
+            <div class="info-item" :class="{ active: selectName == '餘額' }" data-toggle="modal" data-target=".formModal"
+              data-type="2" @click="goSelect('餘額')">
               {{ $lang('餘額') }}
             </div>
           </div>
           <div class="currency-items"></div>
         </div>
         <div class="currency-list px-4">
-          <div
-            v-for="item in availableCurrency"
-            :key="item.symbol"
-            class="nav-list mr-2"
-          >
+          <div v-for="item in availableCurrency" :key="item.symbol" class="nav-list mr-2">
             <div class="nav-name" style="color: #ddd">
               {{
                 item.symbolData.label ||
@@ -1666,15 +1468,11 @@ watch(
                 item.symbolData.symbol
               }}
             </div>
-            <span
-              class="mx-2"
-              :class="
-                item.price[item.price.length - 1].close >
-                item.price[item.price.length - 1].open
-                  ? 'up'
-                  : 'down'
-              "
-              >{{
+            <span class="mx-2" :class="item.price[item.price.length - 1].close >
+              item.price[item.price.length - 1].open
+              ? 'up'
+              : 'down'
+              ">{{
                 percentCount(
                   item.price[item.price.length - 1].close,
                   item.price[item.price.length - 1].open

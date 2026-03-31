@@ -87,98 +87,50 @@ const bannerIndex = ref(0)
 <template>
   <div class="layouts-auth">
     <div class="layouts-auth__video">
-      <img src="@/assets/images/loginbg/image1.jpg" :class="bannerIndex == 0 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image2.jpg" :class="bannerIndex == 1 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image3.jpg" :class="bannerIndex == 2 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image4.jpg" :class="bannerIndex == 3 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image5.jpg" :class="bannerIndex == 4 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image6.jpg" :class="bannerIndex == 5 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image7.jpg" :class="bannerIndex == 6 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image8.jpg" :class="bannerIndex == 7 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image9.jpg" :class="bannerIndex == 8 ? 'banneractive' : ''" class="swimg" />
-      <img src="@/assets/images/loginbg/image10.jpg" :class="bannerIndex == 9 ? 'banneractive' : ''" class="swimg" />
-      <!-- <div class="up">
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-        </div>
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-        </div>
-      </div>
-      <div class="up2">
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-        </div>
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-        </div>
-      </div> -->
+      <img src="@/assets/images/Background.png" alt="">
     </div>
-    <div class="layouts-auth__view">
-      <div class="bg-layer">
-        <h1>{{ $lang('成員登入') }}</h1>
-        <div class="header-main">
-          <div class="main-icon">
-            <img :src="siteStore?.siteData.logo" />
+    <div class="main-icon">
+      <!-- <img :src="siteStore?.siteData.logo" /> -->
+      <img src="@/assets/images/bain-capital-logo.svg" alt="">
+    </div>
+    <div class="header-main">
+      <div class="header-left-bottom">
+        <div class="title">
+          {{ $lang('客戶端登入') }}
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('金流帳號') }}</span>
+          <input v-model="fetchSigninApi.account" v-trim-input type="text" name="acc" class="inputStyle" />
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('輸入密碼') }}</span>
+          <input v-model="fetchSigninApi.password" v-trim-input type="password" name="pass" class="inputStyle" />
+        </div>
+
+        <div class="icon1">
+          <recaptcha @check-hepler="checkHepler"></recaptcha>
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('驗證碼') }}</span>
+          <input v-model="recaptchaCode" v-trim-input type="text" class="inputStyle" @keyup.enter="setLogin" />
+        </div>
+        <div class="textl">
+          {{ $lang('如果您是第一次登入數位資料交換平台，請前往解鎖帳戶。') }}
+        </div>
+
+        <div class="loginbox">
+          <div class="btn" @click="setLogin">{{ $lang('提交') }}</div>
+        </div>
+        <div class="links">
+          <div>
+            <span @click="navigateTo('/')">{{ $lang('返回首頁') }}</span> |
+            <span>{{ $lang('客戶端登入') }}</span> |
+            <span>{{ $lang('技術支援') }}</span>
           </div>
-          <div class="header-left-bottom">
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('金流帳號') }}</span>
-              <input v-model="fetchSigninApi.account" v-trim-input type="text" name="acc" :placeholder="t('請輸入金流帳號')"
-                class="inputStyle" />
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('輸入密碼') }}</span>
-              <input v-model="fetchSigninApi.password" v-trim-input type="password" name="pass"
-                :placeholder="t('請輸入金流密碼')" class="inputStyle" />
-            </div>
-
-            <div class="icon1">
-              <recaptcha @check-hepler="checkHepler"></recaptcha>
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('驗證碼') }}</span>
-              <input v-model="recaptchaCode" v-trim-input type="text" :placeholder="t('請輸入驗證碼')" class="inputStyle"
-                @keyup.enter="setLogin" />
-            </div>
-
-            <input id="captcha_result" type="hidden" name="captcha_result" value="12" />
-
-            <div>
-              <div class="btn" @click="setLogin">{{ $lang('登入') }}</div>
-              <div class="btn" style="background-color: rgb(233, 126, 54)" @click="navigateTo('/register')">
-                {{ $lang('註冊') }}
-              </div>
-            </div>
-            <div class="links">
-              <p>
-                <a @click="navigateTo('/')">{{ $lang('返回首頁') }}</a>
-              </p>
-              <p class="right">
-                <a @click="openChatBox()">{{ $lang('忘記密碼?') }}</a>
-              </p>
-              <div class="clear"></div>
-            </div>
+          <div>
+            <span @click="openChatBox()">{{ $lang('忘記密碼了嗎？') }}</span> |
+            <span>{{ $lang('忘記郵件地址？') }}</span> |
+            <span @click="navigateTo('/register')">{{ $lang('解鎖帳戶') }}</span>
           </div>
         </div>
       </div>
@@ -301,71 +253,80 @@ const bannerIndex = ref(0)
       outline: none
 </style>
 <style scoped lang="sass">
-.bg-layer
-  background: rgba(0, 0, 0, 50%)
-  min-height: 100vh
+// .bg-layer
+//   background: rgba(0, 0, 0, 50%)
+//   min-height: 100vh
 
-h1
-  font-size: 45px
-  color: #fff
-  font-weight: 800
-  text-transform: uppercase
-  letter-spacing: 4px
-  text-align: center
-  padding: 1em 0 0.4em 0
 
 .header-main
-  width: 374px
-  margin: 0 auto
-  position: relative
+  width: 450px
   z-index: 999
-  padding: 3em 2em
-  background: rgba(255, 255, 255, 75%)
-  -webkit-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
-  -moz-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
-  box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
+  background: #1c2156
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%,-50%)
+  max-width: 100%
 
 .main-icon
   text-align: center
   margin: 0 auto 20px
+  position: absolute
+  z-index: 999
+  left: 28px
+  top: 28px
 
   img
     width: 100%
 img
   max-width: 100%
-
+.loginbox
+  width: 100%
+  display: flex
+  justify-content: flex-end
+.textl
+  padding: 12px 40px 20px 10px
+  color: #fff
+  font-size: 12px
+  text-align: center
 .icon1
-  margin: 0 0 1em
-  padding: .8em 1em
-  background: rgba(255, 255, 255, 30%)
+  // margin: 0 0 1em
+  padding: 6px 1em
   color: black
   display: flex
   align-items: center
+  justify-content: center
+  color: #fff
+  input
+    color: #000
   span
     min-width: 64px !important
+    font-size: 14px
+    text-align: right
     // white-space: nowrap
 
 .bottom
   margin: 1em 0 0
-
+.header-left-bottom
+  .title
+    padding: 10px 15px
+    font-size: 24px
+    color: #fff
+    margin-bottom: 10px
 .header-left-bottom .btn
-  background: #007cc0
+  background: #0047bb
   color: #fff
-  font-size: 18px
-  font-weight: bold
-  text-transform: uppercase
-  padding: .8em 2em
-  letter-spacing: 1px
-  transition: 0.5s all
-  -webkit-transition: 0.5s all
-  -moz-transition: 0.5s all
-  -o-transition: 0.5s all
-  display: inline-block
+  font-size: 14px
+  // transition: 0.5s all
   cursor: pointer
-  outline: none
-  border: none
-  width: 100%
-
+  margin: 10px 10px 10px 20px
+  width: 78px
+  height: 36px
+  display: flex
+  align-items: center
+  justify-content: center
+  &:hover
+    background: #e52823
 a
   color: #585858
   margin: 0em
@@ -385,8 +346,16 @@ a
     color: #000000
     text-transform: uppercase
 .links
-  height: 57px
   cursor: pointer
+  border-top: 1px solid #e7e7e7
+  padding: 15px 0
+  color: #fff
+  text-align: center
+  font-size: 14px
+  span
+    &:hover
+      text-decoration: underline
+      text-decoration-color: #fff
   .right
     text-align: right
 .inputStyle
@@ -394,7 +363,11 @@ a
   padding: 8px
   margin-left: 10px
   border: 1px solid black
-  opacity: 0.4
+  // opacity: 0.4
+  background-color: #abcae9
+  height: 30px
+  width: 270px
+  border-radius: 5px
 .banneractive
   opacity: 1 !important
 .swimg

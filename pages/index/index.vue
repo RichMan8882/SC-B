@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import Lenis from "@studio-freight/lenis"
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const { t } = useI18n()
 const siteStore = useSiteStore()
 const router = useRouter()
@@ -11,19 +13,19 @@ const section4 = ref<HTMLElement | null>(null)
 const windowHeight = ref(0)
 const timer = ref()
 onMounted(() => {
-  timer.value = setInterval(() => {
-    bannerIndex.value++
-    if (bannerIndex.value > 2) bannerIndex.value = 0
-  }, 3000)
-  document.documentElement.scrollTop = 0
-  if (window) {
-    console.log('window', window.innerWidth)
-    window.addEventListener('scroll', handleScroll)
-  }
-  windowHeight.value = window.innerHeight
-  window.addEventListener('resize', () => {
-    windowHeight.value = window.innerHeight
-  })
+  // timer.value = setInterval(() => {
+  //   bannerIndex.value++
+  //   if (bannerIndex.value > 2) bannerIndex.value = 0
+  // }, 3000)
+  // document.documentElement.scrollTop = 0
+  // if (window) {
+  //   console.log('window', window.innerWidth)
+  //   window.addEventListener('scroll', handleScroll)
+  // }
+  // windowHeight.value = window.innerHeight
+  // window.addEventListener('resize', () => {
+  //   windowHeight.value = window.innerHeight
+  // })
 })
 const handleScroll = () => {
   scrollTop.value = window.scrollY
@@ -61,1024 +63,1671 @@ onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
   }
 })
-const bannerIndex = ref(0)
 const toUrl = (url) => {
   window.open(url)
 }
+gsap.registerPlugin(ScrollTrigger);
+let lenis = null
+let rafId = null
+const bgcolor = ref('#fefcf6')
+const mm = gsap.matchMedia()
+onMounted(() => {
+  lenis = new Lenis({
+    duration: 1.2,
+    easing: t => 1 - Math.pow(1 - t, 3),
+    smooth: true,
+    direction: "vertical",
+    gestureDirection: "vertical",
+    smoothTouch: false,
+    touchMultiplier: 2
+  })
+
+  const raf = (time) => {
+    lenis.raf(time)
+    rafId = requestAnimationFrame(raf)
+  }
+  // window.addEventListener('resize', checkWidthAndInit)
+  rafId = requestAnimationFrame(raf)
+  lenis.on("scroll", ({ scroll, limit, direction }) => {
+
+    isWhite.value = scroll >= 100
+    if (scroll >= 350) {
+      bgcolor.value = '#abcae9 !important'
+    }
+    if (direction == 1) {
+      isTop.value = true
+    }
+    if (direction == -1) {
+      isTop.value = false
+    }
+    if (scroll < 350) {
+      bgcolor.value = '#fefcf6 !important'
+    }
+    if (scroll >= 350) {
+      bgcolor.value = '#abcae9 !important'
+    }
+    const width = window.innerWidth
+    if (width > 768) {
+      if (scroll >= 2479) {
+        bgcolor.value = '#152d48'
+      }
+      if (scroll >= 4000) {
+        bgcolor.value = '#fefcf5'
+      }
+      if (scroll >= 5200) {
+        bgcolor.value = 'url(@/assets/images/homebg.webp)'
+      }
+      if (scroll >= 6200) {
+        bgcolor.value = '#fefcf5'
+      }
+      if (scroll >= 7000) {
+        if (botAcitve.value == 1) {
+          bgcolor.value = '#1e5e94'
+        } else {
+          bgcolor.value = '#164167'
+        }
+      }
+    } else {
+      if (scroll >= 1500) {
+        bgcolor.value = '#152d48'
+      }
+      if (scroll >= 3000) {
+        bgcolor.value = '#1e5e94'
+      }
+    }
+  })
+  mm.add("(min-width: 700px)", () => {
+    const titlesbox = gsap.utils.toArray(".titlesbox");
+    titlesbox.forEach((title) => {
+      gsap.to(title, {
+        y: -300, // 負值代表上浮，數值越大浮動越明顯
+        ease: "none", // 必須為 none 才能完美同步滾動條
+        scrollTrigger: {
+          trigger: title, // 監視這個大容器
+          start: "top bottom",    // 當容器頂部進入視窗底部時開始計算
+          end: "bottom top",      // 當容器底部離開視窗頂部時結束
+          scrub: 1,             // [關鍵參數] 數字代表延遲感。1.5秒的緩動讓它有「懸浮沉降」的感覺
+        }
+      });
+    });
+  });
+
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(rafId)
+  lenis.destroy()
+})
+const hideplayerimgbg1 = ref(true)
+const hideplayerimgbg2 = ref(true)
+const hideplayerimgbg3 = ref(true)
+const clyixing = (tye) => {
+
+}
+const rotateValue = ref(0)
+const useyixing = ref(false)
+const goLink = (link) => {
+  window.open(link)
+}
+const indexbannerAcitve = ref(0)
+const indexbannerAcitveup = (a) => {
+  if (a) {
+    indexbannerAcitve.value--
+    if (indexbannerAcitve.value == -1) {
+      indexbannerAcitve.value = 5
+    }
+  } else {
+    indexbannerAcitve.value++
+    if (indexbannerAcitve.value == 6) {
+      indexbannerAcitve.value = 0
+    }
+  }
+}
+const isTop = ref(false)
+const isWhite = ref()
+const botAcitve = ref(1)
 </script>
 
 <template>
   <div class="cont">
-    <headerTop></headerTop>
-    <section class="banner">
-      <div :class="bannerIndex == 0 ? 'banneractive' : ''" class="item bgimg1">
-        <h2>獨具一格</h2>
-        <p>
-          作為率先在中國開展風險投資業務的投資機構，博裕
-          投資
-          已發展成為一家紮根中國市場、具備全球化視野的私募股權投資機構。
-        </p>
-      </div>
-      <div :class="bannerIndex == 1 ? 'banneractive' : ''" class="item bgimg2">
-        <h2>深度互信</h2>
-        <p>
-          博裕
-          投資與包括主權基金/國家級出資平臺、養老基金、專業金融機構、產業資本以及家族辦公室等合作夥伴保持長期穩定的合作關係。
-        </p>
-      </div>
-      <div :class="bannerIndex == 2 ? 'banneractive' : ''" class="item bgimg3">
-        <h2>卓越業績</h2>
-        <p>
-          博裕投資已扶植逾600
-          家企業透過在中國大陸、中國香港、美國、歐洲資本市場IPO或併購
-          成功形式實現退出，支持了中國近一半的獨角獸企業。
-        </p>
-      </div>
-      <div class="drop">
-        <div :class="bannerIndex == 0 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 0"></div>
-        <div :class="bannerIndex == 1 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 1"></div>
-        <div :class="bannerIndex == 2 ? 'dropactive' : ''" class="dropitem" @click="bannerIndex = 2"></div>
-      </div>
-    </section>
-    <div class="bodybox">
-
-      <section class="section2">
-        <h2>我們的使命</h2>
-        <div class="content">
-          <div class="smitem">
-            <img src="@/assets/images/indexb/icon-yj.svg" alt="" />
-            <div>
-              <h3>預見</h3>
-              <p>正在發生的巨大變化</p>
-            </div>
+    <headerTop :top="isTop" :white="isWhite" :opacity="isTop"></headerTop>
+    <div :style="{ background: bgcolor }" class="bodybox">
+      <banner></banner>
+      <div class="container">
+        <h1 class="stitle">{{ $lang('將洞察力轉化為優勢') }}</h1>
+        <h2 class="ftitle">{{ $lang('我們致力於價值創造之旅，從最初的想法到持久的影響。') }}</h2>
+        <div class="banner-box">
+          <div class="ifbox">
+            <iframe allow="autoplay;" class="player2" muted="" plays-inline=""
+              src="https://player.vimeo.com/video/1026850835?api=1&amp;player_id=player2&amp;quality=1080p&amp;autoplay=0"
+              frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+            </iframe>
+            <img v-if="hideplayerimgbg1" class="playerbg1" src="@/assets/images/playerbg1.jpg" alt="">
+            <div v-if="hideplayerimgbg1" class="textbg"></div>
+            <div v-if="hideplayerimgbg1" @click="hideplayerimgbg1 = false" class="textmore"><svg id="Layer_1"
+                xmlns="//www.w3.org/2000/svg" width="25.88" height="25.88" viewBox="0 0 25.88 25.88">
+                <path class="cls-1"
+                  d="M11.29,19.96l-1.32-1.32.67-.67c2.41-2.41,3.62-3.62,3.62-5.03s-1.21-2.62-3.62-5.03l-.67-.67,1.32-1.32,7.02,7.02-7.02,7.02ZM12.94,0C5.8,0,0,5.8,0,12.94s5.8,12.94,12.94,12.94,12.94-5.8,12.94-12.94S20.07,0,12.94,0">
+                </path>
+              </svg>{{ $lang('我們不同的合作方式') }}</div>
           </div>
-          <div class="smitem">
-            <img src="@/assets/images/indexb/icon-pb.svg" alt="" />
-            <div>
-              <h3>陪伴</h3>
-              <p>有夢想有格局的未來開拓者</p>
-            </div>
+          <h1 class="titlesbox">
+            <h1>{{ $lang('不同的合作方式') }}</h1>
+            <h2>{{ $lang('我們以不同的方式合作，建立持久的關係，在我們的平台上進行協作，並專注於創造價值，以實現更好的結果。') }}</h2>
+          </h1>
+        </div>
+        <div class="banner-box fan">
+          <h1 class="titlesbox">
+            <h1>{{ $lang('開啟機遇') }}</h1>
+            <h2>{{ $lang('我們匯聚多元視角，追求變革性理念。透過協作文化，我們整合洞見，釋放潛能。') }}</h2>
+          </h1>
+          <div class="ifbox marle40">
+            <iframe allow="autoplay;" class="player2" muted="" plays-inline=""
+              src="https://player.vimeo.com/video/1026850705?api=1&amp;player_id=player2&amp;quality=1080p&amp;autoplay=0"
+              frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+            </iframe>
+            <img v-if="hideplayerimgbg2" class="playerbg1" src="@/assets/images/playerbg2.jpg" alt="">
+            <div v-if="hideplayerimgbg2" class="textbg"></div>
+            <div v-if="hideplayerimgbg2" @click="hideplayerimgbg2 = false" class="textmore"><svg id="Layer_1"
+                xmlns="//www.w3.org/2000/svg" width="25.88" height="25.88" viewBox="0 0 25.88 25.88">
+                <path class="cls-1"
+                  d="M11.29,19.96l-1.32-1.32.67-.67c2.41-2.41,3.62-3.62,3.62-5.03s-1.21-2.62-3.62-5.03l-.67-.67,1.32-1.32,7.02,7.02-7.02,7.02ZM12.94,0C5.8,0,0,5.8,0,12.94s5.8,12.94,12.94,12.94,12.94-5.8,12.94-12.94S20.07,0,12.94,0">
+                </path>
+              </svg>{{ $lang('我們如何釋放機遇') }}</div>
           </div>
-          <div class="smitem">
-            <img src="@/assets/images/indexb/icon-td.svg" alt="" />
-            <div>
-              <h3>推動</h3>
-              <p>創造社會價值</p>
+        </div>
+        <div class="banner-box">
+          <div class="ifbox">
+            <iframe allow="autoplay;" class="player2" muted="" plays-inline=""
+              src="https://player.vimeo.com/video/1026850567?api=1&amp;player_id=player2&amp;quality=1080p&amp;autoplay=0"
+              frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+            </iframe>
+            <img v-if="hideplayerimgbg3" class="playerbg1" src="@/assets/images/playerbg3.jpg" alt="">
+            <div v-if="hideplayerimgbg3" class="textbg"></div>
+            <div v-if="hideplayerimgbg3" @click="hideplayerimgbg3 = false" class="textmore"><svg id="Layer_1"
+                xmlns="//www.w3.org/2000/svg" width="25.88" height="25.88" viewBox="0 0 25.88 25.88">
+                <path class="cls-1"
+                  d="M11.29,19.96l-1.32-1.32.67-.67c2.41-2.41,3.62-3.62,3.62-5.03s-1.21-2.62-3.62-5.03l-.67-.67,1.32-1.32,7.02,7.02-7.02,7.02ZM12.94,0C5.8,0,0,5.8,0,12.94s5.8,12.94,12.94,12.94,12.94-5.8,12.94-12.94S20.07,0,12.94,0">
+                </path>
+              </svg>{{ $lang('我們如何努力創造卓越成果') }}</div>
+          </div>
+          <h1 class="titlesbox">
+            <h1>{{ $lang('創造卓越成果') }}</h1>
+            <h2>{{ $lang('我們致力於透過支持員工和提升投資績效來實現卓越成果。我們不斷挑戰自我，力求找到最佳解決方案。') }}</h2>
+          </h1>
+        </div>
+        <div class="yixing">
+          <h1 class="ytitle" @click="useyixing = !useyixing">{{ $lang('我們的整合平台') }}</h1>
+          <div class="ytext" :style="{ opacity: useyixing ? '0' : '1' }">{{
+            $lang('四十多年來，我們透過策略性地發展業務，並擴大業務範圍，以應對日益複雜的投資環境。') }}</div>
+          <div class="yixcont">
+            <div
+              :style="{ transform: 'rotate(' + rotateValue + 'deg)', marginLeft: useyixing ? '0px' : 'calc(50% - 300px)' }"
+              class="yixingleft">
+              <div class="ganzi"></div>
+              <div class="ganzi"></div>
+              <div class="ganzi"></div>
+              <div class="ganzi"></div>
+              <div class="ganzi"></div>
+              <img class="pdx" src="@/assets/images/pdx.png" alt="">
+              <div :style="{ transform: 'rotate(' + -rotateValue + 'deg)', color: rotateValue == 0 ? '#f0f2f4' : '' }"
+                @click="rotateValue = 0, useyixing = true" class="yixingtext yixingtextchengzhang">{{ $lang('成長與創投') }}
+              </div>
+              <div :style="{ transform: 'rotate(' + -rotateValue + 'deg)', color: rotateValue == -72 ? '#f0f2f4' : '' }"
+                @click="rotateValue = -72, useyixing = true" class="yixingtext yixingtextziben">{{ $lang('資本解決方案') }}
+              </div>
+              <div
+                :style="{ transform: 'rotate(' + -rotateValue + 'deg)', color: rotateValue == -144 ? '#f0f2f4' : '' }"
+                @click="rotateValue = -144, useyixing = true" class="yixingtext yixingtextxinyong">
+                {{ $lang('信用') }}</div>
+              <div :style="{ transform: 'rotate(' + -rotateValue + 'deg)', color: rotateValue == 144 ? '#f0f2f4' : '' }"
+                @click="rotateValue = 144, useyixing = true" class="yixingtext yixingtextshiti">{{ $lang('實體資產') }}
+              </div>
+              <div :style="{ transform: 'rotate(' + -rotateValue + 'deg)', color: rotateValue == 72 ? '#f0f2f4' : '' }"
+                @click="rotateValue = 72, useyixing = true" class="yixingtext yixingtextsimu">{{ $lang('私募股權') }}</div>
+            </div>
+            <div :style="{ opacity: useyixing ? '1' : '0', left: useyixing ? '50%' : '100%' }" class="yixingright">
+              <div :style="{ opacity: rotateValue == 0 ? '1' : '0', pointerEvents: rotateValue == 0 ? 'auto' : 'none' }"
+                class="yxcont">
+                <div class="yxrtitle">{{ $lang('成長與創投') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrtext">{{ $lang('與富有遠見的領導者合作，加速從種子輪到規模化成長。') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapital.com/ventures')">{{ $lang('創投') }}<div
+                    class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitallifesciences.com/portfolio')">{{
+                  $lang('生命科學') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitaltechopportunities.com/')">{{
+                  $lang('技術機會') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapital.com/crypto')">{{ $lang('加密貨幣') }}<div
+                    class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                :style="{ opacity: rotateValue == -72 ? '1' : '0', pointerEvents: rotateValue == -72 ? 'auto' : 'none' }"
+                class="yxcont">
+                <div class="yxrtitle">{{ $lang('資本解決方案') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrtext">{{ $lang('針對不同類型的資產、產業、市場和業務生命週期，建構客製化解決方案。') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何投資') }}</div>
+                <div class="yxrlinktext" @click="goLink('https://baincapitalspecialsituations.com/')">{{ $lang('特殊情況')
+                }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                :style="{ opacity: rotateValue == -144 ? '1' : '0', pointerEvents: rotateValue == -144 ? 'auto' : 'none' }"
+                class="yxcont">
+                <div class="yxrtitle">{{ $lang('信用') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrtext">{{ $lang('透過嚴謹的分析和涵蓋整個信貸領域的解決方案，創造投資機會。') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何投資') }}</div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitalcredit.com/')">{{ $lang('信用') }}<div
+                    class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                :style="{ opacity: rotateValue == 144 ? '1' : '0', pointerEvents: rotateValue == 144 ? 'auto' : 'none' }"
+                class="yxcont">
+                <div class="yxrtitle">{{ $lang('實體資產') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrtext">{{ $lang('建構下一代房地產資產。') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何投資') }}</div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitalrealestate.com/')">{{ $lang('房地產') }}
+                  <div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://baincapitalspecialsituations.com/')">{{ $lang('特殊情況')
+                }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                :style="{ opacity: rotateValue == 72 ? '1' : '0', pointerEvents: rotateValue == 72 ? 'auto' : 'none' }"
+                class="yxcont">
+                <div class="yxrtitle">{{ $lang('私募股權') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何創造價值') }}</div>
+                <div class="yxrtext">{{ $lang('憑藉著深厚的產業專業知識與能力，協助企業轉型升級。') }}</div>
+                <div class="yxrxtext">{{ $lang('我們如何投資') }}</div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitalprivateequity.com/')">{{ $lang('全球私募股權')
+                }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitaldoubleimpact.com/')">{{ $lang('雙重衝擊') }}
+                  <div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="yxrlinktext" @click="goLink('https://www.baincapitalinsurance.com/')">{{ $lang('保險') }}<div
+                    class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-      <section class="section2">
-        <h2>機構簡介</h2>
-        <p style="color: #666; line-height: 180%">
-          博裕投資創立於2011年，是一家深耕中國市場以及佈局全球的另一類資產管理公司。本公司建構了涵蓋私募股權投資、上市公司策略配置、物流樞紐與資料中心投資、創業投資、新能源產業平台的信心投資矩陣。博裕深度聚焦科技創新、消費零售醫療健康三大重點領域。依託一體化、和諧連結的投資管理平台，長期致力於為投資人創造卓越的價值與回報。
-        </p>
-      </section>
-      <section class="section2">
-        <h2>發展歷程</h2>
-        <p style="color: #666; line-height: 180%">
-          成立於2011年，始於私募股權投資，並於2016年拓展業務至二級市場投資領域，並於2020年啟動不動產與新基建投資及創投。如今，博裕已發展成為一個全面且良好的投資平台。
-        </p>
-        <div class="list1 list2">
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>成立私募股權投資</h3>
+        <div class="yixing">
+          <h1 class="ytitle">{{ $lang('垂直聚光燈') }}</h1>
+          <div class="jgdcont">
+            <div @click="goLink('https://www.baincapital.com/technology/')" class="">
+              <div class="lefimgbox" style="overflow: hidden;">
+                <img src="@/assets/images/investment-spotlight-tech-v2.jpg" alt="">
+              </div>
+              <div class="jgdteboxl">
+                <div class="keji">{{ $lang('科技') }}</div>
+                <div class="kejit">{{ $lang('引領公司邁向未來') }}</div>
+              </div>
             </div>
-            <div class="v-body">
-              <ul>
-                <li>
-                  <h4>2011</h4>
-                  <p>
-                    美元PE一期基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2013</h4>
-                  <p>
-                    人民幣PE一期基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2014</h4>
-                  <p>
-                    美元PE二期基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2015</h4>
-                  <p>
-                    人民幣PE二期基金
-                  </p>
-                </li>
-              </ul>
+            <div @click="goLink('https://www.baincapital.com/healthcare/')" class="">
+              <div class="rigimgbox" style="overflow: hidden;">
+                <img src="@/assets/images/investment-spotlight-health-v2.png.jpg" alt="">
+              </div>
+              <div class="jgdteboxr">
+                <div class="keji">{{ $lang('衛生保健') }}</div>
+                <div class="kejir">{{ $lang('打造服務病患的偉大公司') }}</div>
+              </div>
             </div>
+            <div class=""></div>
           </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>成立二級市場投資</h3>
+        </div>
+        <div class="yixing">
+          <div class="yoxucont">
+            <div class="yoxule">
+              <div class="yoxutitle">{{ $lang('永續性與影響') }}</div>
+              <div class="yoxutext">{{ $lang('將永續發展理念融入我們的各項業務組合，將對我們的環境 and 社會產生正面的長期影響。') }}</div>
+              <div class="youxuitem" style="font-size: 37px;font-weight: 300;">{{ $lang('我們的核心永續發展承諾') }}</div>
+              <div class="youxuitem"
+                @click="goLink('https://www.baincapital.com/sustainability-and-impact/active-governance-and-stewardship')"
+                @mouseenter="indexbannerAcitve = 1" @mouseleave="indexbannerAcitve = 0">{{ $lang('積極的治理與管理') }}
+                <div class="arrow-outline">
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17" viewBox="0 0 6.63 11.17">
+                    <path class="arrow-icon"
+                      d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="youxuitem"
+                @click="goLink('https://www.baincapital.com/sustainability-and-impact/sustainable-growth-reducing-climate-impact')"
+                @mouseenter="indexbannerAcitve = 2" @mouseleave="indexbannerAcitve = 0">{{ $lang('永續成長和減少氣候影響') }}
+                <div class="arrow-outline">
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17" viewBox="0 0 6.63 11.17">
+                    <path class="arrow-icon"
+                      d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="youxuitem"
+                @click="goLink('https://www.baincapital.com/sustainability-and-impact/fair-employment-engagement-well-being')"
+                @mouseenter="indexbannerAcitve = 3" @mouseleave="indexbannerAcitve = 0">{{ $lang('公平就業、參與和福祉') }}
+                <div class="arrow-outline">
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17" viewBox="0 0 6.63 11.17">
+                    <path class="arrow-icon"
+                      d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="youxuitem"
+                @click="goLink('https://www.baincapital.com/sustainability-and-impact/diversity-equity-and-inclusion')"
+                @mouseenter="indexbannerAcitve = 4" @mouseleave="indexbannerAcitve = 0">{{ $lang('多元化、公平性和包容性') }}
+                <div class="arrow-outline">
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17" viewBox="0 0 6.63 11.17">
+                    <path class="arrow-icon"
+                      d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="youxuitem"
+                @click="goLink('https://www.baincapital.com/sustainability-and-impact/community-engagement')"
+                @mouseenter="indexbannerAcitve = 5" @mouseleave="indexbannerAcitve = 0">{{ $lang('社區參與') }}<div
+                  class="arrow-outline">
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17" viewBox="0 0 6.63 11.17">
+                    <path class="arrow-icon"
+                      d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div class="v-body">
-              <ul>
-                <li>
-                  <h4>2016</h4>
-                  <p>
-                    二級市場基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2017</h4>
-                  <p>
-                    美元PE三期基金
-                  </p>
-                  <p>
-                    人民幣PE三期基金
-                  </p>
-                  <p>
-                    與萬科共同發起設立物流地產基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2019</h4>
-                  <p>
-                    美元PE四期基金
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>不動產與新基建</h3>
-            </div>
-            <div class="v-body">
-              <ul>
-                <li>
-                  <h4>2020</h4>
-                  <p>
-                    美元VC一期資金
-                  </p>
-                </li>
-                <li>
-                  <h4>2021</h4>
-                  <p>
-                    美元PE五期基金
-                  </p>
-                  <p>美元成長一期基金
-                  </p>
-                  <p>人民幣PE四期基金
-                  </p>
-                  <p>人民幣VC一期基金
-                  </p>
-                </li>
-                <li>
-                  <h4>2022</h4>
-                  <p>
-                    美元VC二期資金
-                  </p>
-                </li>
-              </ul>
+            <div class="yoxuri">
+              <img v-if="indexbannerAcitve == 0" src="@/assets/images/indexbanner0.jpg" alt="">
+              <img v-if="indexbannerAcitve == 1" src="@/assets/images/indexbanner1.jpg" alt="">
+              <img v-if="indexbannerAcitve == 2" src="@/assets/images/indexbanner2.jpg" alt="">
+              <img v-if="indexbannerAcitve == 3" src="@/assets/images/indexbanner3.jpg" alt="">
+              <img v-if="indexbannerAcitve == 4" src="@/assets/images/indexbanner4.jpg" alt="">
+              <img v-if="indexbannerAcitve == 5" src="@/assets/images/indexbanner5.jpg" alt="">
+              <div @click="indexbannerAcitveup(true)" class="lejian" style="left: -40px;">
+                <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="15.04" height="26.54" viewBox="0 0 15.04 26.54">
+                  <path class="cls-1"
+                    d="M14.15,23.88c-5-5-7.5-7.5-7.5-10.61s2.5-5.61,7.5-10.61l.89-.89-1.77-1.77L0,13.27l13.27,13.27,1.77-1.77-.89-.89Z">
+                  </path>
+                </svg>
+              </div>
+              <div @click="indexbannerAcitveup(false)" class="lejian rijian"
+                style="position: absolute;right: -35px !important;">
+                <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="15.04" height="26.54" viewBox="0 0 15.04 26.54">
+                  <path class="cls-1"
+                    d="M.89,23.88c5-5,7.5-7.5,7.5-10.61S5.89,7.66.89,2.66l-.89-.89L1.77,0l13.27,13.27L1.77,26.54l-1.77-1.77.89-.89Z">
+                  </path>
+                </svg>
+              </div>
+              <div v-if="indexbannerAcitve == 0" class="botcont" style="padding-top: 70px;">
+                <div class="bottitle">{{ $lang('創造永續價值') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://cdn-east2.baincapital.com/2025-06/Bain-Capital-Sustainability-Report-June2025_0.pdf?VersionId=g_eEXbw1xbuP1q8YuljPD5jzIevSVKpu')"
+                  style="color: #1b215a;background-color: #dcf54e">{{ $lang('2025年永續發展報告') }}
+                  <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="16" height="15.19" viewBox="0 0 16 15.19">
+                    <path class="cls-1"
+                      d="M15,10.19c-.55,0-1,.45-1,1v1.2c0,.44-.36.8-.81.8H2.8c-.44,0-.8-.36-.8-.8v-1.2c0-.55-.45-1-1-1s-1,.45-1,1v2c0,.55.2,1.02.59,1.41.39.39.86.59,1.41.59h12c.55,0,1.02-.2,1.41-.59.39-.39.59-.86.59-1.41v-2c0-.55-.45-1-1-1">
+                    </path>
+                    <path class="cls-1"
+                      d="M8,11l5-5h0c.4-.39.41-1.02.02-1.42-.39-.4-1.02-.41-1.42-.03l-2.6,2.6V1c0-.55-.45-1-1-1s-1,.45-1,1v6.15l-2.6-2.6c-.4-.39-1.04-.37-1.42.03-.39.4-.37,1.03.03,1.42l5,5Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div v-if="indexbannerAcitve == 1" class="botcont">
+                <div class="bottitle">{{ $lang('積極的治理與管理') }}</div>
+                <div class="bottext">{{ $lang('為了促進積極參與的治理，我們將與投資組合公司和管理團隊合作，秉持高度誠信，對創造價值負責。') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://www.baincapital.com/sustainability-and-impact/active-governance-and-stewardship')">
+                  {{ $lang('探索承諾') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div v-if="indexbannerAcitve == 2" class="botcont">
+                <div class="bottitle">{{ $lang('永續成長和減少氣候影響') }}</div>
+                <div class="bottext">{{ $lang('為了減少排放並提高資源利用效率，我們將永續發展理念融入公司營運中，並嚴格衡量其隨時間推移所產生的影響。') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://www.baincapital.com/sustainability-and-impact/sustainable-growth-reducing-climate-impact')">
+                  {{ $lang('探索承諾') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div v-if="indexbannerAcitve == 3" class="botcont">
+                <div class="bottitle">{{ $lang('公平就業、參與和福祉') }}</div>
+                <div class="bottext">{{ $lang('為了公平、尊重地對待員工，我們需要創造一個以員工安全、福祉和敬業度為核心的環境和文化。') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://www.baincapital.com/sustainability-and-impact/fair-employment-engagement-well-being')">
+                  {{ $lang('探索承諾') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div v-if="indexbannerAcitve == 4" class="botcont">
+                <div class="bottitle">{{ $lang('多元化、公平性和包容性') }}</div>
+                <div class="bottext">{{ $lang('倡導多元化和包容性，並透過培養高績效文化推動有意義的進步。') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://www.baincapital.com/sustainability-and-impact/diversity-equity-and-inclusion')">
+                  {{ $lang('探索承諾') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div v-if="indexbannerAcitve == 5" class="botcont">
+                <div class="bottitle">{{ $lang('社區參與') }}</div>
+                <div class="bottext">{{ $lang('為了鼓勵和支持我們旗下公司積極參與並貢獻於其所在社區，無論是在本地還是在全球範圍內。') }}</div>
+                <div class="botbtn"
+                  @click="goLink('https://www.baincapital.com/sustainability-and-impact/community-engagement')">{{
+                    $lang('探索承諾') }}<div class="arrow-outline">
+                    <svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="6.63" height="11.17"
+                      viewBox="0 0 6.63 11.17">
+                      <path class="arrow-icon"
+                        d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-      <section class="section3">
-        <h2>業務範圍</h2>
-        <div class="content">
-          <div class="left">
-            <img src="@/assets/images/indexb/business.jpg" alt="" />
-            <div class="list">
+        <div class="yixing" style="margin-top: 100px;">
+          <div class="zhuoyue">
+            <div class="zhuoyuecont">
+              <div class="zytitle"><span>{{ $lang('卓越的團隊') }}</span>{{ $lang('才能取得卓越的成果。') }}</div>
+              <div class="zytext">{{ $lang('我們互相激勵，以不同的方式思考和工作，從而創造有意義且持久的影響。') }}</div>
+              <div class="zybtn">{{ $lang('認識我們的團隊成員') }}<svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="12.63"
+                  height="18.17" viewBox="0 0 6.63 11.17">
+                  <path
+                    d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="namebox"><span style="color: #26698a;">{{ $lang('阿姆里塔·桑卡爾') }}</span> / {{ $lang('永續發展與影響力總監')
+            }} / {{ $lang('波士頓') }}</div>
+          </div>
+        </div>
+        <div class="yixing">
+          <div class="newsbox">
+            <div class="nele">
+              <h1 class="neletitle">{{ $lang('最新消息') }}</h1>
+              <img src="@/assets/images/HSO 2.jpg" alt="">
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('私募股權') }} / {{
+                $lang('2025年8月13日') }}</div>
+              <div class="newtext">{{ $lang('貝恩資本將投資HSO，該公司是微軟雲端和人工智慧商業應用領域的全球領導者') }}</div>
+            </div>
+            <div class="neri">
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('特殊情況') }} / {{
+                $lang('2026年3月18日') }}</div>
+              <div class="neritext">{{ $lang('通風和空氣品質解決方案領導者 Duravent 集團獲得貝恩資本的策略性成長投資') }}</div>
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('私募股權') }} / {{
+                $lang('2026年3月16日') }}</div>
+              <div class="neritext">{{ $lang('貝恩資本將收購永續財富管理公司') }}</div>
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('私募股權') }} / {{
+                $lang('2026年3月2日') }}</div>
+              <div class="neritext">{{ $lang('貝恩資本宣布投資瑞典領先的非食品消費品分銷商Tingstad') }}</div>
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('信用') }} / {{
+                $lang('2026年2月26日') }}</div>
+              <div class="neritext">{{ $lang('貝恩資本專業金融公司公佈截至2025年12月31日的財務業績，並宣布2026年第一季每股派息042美元。') }}</div>
+              <div class="timetext"><span style="color: #001aff;">{{ $lang('新聞稿') }} /</span> {{ $lang('信用') }} / {{
+                $lang('2026年2月20日') }}</div>
+              <div class="neritext">{{ $lang('Fluent Commerce 從貝恩資本獲得 4,600 萬澳元投資，加速下一階段成長') }}</div>
+              <div class="zybtn">{{ $lang('查看所有新聞') }}<svg id="Layer_1" xmlns="//www.w3.org/2000/svg" width="12.63"
+                  height="18.17" viewBox="0 0 6.63 11.17">
+                  <path
+                    d="M.71,9.77c1.97-1.97,2.96-2.96,2.96-4.18S2.68,3.37.71,1.4l-.35-.35.7-.7,5.23,5.23L1.05,10.82l-.7-.7.35-.35Z">
+                  </path>
+                </svg></div>
+            </div>
+          </div>
+        </div>
+        <div class="yixing">
+          <div class="map">
+            <img v-if="botAcitve == 1" src="@/assets/images/imagemap.png" alt="">
+            <div class="mapcont" :class="botAcitve == 1 ? 'absolutecls' : ''">
+              <div class="maptitlebox">
+                <div class="maptitle">{{ $lang('我們的全球佈局') }}</div>
+                <div class="zhou">
+                  <div @click="botAcitve = 1, bgcolor = '#1e5e94'" :class="botAcitve == 1 ? 'botacitve' : ''">{{
+                    $lang('全球位置') }}</div>
+                  <div @click="botAcitve = 2, bgcolor = '#164167'" :class="botAcitve == 2 ? 'botacitve' : ''">{{
+                    $lang('美洲') }}</div>
+                  <div @click="botAcitve = 3, bgcolor = '#164167'" :class="botAcitve == 3 ? 'botacitve' : ''">{{
+                    $lang('亞洲') }}</div>
+                  <div @click="botAcitve = 4, bgcolor = '#164167'" :class="botAcitve == 4 ? 'botacitve' : ''">{{
+                    $lang('歐洲') }}</div>
+                </div>
+              </div>
+              <div class="syall"><span>{{ $lang('商業：') }}</span>{{ $lang('全部') }}</div>
+              <div v-if="botAcitve == 2" class="maplist">
+                <div class="nonelineb"></div>
+                <div class="noneliner"></div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('波士頓') }}</p>
+                  <p>{{ $lang('美國麻薩諸塞州') }}</p>
+                  <p>{{ $lang('波士頓克拉倫登街200號，') }}</p>
+                  <p>{{ $lang('郵編02116 。') }}</p>
+                  <p class="phone">+1 (617) 516-2000</p>
+                  <p>{{ $lang('傳真：') }}+1 (617) 516-2010</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('芝加哥') }}</p>
+                  <p>{{ $lang('美國伊利諾州芝加哥市西亞當斯街222號') }}</p>
+                  <p>{{ $lang('2200室，郵編：60606主要地址：') }}</p>
+                  <p class="phone" style="margin-top: 50px;">+1 (312) 253-6940</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('紐約') }}</p>
+                  <p>{{ $lang('美國紐約州') }}</p>
+                  <p>{{ $lang('紐約市麥迪遜大道535號29樓，郵編10022主要地址：') }}</p>
+                  <p class="phone">+1 (212) 326-9420</p>
+                  <p>{{ $lang('傳真：') }}+1 (212) 421-2225</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('紐約百老匯') }}</p>
+                  <p style="color: #abcae9;">{{ $lang('創投與加密貨幣') }}</p>
+                  <p>{{ $lang('美國紐約州') }}</p>
+                  <p>{{ $lang('紐約市百老匯大街799號10樓，郵編10003主要地址：') }}</p>
+                  <p class="phone">+1 (212) 822-2900</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('帕洛阿爾托') }}</p>
+                  <p>{{ $lang('美國加州') }}</p>
+                  <p>{{ $lang('帕洛阿爾托市漢密爾頓大道524號，郵編94301。主地址：') }}</p>
+                  <p class="phone">+1 (650) 798-2500</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('舊金山') }}</p>
+                  <p>{{ $lang('美國加州') }}</p>
+                  <p>{{ $lang('舊金山太平洋大道450號，') }}</p>
+                  <p>{{ $lang('郵編94133主要地址：') }}</p>
+                  <p class="phone">+1 (628) 201-3600</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+              </div>
+              <div v-if="botAcitve == 3" class="maplist">
+                <div class="nonelineb"></div>
+                <div class="noneliner"></div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('香港') }}</p>
+                  <p>{{ $lang('香港金鐘皇后大道中88號') }}</p>
+                  <p>{{ $lang('太古廣場一號25樓2501室') }}</p>
+                  <p class="phone" style="margin-top: 50px;">+852-36566800</p>
+                  <p>{{ $lang('傳真：') }}+852-30140844</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('模里西斯') }}</p>
+                  <p>{{ $lang('毛里求斯博普蘭') }}</p>
+                  <p>{{ $lang('湖濱區斯特蘭德 街3號樓底層1號辦公室，') }}</p>
+                  <p>{{ $lang('郵編21001 。') }}</p>
+                  <p class="phone">+230 468 1320</p>
+                  <p>{{ $lang('傳真：') }}+230 468 1321</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('墨爾本') }}</p>
+                  <p>{{ $lang('澳洲維多利亞省墨爾本柯林斯街101號20層，') }}</p>
+                  <p>{{ $lang('郵編3000主要地址：') }}</p>
+                  <p class="phone">+61-3-8102-8600</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('孟買') }}</p>
+                  <p>Express Towers</p>
+                  <p>{{ $lang('私募股權：22樓2201單元；') }}</p>
+                  <p>{{ $lang('特殊情況：11樓1104單元；') }}</p>
+                  <p>Nariman Point；</p>
+                  <p>{{ $lang('孟買；') }}</p>
+                  <p>{{ $lang('馬哈拉施特拉邦；400 021；') }}</p>
+                  <p>{{ $lang('印度；') }}</p>
+                  <p>{{ $lang('總機：') }}+91-2267528000</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('大阪') }}</p>
+                  <p>Grand Front Osaka Tower A 24F</p>
+                  <p>4-20 Ofukacho</p>
+                  <p>Kita-ku</p>
+                  <p>Osaka 530-0011</p>
+                  <p>{{ $lang('日本') }}</p>
+                  <p>+81 6-7712-2777</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('首爾') }}</p>
+                  <p>28F, Parnas Tower</p>
+                  <p>521, Teheran-ro, Gangnam-gu</p>
+                  <p>{{ $lang('首爾 06164') }}</p>
+                  <p>{{ $lang('韓國，') }}</p>
+                  <p>{{ $lang('美因共和國：') }}+82 2 6940 2300</p>
+                  <p>{{ $lang('傳真：') }}+82 2 6322 9822</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('上海') }}</p>
+                  <p>{{ $lang('中國上海市靜安區') }}</p>
+                  <p>{{ $lang('南京西路1266號廣場66辦公大樓2號大樓47層4705室主要地址：') }}</p>
+                  <p class="phone" style="margin-top: 60px;">+86-21-22508000</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('上海') }}</p>
+                  <p>{{ $lang('中國上海市') }}</p>
+                  <p>{{ $lang('世紀大道8號國際金融中心二期36樓3669室，郵編：') }}</p>
+                  <p>{{ $lang('200120主要地址：') }}</p>
+                  <p class="phone">+86-2160626120</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('新加坡') }}</p>
+                  <p>{{ $lang('新加坡市場街88號，40-01室，凱德集團，新加坡') }}</p>
+                  <p>{{ $lang('048948主樓：') }}</p>
+                  <p class="phone">+65 6016 1030</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('雪梨') }}</p>
+                  <p>{{ $lang('澳洲新南威爾斯州雪梨') }}</p>
+                  <p>{{ $lang('菲利普街88號28層，郵編2000主要地址：') }}</p>
+                  <p class="phone" style="margin-top: 60px;">+61-2-9093-5500</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('東京') }}</p>
+                  <p>5F, Palace Building 1-1-1 Marunouchi</p>
+                  <p>Chiyoda-ku</p>
+                  <p>Tokyo 100-0005</p>
+                  <p>{{ $lang('日本') }}</p>
+                  <p>+81-362127070</p>
+                  <p>{{ $lang('傳真：') }}+81-362127071</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+              </div>
+              <div v-if="botAcitve == 4" class="maplist">
+                <div class="nonelineb"></div>
+                <div class="noneliner"></div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('都柏林') }}</p>
+                  <p>{{ $lang('愛爾蘭') }}</p>
+                  <p>{{ $lang('都柏林 4 區梅斯皮爾路 45 號主地址：') }}</p>
+                  <p class="phone">+353-19019800</p>
+                  <p>{{ $lang('傳真：') }}+353-16335380</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('里斯本') }}</p>
+                  <p>AV。 da Liberdade 245 4C</p>
+                  <p>Office 414</p>
+                  <p>Lisbon 1250-143</p>
+                  <p>{{ $lang('葡萄牙') }}</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('倫敦') }}</p>
+                  <p>{{ $lang('英國') }}</p>
+                  <p>{{ $lang('倫敦梅菲爾廣場德文郡大廈') }}</p>
+                  <p>W1J 8AJ{{ $lang('主要地址：') }}</p>
+                  <p class="phone">+44 20 7514 5252</p>
+                  <p>{{ $lang('傳真：') }}+44 20 7514 5250</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('盧森堡') }}</p>
+                  <p>13 rue Edward Steichen</p>
+                  <p>L-2540</p>
+                  <p>{{ $lang('盧森堡') }}</p>
+                  <p>{{ $lang('主要地址：') }}+352 27 94 2930</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('馬德里') }}</p>
+                  <p>Calle de Serrano n°38</p>
+                  <p>{{ $lang('1 樓') }}</p>
+                  <p>{{ $lang('馬德里 28001') }}</p>
+                  <p>{{ $lang('西班牙') }}</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+                <div class="mapitem">
+                  <p class="mapitemtitle">{{ $lang('慕尼黑') }}</p>
+                  <p>Maximilianstraße 11</p>
+                  <p>80539 München</p>
+                  <p>{{ $lang('德國') }}</p>
+                  <p>{{ $lang('主要：') }}+49-89244410700</p>
+                  <p>{{ $lang('傳真：') }}+49-89244410731</p>
+                  <p class="googletext">{{ $lang('Google地圖') }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="bottomftr" :class="botAcitve == 1 ? 'absoluteftr' : ''">
               <div>
-                根入台灣市場、放眼全球的其他類資產管理公司
+                <div>
+                  {{ $lang('© 2012-2026 貝恩資本有限合夥公司。貝恩資本方形標誌是貝恩資本有限合夥公司的商標。版權所有。') }}</div>
+                <div class="ftrtext">
+                  <div @click="goLink('https://www.baincapital.com/privacy-policy')">{{ $lang('隱私權政策') }}</div>
+                  <div @click="goLink('https://www.baincapital.com/terms-use')">{{ $lang('使用條款') }}</div>
+                  <div @click="goLink('https://www.baincapital.com/regulatory-disclosures')">{{ $lang('監理揭露') }}
+                  </div>
+                  <div @click="goLink('https://www.baincapital.com/fraud-and-cybersecurity-warning')">
+                    {{ $lang('詐欺和網路安全警告') }}</div>
+                  <div @click="goLink('https://www.baincapital.com/fraud-and-cybersecurity-warning-chinese')">
+                    {{ $lang('警告：網路詐騙及網路釣魚') }}</div>
+                  <div @click="goLink('https://www.baincapital.com/fraud-and-cybersecurity-warning-spanish')">
+                    {{ $lang('網路安全詐欺和廣告') }}</div>
+                </div>
               </div>
-              <!-- <div class="item3 itembg1"><span>种子期</span></div>
-              <div class="item3 itembg2"><span>早期</span></div>
-              <div class="item3 itembg3"><span>成长期</span></div>
-              <div class="item3 itembg4"><span>并购期</span></div>
-              <div class="item3 itembg5"><span>公开市场</span></div> -->
-            </div>
-          </div>
-          <div class="right">
-            <div class="ribox">
-              <p>投資歷程</p>
-              <h4><span>14+</span>年</h4>
-            </div>
-            <!-- <div class="ribox">
-              <p>被投企業</p>
-              <h4><span>200+</span></h4>
-            </div> -->
-            <div class="ribox">
-              <p>團隊規模</p>
-              <h4><span>170+</span></h4>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section4">
-        <h2> 投資者關係</h2>
-        <p>
-          博裕擁有穩定的、感恩的、募集卓著的投資者，涵蓋全球頂尖的國家主權基金、退休基金、捐贈基金、金融機構、家族基金、母基金等。有關基金募集集與投資人關係相關服務，由投資人關係團隊負責協調與推動。如需詢問投資者關係，請聯絡我們。
-        </p>
-      </section>
-      <section class="section4">
-        <h2> 環境、社會與管理</h2>
-        <p>
-          博裕深刻體認到環境、社會和管治（ESG）因素舉足輕重，並相信將ESG因素納入投資和風險管理流程是實現長期價值成長的關鍵。
-        </p>
-        <div class="list1">
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>ESG歷程</h3>
-            </div>
-            <div class="v-body">
-              <p>我們將環境、社會和管治（ESG）要素納入公司的管理架構。博裕採取漸進式的ESG風險管理方法，以關注氣候相關風險管理為起點，同時持續關注產業中應對其他ESG風險的新興方法和實踐。</p>
-            </div>
-          </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>風險治理框架</h3>
-            </div>
-            <div class="v-body">
-              <p>• 由博裕的營運委員會明確監督權</p>
-              <p>• 由 ESG 委員會制定政策和流程細則</p>
-              <p>• 由 ESG 工作小組監控投資組合企業的 ESG 風險</p>
-            </div>
-          </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>投資管理</h3>
-            </div>
-            <div class="v-body">
-              <p>• 博裕多措並舉，綜合運用多種途徑監控其投資組合中的氣候相關風險權</p>
-              <p>• 博裕在投後管理過程中進行定性和定量分析，以評估氣候相關風險的相關性與重要性</p>
-            </div>
-          </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>管理與參與</h3>
-            </div>
-            <div class="v-body">
-              <p>• 博裕謀求與投資者和同產業夥伴們參與合作，在決策投資的領域上共同促進產業實踐的發展</p>
-              <p>• 博裕將持續與投資組合企業就 ESG 事項積極進行溝通</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section4">
-        <h2>公益事業</h2>
-        <p>
-          哥倫比亞阿諾德植物園，各方植物保護
-        </p>
-        <div class="list1 list3">
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>哥倫比亞阿諾德植物園，
-                植物保護
-              </h3>
-            </div>
-            <div class="v-body">
-              <p>博裕在哈佛大學阿諾德植物園設立了“中國植物保護專項基金”和“瀕危植物保護研究基金”，旨在支持全球，特別是中國本土的植物多樣性研究，以及瀕危植物種子的悉心收集與保護工作。 </P>
-              <P>
-                在本計畫的支持下，哈佛植物園參與北京植物園、中科院昆明植物研究所以及浙江大學等國內學術前沿，共同致力於植物材料的遷地保護與原地收集活動，加強中美研究機構間的植物保護知識交流和合作夥伴。
-              </p>
-            </div>
-          </div>
-          <div class="li-ite1">
-            <div class="v-head">
-              <h3>設立北大博物學者培養基金，扶持青年文化使者
-              </h3>
-            </div>
-            <div class="v-body">
-              <p>博裕向北京大學捐資設立“北京大學博物學者培養基金”，最初北大中文系與英文系強強聯手合作設立本科雙學位專案。</P>
-              <P>
-                我們希望推動計畫引領北京大學創新本科階段的跨學科人才培育模式，培養兼具中國心和國際視野，同時豐富中華文化積累和世界文明洞察的青年文化使者，使他們成為連結中西文化、講好中國故事的文化使者，推動中國文化走向世界。
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-      <!-- <section class="section5">
-        <h1>我們的業務</h1>
-        <section class="section4">
-          <h2>私募股权</h2>
-          <p>
-            我们坚持行之有效的核心投资策略，努力为投资者创造出色的长期回报。
-          </p>
-          <div class="list1 list3">
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>坚持深耕三个重点行业
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>• 专注于科技创新、消费零售，以及医疗健康行业高科技</P>
-                <P>
-                  • 熟悉重点投资领域的行业发展政策与地区性差异
-                </p>
-                <p>
-                  • 深谙行业动态、商业模式，对行业的本土特征和发展趋势具有独到和前瞻性的认识
-                </p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>致力提供全面增值服务
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>
-                  • 借助创始人丰富的企业运营经验，协助企业制定战略规划
-                </P>
-                <P>
-                  • 运用广泛的行业资源和投资经验，协助企业提升运营效率
-                </p>
-                <p>
-                  • 通过派驻董事、引进人才等方式，督促企业完善治理结构
-                </p>
-                <p>
-                  • 凭借专业的收购兼并和融资经验，引领企业借力资本市场
-                </p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>积极创造独有投资机会
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>• 率先接触到企业核心管理层，建立独家合作关系</P>
-                <P>
-                  • 积极围绕各行业发展主题，系统性地挖掘投资机会
-                </p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>精心设计最优交易结构
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>• 以少数股权、相对控股投资为主</P>
-                <P>
-                  • 为企业提供增长和转型资本（包括业务拓展、股东再融资等）
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="section2">
-          <h2>二級市场</h2>
-          <p style="color: #666; line-height: 180%">
-            秉承博裕的核心优势以我们擅长的一二級联动策略，精准捕捉新兴行业的发展趋势与重要拐点，进而为投资者带来卓越且持续的收益表现。
-          </p>
-          <div class="list1 list4">
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>投资理念 </h3>
-              </div>
-              <div class="v-body">
-                <p>• 遵循长期价值投资理念，寻找行业内的优质核心资产</p>
-                <p>• 结合一二級观点及国内外视野，重点发掘二級市场上具成长性的企业</p>
-                <p>• 在市场错配时寻求逆向投资机会</p>
-                <p>• 风格严谨，注重安全边际和内在价值 </p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>投研优势</h3>
-              </div>
-              <div class="v-body">
-                <p>• 运用博裕在多个资产类别的经验与视角，搭建完整独特的二級市场投研体系</p>
-
-                <p>• 一二級市场全面覆盖，充分把握行业趋势中的关键业务动态及变化</p>
-
-                <p>• 对重点行业领域进行深入研究，建立广泛的人脉网络和拓展资源</p>
-
-                <p>• 高效稳定的调研和数据研究架构</p>
-
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>组合与回报</h3>
-              </div>
-              <div class="v-body">
-                <p>• 深入参与A股、H股、ADR及其他多元市场</p>
-
-                <p>• 通过卓越的上行收益能力和有效的下行风险控制实现优秀的投资回报</p>
-
-                <p>• 重视选股能力，构建具备独特优势的投资组合，追求持续收益</p>
-
-                <p>• 基于稳定的资本基础，坚持长期投资愿景</p>
-
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="section2">
-          <h2>不动产与新基建</h2>
-          <p style="color: #666; line-height: 180%">
-            博裕不动产团队拥有在中国及亚洲的丰富投资经验。自2020年开始不动产投资，已经在物流和数据中心板块成功建立了高质量且有韧性的投资组合。
-          </p>
-          <div class="list1 list4">
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>聚焦新经济产业 </h3>
-              </div>
-              <div class="v-body">
-                <p>• 物流</p>
-                <p>• 数据中心</p>
-                <p>• 新基建和政策鼓励的其他产业板块</p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>创造投资机会</h3>
-              </div>
-              <div class="v-body">
-                <p>• 创造独有投资机会的能力</p>
-                <p>• 发挥博裕生态系统优势，协同各行业头部企业，主动挖掘投资机会</p>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>审慎执行</h3>
-              </div>
-              <div class="v-body">
-                <p>• 谨慎严格的尽职调查</p>
-                <p>• 积极参与精品平台的发展，以获取运营优势和收益</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="section4">
-          <h2>风险投资</h2>
-          <p>
-            • 为了顺应风险投资阶段投资的迅速增长，以及风险投资与私募股权投资领域之间不断提升的协同效能，博裕在国内与国际市场同步设立风险投资业务条线万物创投（Zoo Capital）。
-          </p>
-          <div class="list1 list3">
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>万物创投（Zoo Capital）
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>由博裕联合年轻创业者和经验丰富的投资人共同创立，致力于科技、生命科学和出海的早期投资。我们专注于找到能引领颠覆性创新的创业家，并陪伴他们成为新经济的中流砥柱。</P>
-              </div>
-            </div>
-            <div class="li-ite1">
-              <div class="v-head">
-                <h3>万物投资策略
-                </h3>
-              </div>
-              <div class="v-body">
-                <p>• 深度挖掘顶尖科技人才走向 </p>
-                <p>• 坚持深耕重点行业 </p>
-                <p>• 积极创造独有投资机会 </p>
-                <p>• 精心设计最优交易结构 </p>
-                <p>• 致力提供全方位增值服务 </p>
-                <p>• 连接博裕的资源和生态网络 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </section> -->
-      <section class="section4">
-        <h2>投資領域</h2>
-        <p>我們的投資主要集中在以下最具活力與成長性的產業：</p>
-        <div class="content">
-          <div class="item4">
-            <img src="@/assets/images/indexb/tmt.svg" alt="" />
-            虛擬科技 AI系統
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/healthcare.svg" alt="" />
-            半導體晶片
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/consumer.svg" alt="" />
-            醫療設備
-          </div>
-        </div>
-      </section>
-      <section class="section4">
-        <h2>我們的合作夥伴</h2>
-        <p>
-          除了為企業發展提供資金之外，我們還在企業管理、全球化佈局、退出策略、人力資源、法律與財務、品牌與市場等多方面為企業提供專業支援、經驗和資源，幫助被投資企業實現長足發展。
-        </p>
-        <!-- <div class="content">
-          <div class="item4">
-            <img src="@/assets/images/indexb/icon-qygl.svg" alt="" />
-            企業管理
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/oversea.svg" alt="" />
-            全球化佈局
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/marketing.svg" alt="" />
-            退出策略
-          </div>
-        </div>
-        <div class="content">
-          <div class="item4">
-            <img src="@/assets/images/indexb/human.svg" alt="" />
-            人力資源
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/icon-flcw.svg" alt="" />
-            法律與財務
-          </div>
-          <div class="item4">
-            <img src="@/assets/images/indexb/branding.svg" alt="" />
-            品牌與市場
-          </div>
-        </div> -->
-        <div class="portfolio-list">
-          <div class="section4-content">
-
-            <div class="section4-content-items">
-              <div class="item" @click="toUrl('https://www.okx.com/')">
-                <img src="@/assets/images/1.png" alt="" />
-                <p>
-                  在追求全體同事物質和精神幸福的同時，推動區塊鏈和數位資產走進全球億萬用戶的生活
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.bitoex.com/')">
-                <img src="@/assets/images/2.png" alt="" />
-                <p>
-                  致力於推廣台灣數位貨幣而產生，為提供顧客全方位的優質服務與品牌承諾而努力
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.maicoin.com/')">
-                <img src="@/assets/images/3.png" alt="" />
-                <p>
-                  MaiCoin 集團成立於 2013
-                  年，旨在讓數位資產成為主流，並為交易者提供安全多樣的選擇
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.maicoin.com/')">
-                <img src="@/assets/images/4.png" alt="" />
-                <p>
-                  MaiCoin集團為台灣交易量最大，且唯一具備區塊鏈技術公司之數位資產領導品牌，是台灣虛擬通貨產業之先鋒
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://accounts.binance.com/')">
-                <img src="@/assets/images/5.png" alt="" />
-                <p>
-                  時至今日，幣安已是世界頂尖的區塊鏈生態系，並擁有最大的數位資產交易所。我們的任務是在未來世界中成為加密貨幣的基礎架構供應商
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.htx.com/')">
-                <img src="@/assets/images/6.png" alt="" />
-                <p>
-                  HTX 成立於 2013 年，經過 11
-                  年的快速發展，已從一家加密貨幣交易所成長為一個全面的區塊鏈業務生態系統
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.kucoin.com/')">
-                <img src="@/assets/images/7.png" alt="" />
-                <p>
-                  KuCoin於2017年在中國成立，但由於中國政府對加密貨幣公司實施限制，其業務隨後遷至新加坡，隨後又遷至塞席爾
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.coinbase.com/')">
-                <img src="@/assets/images/8.png" alt="" />
-                <p>
-                  Coinbase 是全球流動性更強、監管更嚴格的加密貨幣現貨交易所之一，讓您可利用動態有效的費用結構進行大規模交易，降低營運成本
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.bybit.com/')">
-                <img src="@/assets/images/9.png" alt="" />
-                <p>
-                  Bybit Fintech Limited（簡稱 Bybit）是一家位於杜拜的加密貨幣交易所。 Bybit 由 Ben Zhou 於 2018 年創立，是全球最大的加密貨幣交易所之一
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.upbit.com/')">
-                <img src="@/assets/images/10.png" alt="" />
-                <p>
-                  Upbit是一家成立於2017年的韓國加密貨幣交易所。它由南韓價值最高的初創企業之一的Dunamu經營
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.bitget.com/')">
-                <img src="@/assets/images/11.png" alt="" />
-                <p>
-                  Bitget 交易所成立於2018 年，總部設立在新加坡。
-                  主打合約交易與跟單交易功能，且根據CoinMarketCap顯示Bitget交易所在現貨交易排名第12名
-                </p>
-              </div>
-              <div class="item" @click="toUrl('https://www.gate.com/')">
-                <img src="@/assets/images/12.png" alt="" />
-                <p>
-                  Gate 成立於 2013 年，是全球領先的加密貨幣交易平台，綜合實力位居全球 Top3
-                </p>
+              <div class="ftricon">
+                <div>
+                  <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+                <div><i class="fa-brands fa-twitter"></i>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!-- <div class="statement">
-        <img src="@/assets/images/indexb/image.png" alt="" />
-      </div> -->
+      </div>
     </div>
-    <FooterBottom></FooterBottom>
+    <!-- <FooterBottom></FooterBottom> -->
   </div>
 </template>
+<style scoped lang="sass">
+.bodybox
+  min-height: 5000px
+  background-color: #fefcf6
+  transition: background .3s
+  // background: url(@/assets/images/homebg.webp) !important
+  .container
+    width: 90%
+    margin: 0 auto
+    margin-top: 750px
+    // @media (max-width: 768px)
+    //   width: 100%
+    //   padding: 0 25px
+    .stitle
+      font-size: 84px
+      color: #1b215a
+      font-weight: 300
+      @media (max-width: 768px)
+        font-size: 36px
+    .ftitle
+      font-size: 32px
+      margin-top: 30px
+      color: #1b215a
+      font-weight: 300
+      @media (max-width: 768px)
+        font-size: 20px
+        margin-top: 12px
+.bluebg
+  background-color: #abcae9 !important
+  
+.tanagram-anim-col
+  position: absolute
+  top: 0
+  right: -10px
+  height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+  padding-right: 0
+
+</style>
+<style>
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.block {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+</style>
 
 <style scoped lang="sass">
-.cont
-  padding-top: 74px
-.banner
-    width: 100%
-    padding-top: 40%
+.fan
+  @media (max-width: 768px)
+    flex-direction: column-reverse !important
+.banner-box
+  width: 100%
+  display: flex
+  align-items: center
+  margin: 100px 0
+  margin-bottom: 130px
+  @media (max-width: 768px)
+    flex-wrap: wrap
+    margin: 20px 0
+  .marle40
+    margin-left: 40px
+    @media (max-width: 768px)
+      margin-left: 0
+  .ifbox
+    width: 42%
     position: relative
-    max-height: 80dvh
-    min-height: 40dvh
-    .item
-      position: absolute
-      top: 0
-      left: 0
+    border-radius: 5px
+    overflow: hidden
+    margin-left: 100px
+    margin-right: 30px
+    @media (max-width: 768px)
       width: 100%
+      margin: 0
+    .player2
+      width: 100% !important
+      height: 415px
+      @media (max-width: 768px)
+        height: 191px
+    .playerbg1
+      width: 110% !important
       height: 100%
-      background-size: cover
-      background-position: center
-      padding: 0 80px
-      padding-top: 150px
+      object-fit: cover
+      position: absolute
+      right: 0
+      bottom: 50%
+      transform: translateY(50%)
+    .textbg
+      position: absolute
+      width: 100%
+      height: 200px
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%)
+      left: 0
+      bottom: 0
+      @media (max-width: 768px)
+        height: 191px
+    .textmore
+      position: absolute
+      bottom: 30px
+      left: 40px
+      fill: #fff
       color: #fff
-      transition: opacity 1.2s
-      background-repeat: no-repeat
-      opacity: 0
-      h2
-        font-size: 60px
-        text-shadow: 0 3px 2px rgba(0,0,0,0.25)
-        margin-bottom: 20px
+      display: flex
+      align-items: center
+      font-size: 28px
+      cursor: pointer
+      @media (max-width: 768px)
+        left: 15px
+        bottom: 10px
+        font-size: 16px
+      svg
+        margin-right: 10px
         @media (max-width: 768px)
-          font-size: 40px
-      p
-        width: 460px
+          transform: scale(.8)
+          margin-right: 7px
+.yixing
+  color: #fff
+  margin-top: 200px
+  font-weight: 300
+  @media (max-width: 768px)
+    margin-top: 100px
+  .ytitle
+    font-size: 76px
+    @media (max-width: 768px)
+      font-size: 32px
+  .jgdcont
+    display: flex
+    gap: 20px
+    margin-top: 20px
+    font-size: 33px
+    cursor: pointer
+    @media (max-width: 768px)
+      display: block
+      font-size: 24px
+    .lefimgbox
+      @media (max-width: 768px)
+        width: 263px
+        height: 312px
+        margin-left: -30px
+        border-radius: 5px
+        img
+          height: 312px
+          object-fit: cover
+    .rigimgbox
+      @media (max-width: 768px)
+        margin-top: 40px
+        width: 263px
+        height: 312px
+        margin-left: auto
+        margin-right: -30px
+        border-radius: 5px
+        img
+          height: 312px
+          object-fit: cover
+    .jgdteboxl
+      @media (max-width: 768px)
+        position: absolute
+        left: 50%
+        top: 20px
+    .jgdteboxr
+      @media (max-width: 768px)
+        position: absolute
+        left: 0px
+        top: 20px
+
+    .lefimgbox
+    .keji
+      font-size: 16.5px
+      font-weight: 600
+      color: #77b2f9
+      margin-top: 20px
+      margin-bottom: 5px
+      @media (max-width: 768px)
+        font-size: 12px
+    img
+      width: 100%
+      transition: all .5s
+      &:hover
+        transform: scale(1.1)
+  .zhuoyue
+    position: relative
+    display: flex
+    align-items: center
+    height: 100dvh
+    @media (max-width: 768px)
+      display: none
+    .zhuoyuecont
+      width: 45%
+      color: #fff
+      
+
+      .zytitle
+        font-size: 74px
+        span
+          font-style: italic
+      .zytext
+        font-size: 28px
+        margin: 20px 0
+      .zybtn
+        color: #3fb6ff
+        border: 2px solid #3fb6ff
+        border-radius: 30px
+        padding: 5px 17px
+        display: inline-flex
+        align-items: center
+        font-size: 21px
+        font-weight: 500
+        fill: #3fb6ff
+        cursor: pointer
+        transition: all .3s
         @media (max-width: 768px)
           font-size: 14px
-    .banneractive
-      opacity: 1 !important
-    .drop
-      margin-top: 50px
-      display: flex
-      gap: 8px
+        &:hover
+          background-color: #3fb6ff
+          color: #fff
+          fill: #fff
+    .namebox
+      background-color: #d5cfce
       position: absolute
-      left: 80px
-      bottom: 60px
-      .dropitem
-        width: 40px
-        height: 4px
-        background-color: #817775
-      .dropactive
-        background-color: #bc171d
-    .bgimg1
-      background-image: url('@/assets/images/indexb/banner2.jpg')
-    .bgimg2
-      background-image: url('@/assets/images/indexb/homepage2-1600.jpg')
-    .bgimg3
-      background-image: url('@/assets/images/indexb/homepage4-1600.jpg')
-.bodybox
-  max-width: 1120px
-  padding-bottom: 74px
-  margin: 0 auto
-  position: relative
-  .statement
-    position: fixed
-    top: 74px
-    left: 50%
-    width: 66px
+      right: 0
+      bottom: 100px
+      padding: 6px 16px
+      color: #1b215a
+      font-weight: 400
+      border-radius: 5px
+  .newsbox
+    display: flex
+    @media (max-width: 768px)
+      display: block
+    .timetext
+      color: #716e6a
+      margin-top: 30px
+      font-weight: 600
+      font-size: 17px
+      @media (max-width: 768px)
+        font-size: 12px
+    .nele
+      width: 70%
+      border-right: 1px solid #dedcd5
+      padding-right: 70px
+      @media (max-width: 768px)
+        width: 100%
+        border-right: none
+        border-bottom: 1px solid #dedcd5
+        padding: 0
+        padding-bottom: 30px
+      .neletitle
+        font-size: 77px
+        margin-bottom: 30px
+        color: #1b215a
+        @media (max-width: 768px)
+          font-size: 32px
+          margin-bottom: 20px
+      img
+        width: 90%
+        border-radius: 5px
+        @media (max-width: 768px)
+          width: 100%
+      
+      .newtext
+        font-size: 32px
+        font-weight: 200
+        transition: all .3s
+        color: #1c2156
+        @media (max-width: 768px)
+          font-size: 24px
+        &:hover
+          color: #0047bb
+    .neri
+      padding-left: 80px
+      @media (max-width: 768px)
+        padding: 40px 8px
+      .neritext
+        font-size: 25px
+        color: #1c2156
+        width: 80%
+        transition: all .3s
+        @media (max-width: 768px)
+          width: 100%
+          font-size: 18px
+        &:hover
+          color: #0047bb
+      .zybtn
+        margin-top: 50px
+        color: #001aff
+        border: 2px solid #001aff
+        border-radius: 30px
+        padding: 5px 17px
+        display: inline-flex
+        align-items: center
+        font-size: 21px
+        font-weight: 500
+        fill: #001aff
+        cursor: pointer
+        transition: all .3s
+        @media (max-width: 768px)
+          font-size: 14px
+        svg
+          margin-left: 5px
+          @media (max-width: 768px)
+            transform: scale(0.6)
+            margin-left: 0
+        &:hover
+          background-color: #001aff
+          color: #fff
+          fill: #fff
+  .map
+    padding-bottom: 100px
+    position: relative
+    min-height: 100dvh
+    @media (max-width: 768px)
+      margin-top: 400px
+      padding-bottom: 30px
+    .maplist
+      display: flex
+      flex-wrap: wrap
+      margin-top: 50px
+      position: relative
+      .nonelineb
+        position: absolute
+        bottom: 50px
+        width: 100%
+        height: 3px
+        background-color: #164167
+        z-index: 99
+      .noneliner
+        position: absolute
+        right: -10px
+        height: 100%
+        width: 3px
+        background-color: #164167
+        z-index: 99
+      .mapitem
+        min-height: 240px
+        width: 20%
+        font-size: 18px
+        font-weight: 400
+        border-bottom: 1px solid #1e5e94
+        padding-bottom: 50px
+        padding-left: 25px
+        margin-bottom: 50px
+        &::after
+          content: ''
+          right: -10px
+          height: 85%
+          // height: calc(100% + 2px)
+          width: 1px
+          top: 0
+          background: #1e5e94
+          position: absolute
+        &:last-child
+          &::after
+            height: 0
+        .mapitemtitle
+          margin-bottom: 10px
+          font-weight: 600
+        .phone
+          margin-top: 25px
+        .googletext
+          cursor: pointer
+          transition: all .3s
+          text-decoration: underline
+          color: #1ca6df
+          &:hover
+            color: #fff
     img
-      margin-left: 580px
-  
-  .section2
-    margin-top: 100px
-    .content
+      width: 100dvw
+    .absolutecls
+      position: absolute
+      width: 100%
+      z-index: 11
+      top: 0
+    .mapcont
+      padding-top: 100px
+      @media (max-width: 768px)
+        padding-top: 0
+        margin-top: -300px
+      .maptitlebox
+        display: flex
+        justify-content: space-between
+        align-items: center
+        @media (max-width: 768px)
+          display: block
+      .maptitle
+        font-size: 77px
+        color: #fff
+        @media (max-width: 768px)
+          font-size: 32px
+      .zhou
+        display: flex
+        @media (max-width: 768px)
+          flex-wrap: wrap
+          margin-top: 50px
+        div
+          cursor: pointer
+          margin-left: 40px
+          font-size: 22px
+          padding-bottom: 5px
+          font-weight: 400
+          @media (max-width: 768px)
+            font-size: 18px
+            margin-right: 20px
+            margin-left: 0
+            padding-top: 5px
+            &:first-child
+              width: 100%
+              margin: 0
+        .botacitve
+          border-bottom: 3px solid #fff
+          font-weight: 600
+    .syall
+      margin-top: 30px
+      font-size: 16px !important
+      span
+        color: #a3cbec
+    .absoluteftr
+      position: absolute
+      z-index: 88
+      bottom: 130px
+    .bottomftr
+      padding-top: 30px
+      border-top: 1px solid #abcae9
+      color: #abcae9
+      font-weight: 500
+      width: 100%
       display: flex
       justify-content: space-between
-      padding: 20px 50px
-      .smitem
+      margin-top: 150px
+      @media (max-width: 768px)
+        display: block
+
+      .ftricon
         display: flex
-        align-items: center
-        gap: 32px
-        h3
-          margin: 0 0 10px
-          color: #d92d3d
-          font-size: 22px
         @media (max-width: 768px)
-          img
-            height: 60px
-    p
-      margin-bottom: 15px
-  .section3
-    margin-top: 100px
-    .content
-      display: flex
-    .left
-      width: 69.6%
-      .list
-        display: flex
-        background-color: #f4f6f7
-        height: 120px
-        overflow: hidden
+          margin-top: 20px
         div
-          width: 100%
-          height: 100%
-          padding: 20px
+          width: 32px
+          height: 32px
+          background-color: #1b215a
+          border-radius: 50%
           display: flex
           align-items: center
           justify-content: center
-          font-size: 35px
-        .item3
-          width: 100%
-          position: relative
-          span
-            position: absolute
-            left: 50%
-            top: 50%
-            transform: translate(-50%,-50%)
-            z-index: 3
-            color: #656c6e
-            transition: all .3s
-          &::before
-            content: ""
-            width: 100%
-            height: 100%
-            position: absolute
-            top: 0
-            left: 0
-            transform: translate3d(0, 100%, 0)
-            transition: transform 0.25s
-            background-repeat: no-repeat
-            background-size: cover
-            background-position: center center
-            z-index: 1
-          &::after
-            content: ""
-            width: 100%
-            height: 100%
-            position: absolute
-            top: 0
-            left: 0
-            transform: translate3d(0, 100%, 0)
-            transition: transform 0.25s
-            background-repeat: no-repeat
-            background-size: cover
-            background-position: center center
-            background-color: rgba(184, 21, 21, 0.85)
-            z-index: 2
+          color: #fff
+          margin-left: 15px
+          transition: all .3s
+          cursor: pointer
+          font-size: 18px
+          @media (max-width: 768px)
+            margin-left: 0
+            margin-right: 20px
           &:hover
-            &::after
-              transform: translate3d(0, 0, 0)
-            &::before
-              transform: translate3d(0, 0, 0)
-            span
-              color: #fff
-        .itembg1
-          &::before
-            background-image: url('@/assets/images/indexb/pic-1@2x.jpg')
-        .itembg2
-          &::before
-            background-image: url('@/assets/images/indexb/pic-2@2x.jpg')
-        .itembg3
-          &::before
-            background-image: url('@/assets/images/indexb/pic-3@2x.jpg')
-        .itembg4
-          &::before
-            background-image: url('@/assets/images/indexb/pic-4@2x.jpg')
-        .itembg5
-          &::before
-            background-image: url('@/assets/images/indexb/pic-5@2x.jpg')
-    .right
-      width: 300px
-      padding-left: 70px
-
-      .ribox
-        color: #7a7a7a
-        font-size: 20px
-        border-bottom: 1px solid #dcdfe0
-        padding: 28px 0
-        span
-          font-size: 55px
-          font-weight: 100
-          color: #333
-  .section4
-    margin-top: 100px
-    p
-      color: #666
-      margin-bottom: 15px
-    .content
-      display: flex
-      width: 100%
-      border-bottom: 1px solid #d9dee1
-      &:last-child
-        border: 0px
-      .item4
+            background-color: #001aff
+      .ftrtext
+        display: flex
+        margin-top: 8px
+        @media (max-width: 768px)
+          flex-wrap: wrap
+        div
+          margin-right: 30px
+          border-bottom: 1px solid #abcae9
+          transition: all .3s
+          cursor: pointer
+          @media (max-width: 768px)
+            margin-top: 5px
+          &:hover
+            border-bottom: 1px solid transparent !important
+  .yoxucont
+    display: flex
+    gap: 70px
+    color: #1b215a
+    @media (max-width: 768px)
+      display: block
+    .yoxule
+      width: 50%
+      @media (max-width: 768px)
         width: 100%
+    .yoxuri
+      width: 50%
+      aspect-ratio: 1 / 1
+      border-radius: 5px
+      position: relative
+      @media (max-width: 768px)
+        width: 100dvw
+        margin-left: -20px
+        height: 512px
+      img
+        height: 100%
+        object-fit: cover
+      .lejian
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        opacity: .5
+        margin-left: 7px
+        transition: all .3s
+        width: 48px
+        height: 48px
+        border: 3px solid #1b215a
+        border-radius: 50%
         display: flex
         align-items: center
-        height: 98px
-        padding-left: 60px
-        background-color: #f4f6f7
-        color: #3d3c3c
-        border-right: 1px solid #d9dee1
-        &:last-child
-          border: 0px
-        img
-          margin-right: 25px
-
-  .section5
-    padding: 80px 0 40px
-    h1
-      font-size: 50px
-      text-align: center
-
-  .table
-    margin-top: 50px
-    width: 100%
-    ul
-      width: 100%
-      text-align: center
-      li
-        margin-bottom: 20px
-        .tb-item
-          display: flex
-          justify-content: center
-          padding: 20px 10px
-          gap: 20px
-          h4
-            font-weight: bold
-          p
-            color: #666
-          @media (max-width: 768px)
-            flex-direction: column
-      h2
-        font-size: 30px
-        margin-bottom: 0
-        padding: 0
-        &::after
-          background: none !important
-          border: none !important
-  .list2
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important
-    .v-body
-      padding: 0 !important
-      ul
-        li
-          padding: 14px 25px
-          margin-block: 1px
-          h4
-            font-weight: bold
-  .list3
-    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)) !important  
-  .list4
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important
-  .list1
-    display: grid
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
-    justify-content: space-between
-    gap: 2px
-    background-color: #fff
-    .li-ite1
-      background-color: #fafafa
-      .v-head
-        background-color: #eee9e0
-        padding: 20px
-        text-align: center
-        color: #9f0d40
-        font-weight: bold
-      .v-body
-        background-color: #fafafa
-        padding: 25px 15px
-
-
-  h2
-    margin-bottom: 40px
-    color: #2d292a
-    padding-bottom: 10px
-    font-weight: bold
-    &::after
-      width: 46px
-      background-color: #bc171d
-      overflow: hidden
-      height: 2px
-      position: absolute
-      bottom: 0
-      left: 0
-      content: ""
-
-@media (max-width: 768px)
-  .banner
-    .item
-      padding: 50px 30px !important
-      p
-        width: 100% !important
-        white-space: pre-wrap
-  .bodybox .banner .drop
-    left: 50%
-    transform: translateX(-50%)
-  .section2,.section3,.section4,.section5
-    padding-inline: 20px
-    
-  .bodybox 
-    .section2
-      margin-top: 50px
-      .content
-        padding: 40px 0 !important
-        flex-direction: column
-        gap: 20px
-    .section3
-      .content
-        flex-direction: column
-        .left
-          width: 100%
-          .list
-            height: auto
-            div
-              font-size: 20px
-        .right
-          margin: 0
-          padding: 0
-          width: 100%
-    .section4
-      margin-top: 50px
-      .content
-        flex-direction: column
-        .item4
-          border: none
-    .list3
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important  
-.section4-content
-  margin: 0 auto 100px
-  @media (max-width: 1200px)
-    width: 100%
-    padding: 0 20px
-  .section4-content-title
-    margin-bottom: 40px
-    text-align: center
-    opacity: 0
-    transform: scale(.5)
-    transition: all .6s ease-in-out
-    h2
-      font-size: 38px
-      font-weight: 600
-      line-height: 40px
-      margin-bottom: 20px
-    p
-      font-size: 14px
-      line-height: 1.5
-  .section4-content-items
-    margin-top: 45px
-    display: grid
-    grid-template-columns: repeat(4, 1fr)
-    background-color: #eaebed
-    gap: 1px
-    justify-content: space-between
-    @media (max-width: 1200px)
-      grid-template-columns: repeat(3, 1fr)
-    @media (max-width: 768px)
-      grid-template-columns: repeat(1, 1fr)
-    .item
-      position: relative
-      overflow: hidden
-      padding: 1rem 1rem
-      transition: all .3s ease-in-out
-      background-color: #f5f6f8
-      &:hover
-        // background: #7354ff
-        background-color: #edeef0
-        .icon
+        justify-content: center
+        fill: #1b215a
+        cursor: pointer
+        @media (max-width: 768px)
+          display: none
+        &:hover
+          background-color: #1b215a
           fill: #fff
-      .icon
-        margin: 0 auto
-        width: 3.75rem
-        height: 3.75rem
-        // fill: #7354ff
-      img
-        width: 66px
-        height: 66px
-        object-fit: cover
-        margin-bottom: 10px
-        border-radius: 5px
-
-      h3
+          opacity: 1
+      .botcont
+        height: 250px
+        width: 100%
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.82) 100%)
+        position: absolute
+        bottom: 0
+        z-index: 11
+        padding-left: 50px
+        padding-bottom: 40px
+        color: #fff
+        @media (max-width: 768px)
+          padding-left: 20px
+          padding-top: 30px
+          height: 200px
+        .bottitle
+          font-size: 48px
+          margin-bottom: 20px
+          @media (max-width: 768px)
+            font-size: 30px
+        .bottext
+          font-weight: 500
+          width: 80%
+          font-size: 18px
+          margin-bottom: 20px
+        .botbtn
+          font-size: 20px
+          color: #001aff
+          background-color: #fff
+          padding: 5px 16px
+          border-radius: 20px
+          display: inline-flex
+          align-items: center
+          font-weight: 500
+          cursor: pointer
+          @media (max-width: 768px)
+            font-size: 14px
+            svg
+              transform: scale(0.8)
+          .arrow-outline
+            margin-left: 7px
+            transition: all .3s
+            width: 20px
+            height: 20px
+            border: 2px solid #001aff
+            border-radius: 50%
+            display: flex
+            align-items: center
+            justify-content: center
+            fill: #001aff
+    .yoxutitle
+      font-size: 74px
+      @media (max-width: 768px)
+        font-size: 32px
+    .yoxutext
+      font-size: 26.6px
+      margin-top: 30px
+      margin-bottom: 100px
+      @media (max-width: 768px)
+        font-size: 16px
+    .youxuitem
+      font-size: 24.6px
+      border-bottom: 1px solid #cec8c1
+      padding: 16.4px
+      font-weight: 500
+      display: flex
+      align-items: center
+      cursor: pointer
+      @media (max-width: 768px)
+        display: none
+      &:hover
+        .arrow-outline
+          background-color: #1b215a
+          fill: #fff
+      .arrow-outline
+        margin-left: 7px
+        transition: all .3s
+        width: 24px
+        height: 24px
+        border: 2px solid #1b215a
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #1b215a
+  .ytext
+    margin-top: 30px
+    width: 310px
+    font-size: 22px
+    transition: all .5s
+    @media (max-width: 768px)
+      font-size: 16px
+      margin-top: 20px
+      opacity: 1 !important
+  .yixcont
+    width: 100%
+    display: flex
+    margin: 0 auto
+    width: 100%
+    position: relative
+    // transition: all 2s
+  .yixingleft
+    width: 600px
+    height: 600px
+    position: relative
+    fill: #0082ff
+    transition: all .5s
+    margin: 0 auto
+    margin-top: -100px
+    @media (max-width: 768px)
+      width: 360px
+      height: 360px
+      margin: 0 auto !important
+      margin-top: 10px
+    .pdx
+      position: absolute
+      width: 54px
+      height: 54px
+      top: 50%
+      left: 50%
+      transform: translate(-44%,-53%)
+      @media (max-width: 768px)
+        width: 30px
+        height: 30px
+      // opacity: 0
+    .ganzi
+      position: absolute
+      width: 6px
+      height: 300px
+      border-radius: 2px
+      background-color: #0082ff
+      top: 0
+      left: 50%
+      transform: translateX(-50%)
+      z-index: 11
+      transform-origin: center bottom
+      &:nth-child(1)
+        transform: rotate(0deg)
+      &:nth-child(2)
+        transform: rotate(72deg)
+      &:nth-child(3)
+        transform: rotate(144deg)
+      &:nth-child(4)
+        transform: rotate(216deg)
+      &:nth-child(5)
+        transform: rotate(288deg)
+      @media (max-width: 768px)
+        width: 3px
+        height: 180px
+    .yixingtext
+      color: #296d9d
+      font-size: 34px
+      position: absolute
+      text-align: center
+      transition: all .5s
+      cursor: pointer
+      @media (max-width: 768px)
         font-size: 18px
-        font-weight: 600
-        margin-block: 10px
-@media (max-width: 768px)
-  .left
-    display: none
-  .right
-    padding-inline-start: 0 !important
-    .portfolio-content
-      padding: 40px 20px !important
-      .section4-content
-        margin-bottom: 0
-        padding: 0
-  .sectors
-    flex-direction: column
-    .healthcare
-      border-inline: none !important
-      border-block: 1px solid rgba(0, 0, 0, 0.1) !important
+      &:hover
+        color: #55708d
+      &:focus
+        color: #fff
+    .yixingtextchengzhang
+      top: 80px
+      left: 350px
+      @media (max-width: 768px)
+        top: 50px
+        left: 210px
+    .yixingtextziben
+      top: 300px
+      left: 430px
+      @media (max-width: 768px)
+        top: 190px
+        width: 80px
+        left: 240px
+    .yixingtextxinyong
+      top: 500px
+      left: calc( 50% - 30px)
+      @media (max-width: 768px)
+        top: 300px
+        left: calc( 50% - 14px)
+    .yixingtextshiti
+      top: 330px
+      left: 30px
+      @media (max-width: 768px)
+        top: 200px
+        left: 20px
+    .yixingtextsimu
+      top: 80px
+      left: 100px
+      @media (max-width: 768px)
+        top: 50px
+        left: 50px
+  .yixingright
+    width: 50%
+    padding-right: 50px
+    margin-left: 50px
+    margin-top: -100px
+    opacity: 0
+    transition: all .5s
+    pointer-events: none
+    position: absolute
+    right: -50%
+    @media (max-width: 768px)
+      margin-left: 100%
+      width: 100%
+    .yxrtitle
+      font-size: 41px
+      font-weight: 300
+    .yxrxtext
+      font-size: 18px
+      color: #4e8dc4
+      margin-top: 60px
+      padding-top: 8px
+      border-top: 1px solid #4e8dc4
+    .yxrtext
+      font-size: 21px
+      margin-top: 15px
+    .yxrlinktext
+      margin-top: 25px
+      font-size: 24px
+      display: flex
+      align-items: center
+      cursor: pointer
+      transition: all .5s
+      &:hover
+        color: #3fb6ff !important
+        .arrow-outline
+          fill: #3fb6ff
+          border: 2px solid #3fb6ff
+      .arrow-outline
+        margin-left: 12px
+        transition: all .5s
+        width: 21px
+        height: 21px
+        border: 2px solid #fff
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #fff
+    .yxcont
+      position: absolute
+      transition: all .3s
+      width: 90%
+.titlesbox
+  z-index: 2
+  // font-family: 'Martina Plantijn', serif
+  font-size: 45px
+  width: 40%
+  font-weight: 300
+  color: #1b215a
+  @media (max-width: 768px)
+    width: 100%
+    font-size: 30px
+    margin-top: 20px
+  h2
+    font-size: 22px
+    font-weight: 500
+    margin-top: 20px
+    @media (max-width: 768px)
+      font-size: 16px
+      margin-top: 10px
 </style>

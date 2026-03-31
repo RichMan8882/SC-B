@@ -62,14 +62,14 @@ const goWithdraw = async () => {
   const withdrawRes = await withdraw(
     siteStore.siteData.transactionPasswordRequired
       ? {
-          amount: JSON.stringify(withdrawAmount.value),
-          password: tPwd.value,
-          walletType: siteStore.siteData?.mainWalletType
-        }
+        amount: JSON.stringify(withdrawAmount.value),
+        password: tPwd.value,
+        walletType: siteStore.siteData?.mainWalletType
+      }
       : {
-          amount: JSON.stringify(withdrawAmount.value),
-          walletType: siteStore.siteData?.mainWalletType
-        }
+        amount: JSON.stringify(withdrawAmount.value),
+        walletType: siteStore.siteData?.mainWalletType
+      }
   )
   if (withdrawRes.success) {
     ElNotification({
@@ -225,22 +225,12 @@ watch(
         {{ $lang('提領') }}
       </router-link> -->
       <button class="buttonWhite" @click="selectType = 'withdraw'">
-        <div
-          class="btn-form-link span-lang"
-          :class="selectType === 'withdraw' ? 'active' : ''"
-        >
+        <div class="btn-form-link span-lang" :class="selectType === 'withdraw' ? 'active' : ''">
           {{ $lang('提領') }}
         </div>
       </button>
-      <button
-        v-if="playerStore.playerInfo.wallet.length > 1"
-        class="buttonWhite"
-        @click="selectType = 'transfer'"
-      >
-        <div
-          class="btn-form-link span-lang"
-          :class="selectType === 'transfer' ? 'active' : ''"
-        >
+      <button v-if="playerStore.playerInfo.wallet.length > 1" class="buttonWhite" @click="selectType = 'transfer'">
+        <div class="btn-form-link span-lang" :class="selectType === 'transfer' ? 'active' : ''">
           {{ $lang('劃轉') }}
         </div>
       </button>
@@ -263,9 +253,7 @@ watch(
           </div>
         </div>
         <div class="input-classic">
-          <span class="input-title"
-            >{{ $lang('我的資產') }}({{ $lang('主錢包') }})</span
-          >
+          <span class="input-title">{{ $lang('我的資產') }}({{ $lang('主錢包') }})</span>
           <div class="input-text">
             {{ new Intl.NumberFormat('zh-TW').format(mainBalance) }}
           </div>
@@ -273,29 +261,22 @@ watch(
         <div class="input-classic">
           <span class="input-title">{{ $lang('金額') }}</span>
           <input v-model="withdrawAmount" v-trim-input type="number" />
-          <span class="input-title text-right w-100"
-            >{{ $lang('限制金額') }}：{{
-              new Intl.NumberFormat('zh-TW').format(
-                siteStore.siteData.minWithdrawAmount
-              )
-            }}
+          <span class="input-title text-right w-100">{{ $lang('限制金額') }}：{{
+            new Intl.NumberFormat('zh-TW').format(
+              siteStore.siteData.minWithdrawAmount
+            )
+          }}
             ~
             {{
               new Intl.NumberFormat('zh-TW').format(
                 siteStore.siteData.maxWithdrawAmount
               )
-            }}</span
-          >
-          <span class="input-title text-right w-100" style="margin: 0 0 0 10px"
-            >{{ $lang('手續費') }}：{{
-              withdrawAmount > 0 ? withdrawFeeCount() : 0
-            }}</span
-          >
+            }}</span>
+          <span class="input-title text-right w-100" style="margin: 0 0 0 10px">{{ $lang('手續費') }}：{{
+            withdrawAmount > 0 ? withdrawFeeCount() : 0
+          }}</span>
         </div>
-        <div
-          v-if="siteStore.siteData.transactionPasswordRequired"
-          class="input-classic"
-        >
+        <div v-if="siteStore.siteData.transactionPasswordRequired" class="input-classic">
           <span class="input-title">{{ $lang('交易密碼') }}</span>
           <input v-model="tPwd" v-trim-input type="password" />
         </div>
@@ -309,12 +290,8 @@ watch(
         <div class="input-classic">
           <span class="input-title">{{ $lang('轉出錢包') }}</span>
           <select v-model="transferWalletData.from" class="selectStyle">
-            <option
-              v-for="item in playerStore.playerInfo.wallet"
-              :key="item.id"
-              :value="item.id"
-              @click="transferWalletData.from = item.id"
-            >
+            <option v-for="item in playerStore.playerInfo.wallet" :key="item.id" :value="item.id"
+              @click="transferWalletData.from = item.id">
               {{ walletTypeName(item) }} ($
               {{ new Intl.NumberFormat('zh-tw').format(item.balance) }})
             </option>
@@ -323,12 +300,8 @@ watch(
         <div class="input-classic">
           <span class="input-title">{{ $lang('轉入錢包') }}</span>
           <select v-model="transferWalletData.to" class="selectStyle">
-            <option
-              v-for="item in playerStore.playerInfo.wallet"
-              :key="item.id"
-              :value="item.id"
-              @click="transferWalletData.from = item.id"
-            >
+            <option v-for="item in playerStore.playerInfo.wallet" :key="item.id" :value="item.id"
+              @click="transferWalletData.from = item.id">
               {{ walletTypeName(item) }} ($
               {{ new Intl.NumberFormat('zh-tw').format(item.balance) }})
             </option>
@@ -336,11 +309,7 @@ watch(
         </div>
         <div class="input-classic">
           <span class="input-title">{{ $lang('數量') }}</span>
-          <input
-            v-model="transferWalletData.amount"
-            v-trim-input
-            type="number"
-          />
+          <input v-model="transferWalletData.amount" v-trim-input type="number" />
         </div>
         <div class="button-row">
           <button type="button" class="submit btn-submit" @click="goTransfer">
@@ -406,12 +375,12 @@ watch(
 
 .buttonWhite
   margin-left: 30px
-  width: 100px
+  // width: 100px
   height: 40px
   background-color: #fff
   border-radius: 5px
   text-align: center
-  line-height: 40px
+  // line-height: 40px
   cursor: pointer
   font-size: 16px
   color: #000

@@ -232,16 +232,15 @@ const checkBetData = () => {
             ElMessageBox.alert(
               `
                <p style="margin:0 0 8px 0"> ${t('投注期別')}: ${response.data.roundNo} </p>
-               <p style="margin:0 0 8px 0"> ${t('投注匯率')}: ${
-                 response.data.openPrice
-               } </p>
+               <p style="margin:0 0 8px 0"> ${t('投注匯率')}: ${response.data.openPrice
+              } </p>
                <p style="margin:0 0 8px 0"> ${t('下注金額')}: ${response.data.amount} </p>
                <p style="margin:0 0 8px 0"> ${t('下注類別')}: ${gameOptionNameList(
-                 response.data.option
-               )} </p>
+                response.data.option
+              )} </p>
                <p style="margin:0 0 8px 0"> ${t('時間')}: ${formatDate(
-                 response.data.openAt
-               )} </p>
+                response.data.openAt
+              )} </p>
              `,
               `${t('下單成功')}`,
               {
@@ -811,7 +810,7 @@ await onMounted(async () => {
 })
 
 // 組件卸載時清除計時器
-onUnmounted(() => {})
+onUnmounted(() => { })
 
 onBeforeUnmount(() => {
   clearInterval(ersTimer)
@@ -1095,199 +1094,37 @@ const evaluateData = ref({
 
 <template>
   <div class="cont" id="Base_Member">
-    <headerTop
-      :opaque="true"
-      :menu="false"
-      :styles="'background: #f2f2f2 !important;box-shadow: none;'"
-      routerCrt="/"
-      headerW100="height:56px"
-    />
+    <headerTop :opacity="false" :menu="false" :white="true" :styles="'background: #f2f2f2 !important;box-shadow: none;'"
+      routerCrt="/" headerW100="height:56px" />
     <main>
       <div class="game-banner">
         <div class="banner-box">
           <div class="banner-text">
             <h2>
-              <span>購買和交易</span>輕鬆在值得信賴的加密貨幣交易所進行交易。
+              <span>{{ $lang('購買和交易') }}</span>
+              {{ $lang('輕鬆在值得信賴的加密貨幣交易所進行交易。') }}
             </h2>
             <p>
-              專為簡潔而設計，以信任為基石，安全可靠，安心無憂。自 2011
-              年以來，我們始終是您值得信賴的交易所。
+              {{ $lang('專為簡潔而設計，以信任為基石，安全可靠，安心無憂。') }}
+              {{ $lang('自 2011 年以來，我們始終是您值得信賴的交易所。') }}
             </p>
             <div class="btn" @click="navigateTo('/game/cointrading')">
-              開 始
+              {{ $lang('開 始') }}
             </div>
           </div>
         </div>
       </div>
+
       <div class="game-home-bg">
         <div class="game-home-content">
-          <div class="game-home-content-tit">市場</div>
+          <div class="game-home-content-tit">
+            {{ $lang('市場') }}
+          </div>
           <rightWidget></rightWidget>
-          <!-- <div class="game-home-content-list">
-            <div class="game-home-content-list-items">
-              <div class="list-item-title">
-                表現最佳的資產
-                <svg
-                  t="1746350553200"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="6252"
-                  width="200"
-                  height="200"
-                >
-                  <path
-                    d="M723.18922555 300.81077445c7.54247257 7.54247257 12.06795526 18.1019336 12.06795597 30.16988957l0 362.03867196c0 24.13591194-18.1019336 42.23784553-42.23784554 42.23784554-24.13591194 0-42.23784553-18.1019336-42.23784553-42.23784554L650.78149116 373.21850884l-319.80082714 7.1e-7c-24.13591194 0-42.23784553-18.1019336-42.23784554-42.23784553 0-24.13591194 18.1019336-42.23784553 42.23784554-42.23784554l362.03867196 0c12.06795526 0 22.627417 4.5254834 30.16988957 12.06795597z"
-                    p-id="6253"
-                  ></path>
-                  <path
-                    d="M708.10428041 315.89571959c16.59343937 16.59343937 16.59343937 43.74633977 7.1e-7 60.33977842L361.15055358 723.18922555c-16.59343937 16.59343937-43.74633977 16.59343937-60.33977913 0s-16.59343937-43.74633977 0-60.33977913l346.95372754-346.95372754c16.59343937-16.59343937 43.74633977-16.59343937 60.33977842 7.1e-7z"
-                    p-id="6254"
-                  ></path>
-                </svg>
-              </div>
-              <div v-for="(item, index) in evaluateData.up" class="list-item">
-                <div class="item-left">
-                  <img :src="item.icon" />
-                  <span>{{ item.symbol }}</span>
-                </div>
-                <div class="item-center">
-                  <span class="item-gary">${{ item.price }}</span>
-                </div>
-                <div class="item-right">
-                  <span :class="item.point > 0 ? 'up' : 'down'"
-                    >{{ item.point > 0 ? '+' : '' }}{{ item.point }}</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="game-home-content-list-items">
-              <div class="list-item-title">
-                表现最差的資產
-                <svg
-                  t="1746350524483"
-                  class="icon icon2"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="5951"
-                >
-                  <path
-                    d="M723.18922555 723.18922555c-7.54247257 7.54247257-18.1019336 12.06795526-30.16988957 12.06795597l-362.03867196 0c-24.13591194 0-42.23784553-18.1019336-42.23784554-42.23784554 0-24.13591194 18.1019336-42.23784553 42.23784554-42.23784553L650.78149116 650.78149116l-7.1e-7-319.80082714c0-24.13591194 18.1019336-42.23784553 42.23784553-42.23784554 24.13591194 0 42.23784553 18.1019336 42.23784554 42.23784554l0 362.03867196c0 12.06795526-4.5254834 22.627417-12.06795597 30.16988957z"
-                    p-id="5952"
-                  ></path>
-                  <path
-                    d="M708.10428041 708.10428041c-16.59343937 16.59343937-43.74633977 16.59343937-60.33977842 7.1e-7L300.81077445 361.15055358c-16.59343937-16.59343937-16.59343937-43.74633977 0-60.33977913s43.74633977-16.59343937 60.33977913 0l346.95372754 346.95372754c16.59343937 16.59343937 16.59343937 43.74633977-7.1e-7 60.33977842z"
-                    p-id="5953"
-                  ></path>
-                </svg>
-              </div>
-              <div v-for="(item, index) in evaluateData.down" class="list-item">
-                <div class="item-left">
-                  <img :src="item.icon" />
-                  <span>{{ item.symbol }}</span>
-                </div>
-                <div class="item-center">
-                  <span class="item-gary">${{ item.price }}</span>
-                </div>
-                <div class="item-right">
-                  <span :class="item.point > 0 ? 'up' : 'down'"
-                    >{{ item.point > 0 ? '+' : '' }}{{ item.point }}</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="game-home-content-list-items">
-              <div class="list-item-title">
-                最後列出
-                <svg
-                  t="1746350718376"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="7507"
-                  width="200"
-                  height="200"
-                >
-                  <path
-                    d="M512 938.666667a426.666667 426.666667 0 1 1 0-853.333334 426.666667 426.666667 0 0 1 0 853.333334z m0-85.333334a341.333333 341.333333 0 1 0 0-682.666666 341.333333 341.333333 0 0 0 0 682.666666z m42.666667-341.333333h170.666666v85.333333h-256V298.666667h85.333334V512z"
-                    fill="#999999"
-                    p-id="7508"
-                  ></path>
-                </svg>
-              </div>
-              <div
-                v-for="(item, index) in evaluateData.sumUp"
-                class="list-item"
-              >
-                <div class="item-left">
-                  <img :src="item.icon" />
-                  <span>{{ item.symbol }}</span>
-                </div>
-                <div class="item-center">
-                  <span class="item-gary">${{ item.price }}</span>
-                </div>
-                <div class="item-right">
-                  <span :class="item.point > 0 ? 'up' : 'down'"
-                    >{{ item.point > 0 ? '+' : '' }}{{ item.point }}</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="currency-list">
             <div class="list-cont">
               <TvMarketData />
             </div>
-            <!-- <div class="list-cont">
-              <div class="currency-item">
-                <div class="item1 head">資產</div>
-                <div class="item2 head">市值</div>
-                <div class="item2 head">最後價格</div>
-                <div class="item3 head">24小時變化</div>
-              </div>
-              <div
-                class="currency-item"
-                v-for="(item, index) in currencyAll.sort((a, b) => {
-                  return b.marketCap - a.marketCap
-                })"
-              >
-                <div class="item1">
-                  <img :src="item.icon" />
-                  <span>{{ item.name }}</span>
-                  <span class="abbreviation">{{ item.symbol }}</span>
-                </div>
-                <div class="item2">
-                  {{
-                    item.marketCap > 100000000
-                      ? (item.marketCap / 100000000).toFixed(1)
-                      : item.marketCap > 10000
-                        ? (item.marketCap / 10000).toFixed(2)
-                        : item.marketCap
-                  }}
-                  {{
-                    item.marketCap < 1
-                      ? ''
-                      : item.marketCap < 10000
-                        ? '萬美元'
-                        : item.marketCap > 10000
-                          ? '億美元'
-                          : item.marketCap > 100000000
-                            ? '萬億'
-                            : ''
-                  }}
-                  {{}}
-                </div>
-                <div class="item2">${{ item.price }}</div>
-                <div class="item3">
-                  <span :class="item.point > 0 ? 'up-btn' : 'down-btn'"
-                    >{{ item.point > 0 ? '+' : '' }}{{ item.point }}</span
-                  >
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

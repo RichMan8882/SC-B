@@ -135,7 +135,7 @@ onUnmounted(() => {
 <template>
   <div class="page-cont">
     <client-only>
-      <headerTop :opaque="true"></headerTop>
+      <headerTop :top="false" :white="true" :opacity="false"></headerTop>
       <div class="userpage">
         <div class="form-block">
           <div class="gw template">

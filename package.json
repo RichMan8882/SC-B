@@ -33,11 +33,13 @@
   "dependencies": {
     "@nuxtjs/i18n": "^8.0.0-beta.10",
     "@pinia/nuxt": "^0.4.11",
+    "@studio-freight/lenis": "^1.0.42",
     "@vant/nuxt": "^1.0.4",
     "browser-image-compression": "^2.0.2",
     "crypto-js": "^4.2.0",
     "decimal.js": "^10.4.3",
     "echarts": "^5.5.1",
+    "gsap": "^3.14.2",
     "jquery": "^3.7.1",
     "pinia": "^2.1.4",
     "qs": "^6.11.2",

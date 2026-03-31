@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
-  css: ['~/assets/sass/stock/main.css', 'vant/lib/index.css'],
+  css: ['vant/lib/index.css'],
   modules: [
     '@nuxtjs/tailwindcss',
     '@element-plus/nuxt',
@@ -95,7 +95,7 @@ export default defineNuxtConfig({
 
   i18n: {
     strategy: 'no_prefix',
-    defaultLocale: 'zh_TW',
+    defaultLocale: 'en_US',
     detectBrowserLanguage: {
       useCookie: true,
       redirectOn: 'root' // recommended

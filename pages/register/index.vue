@@ -242,429 +242,200 @@ const handleCompositionEnd = (e) => {
 <template>
   <div class="layouts-auth">
     <div class="layouts-auth__video">
-      <div class="up">
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-        </div>
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-        </div>
-      </div>
-      <div class="up2">
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-        </div>
-        <div class="bgimg">
-          <img src="@/assets/images/loginbg/image1.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image2.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image3.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image4.jpg" alt="" />
-          <img src="@/assets/images/loginbg/image5.jpg" alt="" />
-        </div>
-      </div>
-      <!-- <video
-        src="https://telegra.ph/file/80491037e0d106437b6d6.mp4"
-        autoplay
-        muted
-        playsinline
-        loop
-      /> -->
+      <img src="@/assets/images/Background.png" alt="">
     </div>
-    <div class="layouts-auth__view">
-      <div class="bg-layer">
-        <h1>{{ $lang('成員注冊') }}</h1>
-        <div class="header-main">
-          <div class="main-icon">
-            <img :src="siteStore?.siteData.logo" />
+    <div class="main-icon">
+      <!-- <img :src="siteStore?.siteData.logo" /> -->
+      <img src="@/assets/images/bain-capital-logo.svg" alt="">
+    </div>
+    <div class="header-main">
+      <div class="header-left-bottom">
+        <div class="title">
+          {{ $lang('客戶端註冊') }}
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('推薦碼') }}</span>
+          <input v-model="signupData.referrerCode" v-trim-input type="text" name="pAcc" class="input_style" />
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('金流帳號') }}</span>
+          <input v-model="signupData.account" v-trim-input type="text" class="input_style" @input="validateAccount"
+            @copy="handCopyPaste" @paste="handCopyPaste" @contextmenu="handCopyPaste" />
+        </div>
+        <div class="tips">
+          <div :class="validationStatus.accountValid
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="validationStatus.accountValid">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('需使用4-20位英文或數字') }}
           </div>
-          <div class="header-left-bottom">
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('推薦碼') }}</span>
-              <input
-                v-model="signupData.referrerCode"
-                v-trim-input
-                type="text"
-                name="pAcc"
-                :placeholder="t('請輸入推薦碼')"
-                class="input_style"
-              />
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('金流密碼') }}</span>
+          <input v-model="signupData.password" v-trim-input :type="passwordEyes ? 'text' : 'password'"
+            class="input_style" @input="checkPasswordRequired" @copy="handCopyPaste" @paste="handCopyPaste"
+            @contextmenu="handCopyPaste" />
+        </div>
+        <div class="tips">
+          <div :class="validationStatus.passwordValid
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="validationStatus.passwordValid">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('需使用 3 個字元以上的英文或數字') }}
+            <!-- {{ $lang('需混合使用 3 個字元以上的英文或數字。') }} -->
+          </div>
+          <div v-if="signupData.password" :class="signupData.password !== signupData.account
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="signupData.password !== signupData.account">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('登入密碼不可與帳號相同') }}
+          </div>
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('確認密碼') }}</span>
+          <input ref="passwordSameRef" v-model="verifyPassword" v-trim-input :type="passwordEyes ? 'text' : 'password'"
+            class="input_style" @input="checkPasswordSame" @copy="handCopyPaste" @paste="handCopyPaste"
+            @contextmenu="handCopyPaste" />
+        </div>
+        <div class="tips">
+          <div v-if="verifyPassword">
+            <div v-if="validationStatus.passwordSame" class="valid-feedback">
+              <i class="fas fa-check"></i> {{ $lang('確認相同') }}
             </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('金流帳號') }}</span>
-              <input
-                v-model="signupData.account"
-                v-trim-input
-                type="text"
-                :placeholder="t('請輸入金流帳號')"
-                class="input_style"
-                @input="validateAccount"
-                @copy="handCopyPaste"
-                @paste="handCopyPaste"
-                @contextmenu="handCopyPaste"
-              />
-            </div>
-            <div class="tips">
-              <div
-                :class="
-                  validationStatus.accountValid
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span v-if="validationStatus.accountValid">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('需使用4-20位英文或數字') }}
-              </div>
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('金流密碼') }}</span>
-              <input
-                v-model="signupData.password"
-                v-trim-input
-                :type="passwordEyes ? 'text' : 'password'"
-                :placeholder="t('請輸入金流密碼')"
-                class="input_style"
-                @input="checkPasswordRequired"
-                @copy="handCopyPaste"
-                @paste="handCopyPaste"
-                @contextmenu="handCopyPaste"
-              />
-            </div>
-            <div class="tips">
-              <div
-                :class="
-                  validationStatus.passwordValid
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span v-if="validationStatus.passwordValid">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('需使用 3 個字元以上的英文或數字') }}
-                <!-- {{ $lang('需混合使用 3 個字元以上的英文或數字。') }} -->
-              </div>
-              <div
-                v-if="signupData.password"
-                :class="
-                  signupData.password !== signupData.account
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span v-if="signupData.password !== signupData.account">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('登入密碼不可與帳號相同') }}
-              </div>
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('確認密碼') }}</span>
-              <input
-                ref="passwordSameRef"
-                v-model="verifyPassword"
-                v-trim-input
-                :placeholder="t('請確認金流密碼')"
-                :type="passwordEyes ? 'text' : 'password'"
-                class="input_style"
-                @input="checkPasswordSame"
-                @copy="handCopyPaste"
-                @paste="handCopyPaste"
-                @contextmenu="handCopyPaste"
-              />
-            </div>
-            <div class="tips">
-              <div v-if="verifyPassword">
-                <div
-                  v-if="validationStatus.passwordSame"
-                  class="valid-feedback"
-                >
-                  <i class="fas fa-check"></i> {{ $lang('確認相同') }}
-                </div>
-                <div v-else class="invalid-feedback">
-                  <i class="fas fa-times"></i>
-                  {{ $lang('與登入密碼不相同') }}
-                </div>
-              </div>
-            </div>
-            <div
-              v-if="siteStore.siteData.transactionPasswordRequired"
-              class="icon1"
-            >
-              <span style="font-weight: bold">{{ $lang('薪資提款密碼') }}</span>
-              <input
-                ref="transactionPasswordRef"
-                v-model="signupData.transactionPassword"
-                v-trim-input
-                :type="tPasswordEyes ? 'text' : 'password'"
-                class="input_style"
-                @input="checkTransactionPasswordRequired"
-                @copy="handCopyPaste"
-                @paste="handCopyPaste"
-                @contextmenu="handCopyPaste"
-              />
-            </div>
-            <div
-              v-if="siteStore.siteData.transactionPasswordRequired"
-              class="tips"
-            >
-              <div
-                :class="
-                  validationStatus.transactionPasswordValid
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span v-if="validationStatus.transactionPasswordValid">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('需使用 3 個字元以上的英文或數字') }}
-                <!-- {{ $lang('需混合使用 3 個字元以上的英文或數字。') }} -->
-              </div>
-              <div
-                v-if="signupData.transactionPassword"
-                :class="
-                  !validationStatus.transactionPasswordSameWithPassword
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span
-                  v-if="!validationStatus.transactionPasswordSameWithPassword"
-                >
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('交易密碼不可與登入密碼,帳號相同') }}
-              </div>
-            </div>
-            <div
-              v-if="siteStore.siteData.transactionPasswordRequired"
-              class="icon1"
-            >
-              <span style="font-weight: bold">{{ $lang('提款密碼確認') }}</span>
-              <input
-                ref="transactionPasswordSameRef"
-                v-model="verifyTransactionPassword"
-                v-trim-input
-                :type="tPasswordEyes ? 'text' : 'password'"
-                class="input_style"
-                @input="checkTransactionPasswordSame"
-                @copy="handCopyPaste"
-                @paste="handCopyPaste"
-                @contextmenu="handCopyPaste"
-              />
-            </div>
-            <div class="tips">
-              <div v-if="verifyTransactionPassword">
-                <div
-                  v-if="validationStatus.transactionPasswordSame"
-                  class="valid-feedback"
-                >
-                  <i class="fas fa-check"></i> {{ $lang('確認相同') }}
-                </div>
-                <div v-else class="invalid-feedback">
-                  <i class="fas fa-times"></i>
-                  {{ $lang('與交易密碼不相同') }}
-                </div>
-              </div>
-            </div>
-            <div class="icon1" style="display: block">
-              <span style="font-weight: bold">{{ $lang('電話號碼') }}</span>
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                "
-              >
-                <select
-                  v-model="signupData.countryCode"
-                  style="background-color: transparent"
-                  name="countryCode"
-                  @change="checkPhoneValid"
-                >
-                  <option
-                    v-for="item in siteStore.siteData?.localsOptions"
-                    :key="item"
-                  >
-                    {{ item }}
-                  </option>
-                </select>
-                <input
-                  v-model="signupData.mobile"
-                  v-trim-input
-                  type="text"
-                  :placeholder="t('請輸入電話號碼')"
-                  class="input_style"
-                  @input="checkPhoneValid"
-                />
-              </div>
-            </div>
-            <div class="tips">
-              <div
-                v-if="showPhoneValid"
-                :class="
-                  validationStatus.phoneValid
-                    ? 'valid-feedback'
-                    : 'invalid-feedback'
-                "
-              >
-                <span v-if="validationStatus.phoneValid">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('手機號碼開頭須為09，共10碼') }}
-              </div>
-              <div
-                ref="mobileRef"
-                :class="
-                  signupData.mobile ? 'valid-feedback' : 'invalid-feedback'
-                "
-              >
-                <span v-if="signupData.mobile">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('必填') }}
-              </div>
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold">{{ $lang('成員姓名') }}</span>
-              <input
-                id="username"
-                :value="signupData.username"
-                v-trim-input
-                type="text"
-                :placeholder="t('請輸入成員姓名')"
-                class="input_style"
-                @input="handleInput"
-                @compositionstart="handleCompositionStart"
-                @compositionend="handleCompositionEnd"
-              />
-            </div>
-            <div class="tips">
-              <div
-                ref="usernameRef"
-                :class="
-                  signupData.username ? 'valid-feedback' : 'invalid-feedback'
-                "
-              >
-                <span v-if="signupData.username">
-                  <i class="fas fa-check"></i>
-                </span>
-                {{ $lang('必填') }}
-              </div>
-            </div>
-            <!-- <div class="icon1" style="display: block">
-                <span style="font-weight: bold">LINE聯繫方式</span>
-
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                  "
-                >
-                  <select
-                    v-model="signupData.socialPlatform"
-                    name="contactType"
-                    style="background-color: transparent"
-                  >
-                    <option
-                      v-for="item in siteStore?.siteData?.socialOptions || []"
-                      :key="item"
-                    >
-                      {{ item }}
-                    </option>
-                  </select>
-                  <input
-                    v-model="signupData.socialId"
-                    v-trim-input
-                    :placeholder="t('請輸入LINE聯繫方式')"
-                    type="text"
-                    class="input_style"
-                  />
-                </div>
-              </div>
-              <div class="tips">
-                <div
-                  ref="socialIdRef"
-                  :class="
-                    signupData.socialId ? 'valid-feedback' : 'invalid-feedback'
-                  "
-                >
-                  <span v-if="signupData.socialId">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  {{ $lang('必填') }}
-                </div>
-              </div> -->
-
-            <div class="icon1">
-              <recaptcha @check-hepler="checkHepler"></recaptcha>
-            </div>
-            <div class="icon1">
-              <span style="font-weight: bold"
-                >{{ $lang('驗證碼') }}&nbsp;&nbsp;&nbsp;&nbsp;</span
-              >
-              <input
-                id="captcha_input"
-                v-model="recaptchaCode"
-                v-trim-input
-                type="text"
-                name="captcha_input"
-                :placeholder="t('請輸入驗證碼')"
-                class="input_style"
-                @keyup.enter="handleRegisterClick"
-              />
-            </div>
-
-            <input
-              id="captcha_result"
-              type="hidden"
-              name="captcha_result"
-              value="12"
-            />
-            <div class="agreeCheck">
-              <input v-model="isChecked" type="checkbox" />
-              {{ $lang('我已年滿') }}18{{
-                $lang('歲，並已閱讀、接受並同意條款和條件、規則、隱私政策、')
-              }}Cookie{{ $lang('政策以及與年齡驗證相關的政策') }}
-              <div class="icon">
-                <i class="fas fa-external-link-alt ml-2"></i>
-              </div>
-            </div>
-            <div style="margin-top: 16px">
-              <div class="btn" @click="handleRegisterClick">
-                {{ $lang('送出') }}
-              </div>
-              <div
-                class="btn"
-                style="background-color: rgb(233, 126, 54)"
-                @click="navigateTo('/login')"
-              >
-                {{ $lang('登入') }}
-              </div>
-            </div>
-            <div class="links">
-              <p>
-                <a @click="navigateTo('/')">{{ $lang('返回首頁') }}</a>
-              </p>
-              <!--<p class="right"><a href="#">聯絡客服</a></p>-->
-              <div class="clear"></div>
+            <div v-else class="invalid-feedback">
+              <i class="fas fa-times"></i>
+              {{ $lang('與登入密碼不相同') }}
             </div>
           </div>
+        </div>
+        <div v-if="siteStore.siteData.transactionPasswordRequired" class="icon1">
+          <span style="font-weight: bold">{{ $lang('薪資提款密碼') }}</span>
+          <input ref="transactionPasswordRef" v-model="signupData.transactionPassword" v-trim-input
+            :type="tPasswordEyes ? 'text' : 'password'" class="input_style" @input="checkTransactionPasswordRequired"
+            @copy="handCopyPaste" @paste="handCopyPaste" @contextmenu="handCopyPaste" />
+        </div>
+        <div v-if="siteStore.siteData.transactionPasswordRequired" class="tips">
+          <div :class="validationStatus.transactionPasswordValid
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="validationStatus.transactionPasswordValid">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('需使用 3 個字元以上的英文或數字') }}
+            <!-- {{ $lang('需混合使用 3 個字元以上的英文或數字。') }} -->
+          </div>
+          <div v-if="signupData.transactionPassword" :class="!validationStatus.transactionPasswordSameWithPassword
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="!validationStatus.transactionPasswordSameWithPassword">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('交易密碼不可與登入密碼,帳號相同') }}
+          </div>
+        </div>
+        <div v-if="siteStore.siteData.transactionPasswordRequired" class="icon1">
+          <span style="font-weight: bold">{{ $lang('提款密碼確認') }}</span>
+          <input ref="transactionPasswordSameRef" v-model="verifyTransactionPassword" v-trim-input
+            :type="tPasswordEyes ? 'text' : 'password'" class="input_style" @input="checkTransactionPasswordSame"
+            @copy="handCopyPaste" @paste="handCopyPaste" @contextmenu="handCopyPaste" />
+        </div>
+        <div class="tips">
+          <div v-if="verifyTransactionPassword">
+            <div v-if="validationStatus.transactionPasswordSame" class="valid-feedback">
+              <i class="fas fa-check"></i> {{ $lang('確認相同') }}
+            </div>
+            <div v-else class="invalid-feedback">
+              <i class="fas fa-times"></i>
+              {{ $lang('與交易密碼不相同') }}
+            </div>
+          </div>
+        </div>
+        <div class="icon1">
+          <div style="text-align: right;">
+            <span style="font-weight: bold">{{ $lang('電話號碼') }}</span>
+            <br>
+            <select v-model="signupData.countryCode" style="background-color: transparent" name="countryCode"
+              @change="checkPhoneValid">
+              <option style="color: #000;" v-for="item in siteStore.siteData?.localsOptions" :key="item">
+                {{ item }}
+              </option>
+            </select>
+          </div>
+          <input v-model="signupData.mobile" v-trim-input type="text" class="input_style" @input="checkPhoneValid" />
+        </div>
+        <div class="tips">
+          <div v-if="showPhoneValid" :class="validationStatus.phoneValid
+            ? 'valid-feedback'
+            : 'invalid-feedback'
+            ">
+            <span v-if="validationStatus.phoneValid">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('手機號碼開頭須為09，共10碼') }}
+          </div>
+          <div ref="mobileRef" :class="signupData.mobile ? 'valid-feedback' : 'invalid-feedback'
+            ">
+            <span v-if="signupData.mobile">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('必填') }}
+          </div>
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('成員姓名') }}</span>
+          <input id="username" :value="signupData.username" v-trim-input type="text" class="input_style"
+            @input="handleInput" @compositionstart="handleCompositionStart" @compositionend="handleCompositionEnd" />
+        </div>
+        <div class="tips">
+          <div ref="usernameRef" :class="signupData.username ? 'valid-feedback' : 'invalid-feedback'
+            ">
+            <span v-if="signupData.username">
+              <i class="fas fa-check"></i>
+            </span>
+            {{ $lang('必填') }}
+          </div>
+        </div>
+        <div class="icon1">
+          <recaptcha @check-hepler="checkHepler"></recaptcha>
+        </div>
+        <div class="icon1">
+          <span style="font-weight: bold">{{ $lang('驗證碼') }}</span>
+          <input id="captcha_input" v-model="recaptchaCode" v-trim-input type="text" name="captcha_input"
+            class="input_style" @keyup.enter="handleRegisterClick" />
+        </div>
+
+        <div class="agreeCheck">
+          <input v-model="isChecked" type="checkbox" />
+          {{ $lang('我已年滿') }}18{{
+            $lang('歲，並已閱讀、接受並同意條款和條件、規則、隱私政策、')
+          }}Cookie{{ $lang('政策以及與年齡驗證相關的政策') }}
+          <div class="icon">
+            <i class="fas fa-external-link-alt ml-2"></i>
+          </div>
+        </div>
+        <div style="display: flex;justify-content: flex-end">
+          <div class="btn" @click="handleRegisterClick">
+            {{ $lang('提交') }}
+          </div>
+          <!-- <div class="btn" style="background-color: rgb(233, 126, 54)" @click="navigateTo('/login')">
+            {{ $lang('登入') }}
+          </div> -->
+        </div>
+        <div class="links">
+          <div><span @click="navigateTo('/')">{{ $lang('返回首頁') }}</span> | <span @click="navigateTo('/login')">{{
+            $lang('客戶端登入') }}</span> | <span>{{ $lang('技術支援') }}</span></div>
+          <div><span @click="openChatBox()">{{ $lang('忘記密碼了嗎？') }}</span> | <span>{{ $lang('忘記郵件地址？') }}</span></div>
         </div>
       </div>
     </div>
@@ -868,21 +639,33 @@ const handleCompositionEnd = (e) => {
   color: green
   text-align: right
   font-size: 12px
+  padding-right: 50px
   @media screen and (max-width: 768px)
     font-size: 10px
+    padding-right: 25px
 
 .invalid-feedback
   width: 100%
   color: #cf0000
   text-align: right
   font-size: 12px
+  padding-right: 50px
   @media screen and (max-width: 768px)
     font-size: 10px
+    padding-right: 25px
 </style>
 <style scoped lang="sass">
 .links
-  height: 57px
   cursor: pointer
+  border-top: 1px solid #e7e7e7
+  padding: 15px 0
+  color: #fff
+  text-align: center
+  font-size: 14px
+  span
+    &:hover
+      text-decoration: underline
+      text-decoration-color: #fff
 .bg-layer
   background: rgba(0, 0, 0, 50%)
   min-height: 100vh
@@ -898,57 +681,67 @@ h1
   padding: 1em 0 0.4em 0
 
 .header-main
-  max-width: 374px
-  margin: 0 auto
-  position: relative
+  width: 450px
   z-index: 999
-  padding: 3em 2em
-  background: rgba(255, 255, 255, 75%)
-  -webkit-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
-  -moz-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
-  box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75)
+  background: #1c2156
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%,-50%)
+  max-width: 100%
 
 .main-icon
   text-align: center
   margin: 0 auto 20px
+  position: absolute
+  z-index: 999
+  left: 28px
+  top: 28px
 
   img
-    width: 80px
+    width: 100%
 img
   max-width: 100%
 
 .icon1
-  margin: 1em 0 0
-  padding: .8em 1em
-  background: rgba(255, 255, 255, 30%)
+  padding: 6px 1em
   color: black
   display: flex
   align-items: center
-  justify-content: space-between
+  justify-content: center
+  color: #fff
+  input
+    color: #000
   span
     min-width: 64px !important
+    font-size: 14px
+    text-align: right
+    @media screen and (max-width: 768px)
+      font-size: 12px
     // white-space: nowrap
 
 .bottom
   margin: 1em 0 0
-
+.header-left-bottom
+  .title
+    padding: 10px 15px
+    font-size: 24px
+    color: #fff
+    margin-bottom: 10px
 .header-left-bottom .btn
-  background: #007cc0
+  background: #0047bb
   color: #fff
-  font-size: 18px
-  font-weight: bold
-  text-transform: uppercase
-  padding: .8em 2em
-  letter-spacing: 1px
-  transition: 0.5s all
-  -webkit-transition: 0.5s all
-  -moz-transition: 0.5s all
-  -o-transition: 0.5s all
-  display: inline-block
+  font-size: 14px
+  // transition: 0.5s all
   cursor: pointer
-  outline: none
-  border: none
-  width: 100%
+  margin: 10px 10px 10px 20px
+  width: 78px
+  height: 36px
+  display: flex
+  align-items: center
+  justify-content: center
+  &:hover
+    background: #e52823
 
 a
   color: #585858
@@ -1008,14 +801,18 @@ a
   padding: 8px
   margin-left: 10px
   border: 1px solid black
-  opacity: .4
+  background-color: #abcae9
+  height: 30px
+  width: 270px
+  border-radius: 5px
 
 .agreeCheck
+  padding: 12px 40px 20px 10px
   max-width: 450px
   width: 100%
-  margin: 1rem auto 0 auto
-  font-size: 1rem
-  color: #000
+  font-size: 12px
+  color: #fff
+  text-align: center
   @media screen and (max-width: 768px)
     font-size: .95rem
   .icon

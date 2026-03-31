@@ -100,20 +100,12 @@ const formatDate = (timestamp: string) => {
     <div class="formSection">
       <div class="formContent">
         <div class="changeType">
-          <button
-            type="button"
-            class="buttonWhite"
-            :class="pageType === 'message' ? 'active' : ''"
-            @click="pageType = 'message'"
-          >
+          <button type="button" class="buttonWhite" :class="pageType === 'message' ? 'active' : ''"
+            @click="pageType = 'message'">
             {{ $lang('站內訊息') }}
           </button>
-          <button
-            type="button"
-            class="buttonWhite"
-            :class="pageType === 'send' ? 'active' : ''"
-            @click="pageType = 'send'"
-          >
+          <button type="button" class="buttonWhite" :class="pageType === 'send' ? 'active' : ''"
+            @click="pageType = 'send'">
             {{ $lang('發送訊息') }}
           </button>
         </div>
@@ -123,11 +115,7 @@ const formatDate = (timestamp: string) => {
               <th>{{ $lang('建立日期') }}</th>
               <th>{{ $lang('內容') }}</th>
             </tr>
-            <tr
-              v-for="(item, index) in store.tickets"
-              :key="index"
-              class="message-toggle"
-            >
+            <tr v-for="(item, index) in store.tickets" :key="index" class="message-toggle">
               <td class="msg-th">
                 <div class="date">
                   {{ formatDate(item.createdAt) }}
@@ -149,38 +137,22 @@ const formatDate = (timestamp: string) => {
                   </div>
                 </label>
                 <div class="msgContent">
-                  <div
-                    v-for="(txt, txtIndex) in item.thread"
-                    :key="txtIndex"
-                    class="content"
-                  >
-                    {{ formatDate(txt.createdAt) }}<br /><span
-                      class="replyTxt"
-                      >{{
-                        txt.role === 0 ? $lang('用戶') : $lang('客服')
-                      }}</span
-                    >
+                  <div v-for="(txt, txtIndex) in item.thread" :key="txtIndex" class="content">
+                    {{ formatDate(txt.createdAt) }}<br /><span class="replyTxt">{{
+                      txt.role === 0 ? $lang('用戶') : $lang('客服')
+                    }}</span>
                     :
                     {{ txt.content }}
                   </div>
                   <div class="replyStyle">
                     <div class="input">
-                      <textarea
-                        v-model="sendReply"
-                        name="content"
-                        rows="5"
-                        cols="20"
-                        class="textarea-classic"
-                        required
-                      ></textarea>
+                      <textarea v-model="sendReply" name="content" rows="5" cols="20" class="textarea-classic"
+                        required></textarea>
                     </div>
                     <div class="replyBtn">
-                      <button
-                        type="button"
-                        class="submitBtn"
+                      <button type="button" class="submitBtn"
                         data-loading-text="<i class='fa fa-circle-notch fa-spin'></i> Loading..."
-                        @click="sendReplyTicket(item.id)"
-                      >
+                        @click="sendReplyTicket(item.id)">
                         {{ $lang('回覆') }}
                       </button>
                     </div>
@@ -194,24 +166,12 @@ const formatDate = (timestamp: string) => {
           <div class="form-bg">
             <div class="input-classic">
               <span class="input-title">{{ $lang('主旨') }}</span>
-              <input
-                v-trim-input
-                v-model="sendMessage.title"
-                type="text"
-                name="title"
-                required
-              />
+              <input v-trim-input v-model="sendMessage.title" type="text" name="title" required />
             </div>
             <div class="input-classic">
               <span class="input-title">{{ $lang('內容') }}</span>
-              <textarea
-                v-model="sendMessage.content"
-                name="content"
-                rows="5"
-                cols="20"
-                class="textarea-classic"
-                required
-              ></textarea>
+              <textarea v-model="sendMessage.content" name="content" rows="5" cols="20" class="textarea-classic"
+                required></textarea>
             </div>
           </div>
           <button type="button" class="buttonWhGreen" @click="sendTicket">
@@ -294,12 +254,13 @@ const formatDate = (timestamp: string) => {
     padding: 0 10px 0 0
 .buttonWhite
   margin: 30px 0 0 30px
-  width: 100px
-  height: 40px
+  // width: 100px
+  padding: 10px 8px
+  // height: 40px
   background-color: #dcdcdc
   border-radius: 5px
   text-align: center
-  line-height: 40px
+  // line-height: 40px
   cursor: pointer
   font-size: 16px
   color: #000

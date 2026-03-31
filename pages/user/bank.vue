@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const router = useRouter()
+const { t } = useI18n()
 const playerStore = usePlayerStore()
 const siteStore = useSiteStore()
 const { bankApply } = usePlayerStore()
@@ -22,25 +23,25 @@ await useAsyncData(() => {
 const submitBankApply = async () => {
   console.log(bankInfo)
   if (bankInfo.value.branch === '') {
-    return ElMessage.error('請填寫分行')
+    return ElMessage.error(t('請填寫分行'))
   }
   if (bankInfo.value.account === '') {
-    return ElMessage.error('請填寫戶名')
+    return ElMessage.error(t('請填寫戶名'))
   }
   if (bankInfo.value.accountNo === '') {
-    return ElMessage.error('請填寫帳號')
+    return ElMessage.error(t('請填寫帳號'))
   }
   if (bankInfo.value.image[0] === '') {
-    return ElMessage.error('請上傳身分證正面')
+    return ElMessage.error(t('請上傳身分證正面'))
   }
   if (bankInfo.value.image[1] === '') {
-    return ElMessage.error('請上傳身分證反面')
+    return ElMessage.error(t('請上傳身分證反面'))
   }
   if (bankInfo.value.image[2] === '') {
-    return ElMessage.error('請上傳存摺')
+    return ElMessage.error(t('請上傳存摺'))
   }
   if (bankInfo.value.image[3] === '') {
-    return ElMessage.error('請上傳手持網銀自拍照')
+    return ElMessage.error(t('請上傳手持網銀自拍照'))
   }
   const bankApplyRes = await bankApply(bankInfo.value)
   if (bankApplyRes) {
@@ -94,13 +95,10 @@ const updateImage = (data) => {
       <i class="fas fa-money-check"></i>
     </div>
     <div class="bank_form">
-      <div
-        v-if="
-          playerStore.playerInfo.bankInfo === null ||
-          Object.keys(playerStore.playerInfo.bankInfo).length === 0
-        "
-        class="form-bg"
-      >
+      <div v-if="
+        playerStore.playerInfo.bankInfo === null ||
+        Object.keys(playerStore.playerInfo.bankInfo).length === 0
+      " class="form-bg">
         <!-- <div class="form-bg link-btn-row">
           <a
             class="btn-form-link"
@@ -119,42 +117,22 @@ const updateImage = (data) => {
           <div class="input-classic">
             <span class="input-title">{{ $lang('銀行') }}</span>
             <select v-model="bankInfo.bankName" name="bName">
-              <option
-                v-for="item in siteStore.siteData.depositOptions.bank"
-                :key="item"
-              >
+              <option v-for="item in siteStore.siteData.depositOptions.bank" :key="item">
                 {{ item }}
               </option>
             </select>
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('分行') }}</span>
-            <input
-              v-model="bankInfo.branch"
-              v-trim-input
-              name="bBranch"
-              type="text"
-            />
+            <input v-model="bankInfo.branch" v-trim-input name="bBranch" type="text" />
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('銀行帳號') }}</span>
-            <input
-              v-model="bankInfo.accountNo"
-              v-trim-input
-              name="bAccount"
-              type="text"
-              required
-            />
+            <input v-model="bankInfo.accountNo" v-trim-input name="bAccount" type="text" required />
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('戶名') }}</span>
-            <input
-              v-model="bankInfo.account"
-              v-trim-input
-              name="baName"
-              type="text"
-              required
-            />
+            <input v-model="bankInfo.account" v-trim-input name="baName" type="text" required />
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('上傳檔案') }}</span>
@@ -168,37 +146,21 @@ const updateImage = (data) => {
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('身分證正面') }}</span>
-            <pureImgUploader
-              :limit="1"
-              :index="0"
-              @update-image="updateImage"
-            ></pureImgUploader>
+            <pureImgUploader :limit="1" :index="0" @update-image="updateImage"></pureImgUploader>
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('身分證反面') }}</span>
-            <pureImgUploader
-              :limit="1"
-              :index="1"
-              @update-image="updateImage"
-            ></pureImgUploader>
+            <pureImgUploader :limit="1" :index="1" @update-image="updateImage"></pureImgUploader>
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('存摺封面照') }}</span>
-            <pureImgUploader
-              :limit="1"
-              :index="2"
-              @update-image="updateImage"
-            ></pureImgUploader>
+            <pureImgUploader :limit="1" :index="2" @update-image="updateImage"></pureImgUploader>
           </div>
           <div class="input-classic">
             <span class="input-title">{{ $lang('手持網銀自拍照') }}</span>
-            <pureImgUploader
-              :limit="1"
-              :index="3"
-              @update-image="updateImage"
-            ></pureImgUploader>
+            <pureImgUploader :limit="1" :index="3" @update-image="updateImage"></pureImgUploader>
             <div class="sampleimg">
-              範本:
+              {{ $lang('範本:') }}
               <img src="@/assets/images/sample.png" />
             </div>
           </div>
@@ -222,12 +184,8 @@ const updateImage = (data) => {
         </div> -->
         <instruction />
         <div class="button-row">
-          <button
-            type="button"
-            class="submit btn-submit"
-            data-loading-text="<i class='fa fa-circle-notch fa-spin'></i> Loading..."
-            @click="submitBankApply"
-          >
+          <button type="button" class="submit btn-submit"
+            data-loading-text="<i class='fa fa-circle-notch fa-spin'></i> Loading..." @click="submitBankApply">
             {{ $lang('送出') }}
           </button>
         </div>

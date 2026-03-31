@@ -45,7 +45,7 @@ await onMounted(() => {
   } else {
     console.log(`Debug mode env : `, process.env.NODE_ENV)
     if (process.env.NODE_ENV !== 'development') {
-      console.log = () => {}
+      console.log = () => { }
     }
   }
 
@@ -241,6 +241,21 @@ body {
   /* overflow: hidden; */
 }
 
+@font-face {
+  font-family: 'Martinass';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('@/assets/fonts/MartinaPlantijn-Regular.woff2') format('woff2')
+}
+
+@font-face {
+  font-family: 'LightItalic';
+  font-style: normal;
+  font-display: swap;
+  src: url('@/assets/fonts/MartinaPlantijn-LightItalic.woff2') format('woff2')
+}
+
 html {
   height: 100%;
   background: transparent;
@@ -250,6 +265,7 @@ html {
   /* overflow: -moz-hidden-unscrollable; */
   /* background-color: rgb(250 250 250); */
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 
 ::-webkit-scrollbar {
@@ -258,6 +274,7 @@ html {
   background: transparent;
   /* make scrollbar transparent */
 }
+
 /* Hide scrollbar for IE, Edge and Firefox */
 
 /* *:not(input) { */
@@ -291,6 +308,7 @@ html {
   position: relative;
   margin: 0;
 }
+
 a {
   text-decoration: none;
 }
