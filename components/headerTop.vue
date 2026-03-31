@@ -128,7 +128,8 @@ const closeAll = () => {
         <div class="logo"
           :style="{ width: white || isWhite ? '200px' : '', paddingTop: white || isWhite || isShw ? '15px' : '30px' }"
           @click="navigateTo('/')">
-          <img src="@/assets/images/bain-capital-logo.svg" alt="">
+          <!-- <img src="@/assets/images/bain-capital-logo.svg" alt=""> -->
+          <img :src="siteStore?.siteData.logo" />
         </div>
         <ul class="menu menu-pc "
           :class="[(white || isWhite ? 'noline' : 'blueline'), { 'englishmenu': locale == 'en_US' }]" v-if="menu">

@@ -245,8 +245,8 @@ const handleCompositionEnd = (e) => {
       <img src="@/assets/images/Background.png" alt="">
     </div>
     <div class="main-icon">
-      <!-- <img :src="siteStore?.siteData.logo" /> -->
-      <img src="@/assets/images/bain-capital-logo.svg" alt="">
+      <img :src="siteStore?.siteData.logo" />
+      <!-- <img src="@/assets/images/bain-capital-logo.svg" alt=""> -->
     </div>
     <div class="header-main">
       <div class="header-left-bottom">
