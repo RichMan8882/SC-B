@@ -74,15 +74,16 @@ onBeforeUnmount(() => {
 const gameWindowOpen = () => {
   const { isLogin } = useAuthStore()
   if (isLogin()) {
-    if (siteStore.siteData?.smsVerify === 1) {
-      if (!PlayerStore.playerInfo?.smsVerify) {
-        return navigateTo('/user/smsVerify')
-      } else {
-        window.open(`${window.location.origin}/game`, '_blank')
-      }
-    } else {
-      window.open(`${window.location.origin}/game`, '_blank')
-    }
+    // if (siteStore.siteData?.smsVerify === 1) {
+    //   if (!PlayerStore.playerInfo?.smsVerify) {
+    //     return navigateTo('/user/smsVerify')
+    //   } else {
+    //     window.open(`${window.location.origin}/game`, '_blank')
+    //   }
+    // } else {
+    //   window.open(`${window.location.origin}/game`, '_blank')
+    // }
+    navigateTo('/game')
   } else {
     navigateTo('/login')
   }
