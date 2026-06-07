@@ -364,7 +364,7 @@ const closeAll = () => {
             </div>
           </li>
           <li>
-            <a :href="siteStore.chatbox" target="_blank"> {{ $lang('聯絡我們') }} </a>
+            <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
           </li>
           <li :class="routeName == '/user/info' ? 'active' : ''">
             <a @click="navigateTo('/user/info')"> {{ $lang('成員中心') }} </a>
@@ -396,7 +396,7 @@ const closeAll = () => {
             }">{{ $lang('永續合約') }}</a>
           </li>
           <li>
-            <a :href="siteStore.chatbox" target="_blank"> {{ $lang('聯絡我們') }} </a>
+            <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
           </li>
         </ul>
         <div class="menu-btn">
@@ -429,7 +429,7 @@ const closeAll = () => {
                 <div @click="navigateTo('/news'), closeAll" class="maintitle">{{ $lang('訊息') }}</div>
                 <div @click="changeLang('en_US')" class="maintitle">English</div>
                 <div @click="changeLang('zh_TW')" class="maintitle">{{ $lang('繁體中文') }}</div>
-                <div class="maintitle"><a :href="siteStore.chatbox" target="_blank"> {{ $lang('聯絡我們') }} </a></div>
+                <div class="maintitle"><a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a></div>
                 <div @click="navigateTo('/user/info'), closeAll" class="maintitle">{{ $lang('成員中心') }}</div>
                 <div @click="navigateTo('/game'), closeAll" class="maintitle">{{ $lang('互動平臺') }}</div>
                 <div @click="navigateTo('/login'), closeAll" class="maintitle">Login</div>
@@ -477,9 +477,8 @@ const closeAll = () => {
               </div>
               <div class="botlogin">
                 <h2>{{ $lang('致 投 資 者') }}</h2>
-                <div class="logtext">{{ $lang('登入即可查看您的帳戶資訊。如有任何帳戶相關問題，請聯絡') }}<a :href="siteStore.chatbox"
-                    target="_blank"> {{
-                      siteStore.chatbox }}
+                <div class="logtext">{{ $lang('登入即可查看您的帳戶資訊。如有任何帳戶相關問題，請聯絡') }}<a :href="siteStore.chatbox"> {{
+                  siteStore.chatbox }}
                   </a>
                 </div>
                 <div class="loginbox" @click="navigateTo('/login')">{{ $lang('登入您的帳戶') }}
@@ -500,7 +499,7 @@ const closeAll = () => {
               <a @click="navigateTo('/responsibility')">{{ $lang('企業責任') }}</a>
             </li>
             <li>
-              <a :href="siteStore.chatbox" target="_blank"> {{ $lang('聯絡我們') }} </a>
+              <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
             </li>
 
             <li :class="routeName == '/user/info' ? 'active' : ''">
@@ -540,7 +539,7 @@ const closeAll = () => {
               }">{{ $lang('永續合約') }}</a>
             </li>
             <li>
-              <a :href="siteStore.chatbox" target="_blank"> {{ $lang('聯絡我們') }} </a>
+              <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
             </li>
             <li v-if="!isLogin()" class="menu-thumb">
               <a @click="navigateTo('/login')">
