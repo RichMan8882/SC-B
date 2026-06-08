@@ -363,7 +363,7 @@ const closeAll = () => {
               </div>
             </div>
           </li>
-          <li>
+          <li v-if="isLogin()">
             <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
           </li>
           <li :class="routeName == '/user/info' ? 'active' : ''">
@@ -395,7 +395,7 @@ const closeAll = () => {
               color: routerCrt == '/game/perpetualcontract' ? '#7354ff' : ''
             }">{{ $lang('永續合約') }}</a>
           </li>
-          <li>
+          <li v-if="isLogin()">
             <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
           </li>
         </ul>
@@ -429,7 +429,7 @@ const closeAll = () => {
                 <div @click="navigateTo('/news'), closeAll" class="maintitle">{{ $lang('訊息') }}</div>
                 <div @click="changeLang('en_US')" class="maintitle">English</div>
                 <div @click="changeLang('zh_TW')" class="maintitle">{{ $lang('繁體中文') }}</div>
-                <div class="maintitle"><a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a></div>
+                <div v-if="isLogin()" class="maintitle"><a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a></div>
                 <div @click="navigateTo('/user/info'), closeAll" class="maintitle">{{ $lang('成員中心') }}</div>
                 <div @click="navigateTo('/game'), closeAll" class="maintitle">{{ $lang('互動平臺') }}</div>
                 <div @click="navigateTo('/login'), closeAll" class="maintitle">Login</div>
@@ -498,7 +498,7 @@ const closeAll = () => {
             <li :class="routeName == '/responsibility' ? 'active' : ''">
               <a @click="navigateTo('/responsibility')">{{ $lang('企業責任') }}</a>
             </li>
-            <li>
+            <li v-if="isLogin()">
               <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
             </li>
 
@@ -538,7 +538,7 @@ const closeAll = () => {
                     : ''
               }">{{ $lang('永續合約') }}</a>
             </li>
-            <li>
+            <li v-if="isLogin()">
               <a :href="siteStore.chatbox"> {{ $lang('聯絡我們') }} </a>
             </li>
             <li v-if="!isLogin()" class="menu-thumb">
